@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
 
 @Entity
 @Table(name = "Account")
@@ -19,31 +18,31 @@ public class Account {
 	@Column(name = "account_id")
 	private Integer accountId;
 
-	@Column(name = "username", columnDefinition = "nvarchar(max)")
+	@Column(name = "username", columnDefinition = "longtext")
 	private String userName;
 
-	@Column(name = "password", columnDefinition = "nvarchar(max)")
+	@Column(name = "password", columnDefinition = "longtext")
 	private String password;
 
-	@Column(name = "role", columnDefinition = "nvarchar(max)")
+	@Column(name = "role", columnDefinition = "longtext")
 	private String role;
 
-	@Column(name = "name", columnDefinition = "nvarchar(max)")
+	@Column(name = "name", columnDefinition = "longtext")
 	private String name;
 
-	@Column(name = "address", columnDefinition = "nvarchar(max)")
+	@Column(name = "address", columnDefinition = "longtext")
 	private String address;
 
-	@Column(name = "gender", columnDefinition = "nvarchar(max)")
+	@Column(name = "gender", columnDefinition = "longtext")
 	private String gender;
 
-	@Column(name = "email", columnDefinition = "nvarchar(max)")
+	@Column(name = "email", columnDefinition = "longtext")
 	private String email;
 
-	@Column(name = "phone", columnDefinition = "nvarchar(max)")
+	@Column(name = "phone", columnDefinition = "longtext")
 	private String phone;
 
-	@Column(name = "avatarImage", columnDefinition = "nvarchar(max)")
+	@Column(name = "avatarImage", columnDefinition = "longtext")
 	private String avatarImage;
 
 	@Column(name = "dob", columnDefinition = "DATE")
@@ -61,7 +60,7 @@ public class Account {
 	@Column(nullable=true, name = "totalCalo")
 	private Double totalCalo;
 
-	@Column(name = "target", columnDefinition = "nvarchar(max)")
+	@Column(name = "target", columnDefinition = "longtext")
 	private String target;
 
 	@Column(name = "targetIndex")
@@ -76,10 +75,10 @@ public class Account {
 	@Column(name = "status")
 	private Integer status;
 
-	@Column(name = "reset_password_token", columnDefinition = "nvarchar(max)")
+	@Column(name = "reset_password_token", columnDefinition = "longtext")
 	private String resetPasswordToken;
 
-	public Account(String userName, String password,String email, String name) {
+	public Account(String userName, String password, String email, String name) {
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
