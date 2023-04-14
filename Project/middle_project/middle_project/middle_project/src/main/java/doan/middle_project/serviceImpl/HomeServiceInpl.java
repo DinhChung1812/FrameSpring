@@ -27,35 +27,35 @@ public class HomeServiceInpl implements HomeService {
         Account account = accountRepository.findById(profileId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy người dùng!!!"));
         ProfileRequest request = new ProfileRequest();
         request.setProfileId(account.getAccountId());
-        request.setName(account.getName());
+        //request.setName(account.getName());
         request.setUserName(account.getUserName());
         request.setAddress(account.getAddress());
         request.setDob(account.getDob());
         request.setEmail(account.getEmail());
         request.setGender(account.getGender());
-        request.setHigh(account.getHigh());
+        //request.setHigh(account.getHigh());
         request.setPhone(account.getPhone());
-        request.setWeight(account.getWeight());
-        request.setStatus(account.getStatus());
+        //request.setWeight(account.getWeight());
+        //request.setStatus(account.getStatus());
         request.setRole(account.getRole());
         request.setAvatarImage(account.getAvatarImage());
-        request.setUpdateDate(account.getUpdateDate());
-        request.setCreateDate(account.getCreateDate());
+        //request.setUpdateDate(account.getUpdateDate());
+        //request.setCreateDate(account.getCreateDate());
         return request;
     }
 
     @Override
     public ResponseEntity<?> updateProfile(Integer profileId, ProfileEditRequest profileRequest) throws NotFoundException {
         Account account = accountRepository.findById(profileId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy người dùng!!!"));
-        account.setName(profileRequest.getName());
+        //account.setName(profileRequest.getName());
         account.setAddress(profileRequest.getAddress());
         account.setDob(profileRequest.getDob());
         account.setEmail(profileRequest.getEmail());
         account.setGender(profileRequest.getGender());
-        account.setHigh(profileRequest.getHigh());
+        //account.setHigh(profileRequest.getHigh());
         account.setPhone(profileRequest.getPhone());
-        account.setWeight(profileRequest.getWeight());
-        account.setUpdateDate(LocalDate.now());
+        //account.setWeight(profileRequest.getWeight());
+        //account.setUpdateDate(LocalDate.now());
         account.setAvatarImage(profileRequest.getAvatarImage());
         accountRepository.save(account);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"Cập nhật profile thành công"));

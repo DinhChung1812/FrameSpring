@@ -32,4 +32,7 @@ public class Syllabus {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
     private Subject subjectId;
+
+    @OneToOne(mappedBy = "syllabusId")
+    private Account account;
 }

@@ -23,24 +23,24 @@ public class AccountManageController {
     @Autowired
     private AccountService accountService;
 
-    @GetMapping("/admin/listAccount")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<?> getAllAccountActive(Model model, @RequestParam(required = false) String searchData,
-                                                 @RequestParam(required = false) Integer pageIndex) {
-        LogUtils.getLog().info("START getAllAccountActive");
-        if (pageIndex == null) {
-            pageIndex = 1;
-        }
-        Page<AccountManageVo> listAccountActive = accountService.findAll(searchData,pageIndex-1, pageSize );
-        if(listAccountActive.toList() == null || listAccountActive.toList().size() == 0){
-            return ResponseEntity.ok(new MessageVo("Không tìm thấy tài khoản " + searchData, "info"));
-        }
-        model.addAttribute("listAccountActive", listAccountActive.toList());
-        model.addAttribute("pageIndex", pageIndex);
-        model.addAttribute("numOfPages", listAccountActive.getTotalPages());
-        LogUtils.getLog().info("END getAllAccountActive");
-        return ResponseEntity.ok(model);
-    }
+//    @GetMapping("/admin/listAccount")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    public ResponseEntity<?> getAllAccountActive(Model model, @RequestParam(required = false) String searchData,
+//                                                 @RequestParam(required = false) Integer pageIndex) {
+//        LogUtils.getLog().info("START getAllAccountActive");
+//        if (pageIndex == null) {
+//            pageIndex = 1;
+//        }
+//        Page<AccountManageVo> listAccountActive = accountService.findAll(searchData,pageIndex-1, pageSize );
+//        if(listAccountActive.toList() == null || listAccountActive.toList().size() == 0){
+//            return ResponseEntity.ok(new MessageVo("Không tìm thấy tài khoản " + searchData, "info"));
+//        }
+//        model.addAttribute("listAccountActive", listAccountActive.toList());
+//        model.addAttribute("pageIndex", pageIndex);
+//        model.addAttribute("numOfPages", listAccountActive.getTotalPages());
+//        LogUtils.getLog().info("END getAllAccountActive");
+//        return ResponseEntity.ok(model);
+//    }
     @PostMapping ("/admin/changeRole")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> changeRole( @RequestParam Integer accountId,

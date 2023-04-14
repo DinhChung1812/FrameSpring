@@ -25,19 +25,19 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     private AccountRepository accountRepository;
 
-    @Override
-    public void updateResetPassword(String newPassword, String email) throws AccountNotFoundException{
-
-        Account account = accountRepository.findAccountByEmail(email);
-        if (account != null) {
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            String encodedPassword = passwordEncoder.encode(newPassword);
-            account.setPassword(encodedPassword);
-            accountRepository.save(account);
-        } else {
-            throw new AccountNotFoundException("Could not find any account with the email " + email);
-        }
-    }
+//    @Override
+//    public void updateResetPassword(String newPassword, String email) throws AccountNotFoundException{
+//
+//        Account account = accountRepository.findAccountByEmail(email);
+//        if (account != null) {
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//            String encodedPassword = passwordEncoder.encode(newPassword);
+//            account.setPassword(encodedPassword);
+//            accountRepository.save(account);
+//        } else {
+//            throw new AccountNotFoundException("Could not find any account with the email " + email);
+//        }
+//    }
 
     @Override
     public void changePassword(String userName, String newPass) throws AccountNotFoundException {
@@ -52,27 +52,27 @@ public class AccountServiceImpl implements AccountService {
             }
     }
 
-    @Override
-    public Page<AccountManageVo> findAll(String searchData,Integer pageIndex, Integer pageSize) {
-        if (searchData == null) {
-            searchData = "";
-        }
-        Pageable pageable = PageRequest.of(pageIndex, pageSize);
-        return accountRepository.findAll("%" + searchData.trim() + "%",pageable);
-    }
+//    @Override
+//    public Page<AccountManageVo> findAll(String searchData,Integer pageIndex, Integer pageSize) {
+//        if (searchData == null) {
+//            searchData = "";
+//        }
+//        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+//        return accountRepository.findAll("%" + searchData.trim() + "%",pageable);
+//    }
 
 
-    @Override
-    public void updateResetPasswordToken(String token, String email) throws AccountNotFoundException{
-
-        Account account = accountRepository.findAccountByEmail(email);
-        if (account != null) {
-            account.setResetPasswordToken(token);
-            accountRepository.save(account);
-        } else {
-            throw new AccountNotFoundException("Could not find any customer with the email " + email);
-        }
-    }
+//    @Override
+//    public void updateResetPasswordToken(String token, String email) throws AccountNotFoundException{
+//
+//        Account account = accountRepository.findAccountByEmail(email);
+//        if (account != null) {
+//            //account.setResetPasswordToken(token);
+//            accountRepository.save(account);
+//        } else {
+//            throw new AccountNotFoundException("Could not find any customer with the email " + email);
+//        }
+//    }
 
     @Override
     public ResponseEntity<?> changeRole(Integer accountId, String role) {
@@ -100,24 +100,24 @@ public class AccountServiceImpl implements AccountService {
     public ResponseEntity<?> deleteAccount(Integer accountId) {
         Account account = accountRepository.findById(accountId).orElseThrow(() ->
                 new NotFoundException(StatusCode.Not_Found, "account" + accountId + " Not exist or account was blocked "));;
-         account.setStatus(3);
+         //account.setStatus(3);
          accountRepository.save(account);
         return ResponseEntity.ok(new MessageVo("xóa tài khoản thành công", "success"));
     }
 
-    @Override
-    public Account getByResetPasswordToken(String token) {
-        return accountRepository.findByResetPasswordToken(token);
-    }
-
-    @Override
-    public void updatePassword(Account account, String newPassword) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(newPassword);
-        account.setPassword(encodedPassword);
-        account.setResetPasswordToken(null);
-        accountRepository.save(account);
-    }
+//    @Override
+//    public Account getByResetPasswordToken(String token) {
+//        return accountRepository.findByResetPasswordToken(token);
+//    }
+//
+//    @Override
+//    public void updatePassword(Account account, String newPassword) {
+//        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//        String encodedPassword = passwordEncoder.encode(newPassword);
+//        account.setPassword(encodedPassword);
+//        //account.setResetPasswordToken(null);
+//        accountRepository.save(account);
+//    }
 
 
 }

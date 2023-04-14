@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name = "Account")
@@ -24,11 +25,8 @@ public class Account {
 	@Column(name = "password", columnDefinition = "longtext")
 	private String password;
 
-	@Column(name = "role", columnDefinition = "longtext")
-	private String role;
-
-	@Column(name = "name", columnDefinition = "longtext")
-	private String name;
+	@Column(name = "fullname", columnDefinition = "longtext")
+	private String fullName;
 
 	@Column(name = "address", columnDefinition = "longtext")
 	private String address;
@@ -48,40 +46,24 @@ public class Account {
 	@Column(name = "dob", columnDefinition = "DATE")
 	private LocalDate dob;
 
-	@Column(nullable=true, name = "high")
-	private Double high;
+	@OneToMany( mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<UserRole> userRole;
 
-	@Column(nullable=true, name = "weight")
-	private Double weight;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "syllabus_id", referencedColumnName = "syllabus_id")
+	private Syllabus syllabusId;
 
-	@Column(nullable=true, name = "mobility")
-	private Double mobility;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id")
+	private Curriculum curriculumId;
 
-	@Column(nullable=true, name = "totalCalo")
-	private Double totalCalo;
-
-	@Column(name = "target", columnDefinition = "longtext")
-	private String target;
-
-	@Column(name = "targetIndex")
-	private Double targetIndex;
-
-	@Column(name = "create_date", columnDefinition = "DATE")
-	private LocalDate createDate;
-
-	@Column(name = "update_date", columnDefinition = "DATE")
-	private LocalDate updateDate;
-
-	@Column(name = "status")
-	private Integer status;
-
-	@Column(name = "reset_password_token", columnDefinition = "longtext")
-	private String resetPasswordToken;
-
-	public Account(String userName, String password, String email, String name) {
+	public Account(String userName, String password, String email, String fullName) {
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.name = name;
+		this.fullName = fullName;
 	}
+
+	@Column(name = "role", columnDefinition = "longtext")
+	private String role;
 }

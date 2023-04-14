@@ -42,4 +42,7 @@ public class Curriculum {
     @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PLO> plo;
 
+    @OneToOne(mappedBy = "curriculumId")
+    private Account account;
+
 }

@@ -118,8 +118,7 @@ public class AuthenController {
 				signUpRequest.getEmail(), signUpRequest.getFullname());
 
 
-		account.setRole("ROLE_USER");
-		account.setStatus(1);
+		//account.setRole("ROLE_USER");
 		accountRepository.save(account);
 		LogUtils.getLog().info("END registerUser");
 		return ResponseEntity.ok(new MessageVo("Bạn đã đăng ký thành công", "info"));
