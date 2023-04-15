@@ -73,8 +73,7 @@ public class AuthenController {
 				userDetails.getId(),
 				userDetails.getUsername(),
 				account.getFullName(),
-				roles,
-				account.getAvatarImage()));
+				roles, account.getAvatarImage()));
 	}
 
 	@PostMapping("/signout")

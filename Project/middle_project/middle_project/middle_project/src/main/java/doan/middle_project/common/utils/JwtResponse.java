@@ -21,13 +21,17 @@ public class JwtResponse {
 //        this.roles = roles;
 //    }
 
-    public JwtResponse(String accessToken, String id, String username, String full, List<String> roles,String avatarImage) {
+    public JwtResponse(String accessToken, String id, String username, String fullName, List<String> roles,String avatarImage) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
-        this.fullName = full;
+        this.fullName = fullName;
         this.roles = roles;
         this.avatarImage = avatarImage;
+    }
+
+    public JwtResponse(String id) {
+        this.id = id;
     }
 
     public String getAvatarImage() {
@@ -62,13 +66,15 @@ public class JwtResponse {
         this.id = id;
     }
 
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+
 
     public String getUsername() {
         return username;
