@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "UserRole")
@@ -23,7 +24,6 @@ public class UserRole {
     @Column(name = "is_active")
     private Integer isActive;
 
-    @ManyToOne
-    @JoinColumn(name = "account_id", referencedColumnName = "account_id", nullable = false)
-    private Account account;
+    @ManyToMany (mappedBy = "roleId",cascade = {CascadeType.MERGE})
+    private Set<Account> accountId;
 }

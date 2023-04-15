@@ -23,7 +23,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -72,7 +75,7 @@ public class AuthenController {
 		return ResponseEntity.ok(new JwtResponse(jwt,
 				userDetails.getId(),
 				userDetails.getUsername(),
-				account.getFullName(),
+				account.getFullname(),
 				roles, account.getAvatarImage()));
 	}
 
@@ -118,17 +121,22 @@ public class AuthenController {
 					.body(new MessageVo("Email đã tồn tại", "error"));
 		}
 
+		List<UserRole> lstUserRole = new ArrayList<>();
+		UserRole userRole = userRoleRepository.findRole("ROLE_USER");
+		lstUserRole.add(userRole);
+
 		// Create new user's account
 		Account account = new Account(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()),
-				signUpRequest.getEmail(), signUpRequest.getFullname());
+				signUpRequest.getEmail(), signUpRequest.getFullname(), lstUserRole);
 		accountRepository.save(account);
-
+		Set<Account> setAcc = new HashSet<Account>();
+		setAcc.add(account);
 		//Set role
-		UserRole userRole = new UserRole();
-		userRole.setRole("ROLE_USER");
-		userRole.setIsActive(1);
-		userRole.setAccount(account);
-		userRoleRepository.save(userRole);
+//		UserRole userRole = new UserRole();
+//		userRole.setRole("ROLE_USER");
+//		userRole.setIsActive(1);
+//		userRole.setAccountId(setAcc);
+//		userRoleRepository.save(userRole);
 
 
 		LogUtils.getLog().info("END registerUser");

@@ -35,7 +35,7 @@ public class UserDetailsImpl implements UserDetails{
 
 	public static UserDetailsImpl build(Account account) {
 		String role = "";
-		Set<UserRole> lstUserRole = account.getUserRole();
+		List<UserRole> lstUserRole = account.getRoleId();
 		for (UserRole item : lstUserRole) {
 			role = item.getRole();
 		}

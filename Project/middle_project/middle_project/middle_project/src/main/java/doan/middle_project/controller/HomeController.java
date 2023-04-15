@@ -16,8 +16,8 @@ public class HomeController {
 
     @GetMapping("/getprofile")
     @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_MOD')or hasRole('ROLE_USER')")
-    public ResponseEntity<ProfileRequest> getUserProfile(@RequestParam("profile_id") Integer profileId) {
-        ProfileRequest profileRequest = homeService.getProfile(profileId);
+    public ResponseEntity<ProfileRequest> getUserProfile(@RequestParam("account_id") Integer accountId) {
+        ProfileRequest profileRequest = homeService.getProfile(accountId);
         return ResponseEntity.ok(profileRequest);
     }
 

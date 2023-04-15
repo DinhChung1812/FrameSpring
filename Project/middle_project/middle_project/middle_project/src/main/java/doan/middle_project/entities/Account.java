@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ public class Account {
 	private String password;
 
 	@Column(name = "fullname", columnDefinition = "longtext")
-	private String fullName;
+	private String fullname;
 
 	@Column(name = "address", columnDefinition = "longtext")
 	private String address;
@@ -46,9 +47,6 @@ public class Account {
 	@Column(name = "dob", columnDefinition = "DATE")
 	private LocalDate dob;
 
-	@OneToMany( mappedBy = "account",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	private Set<UserRole> userRole;
-
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "syllabus_id", referencedColumnName = "syllabus_id")
 	private Syllabus syllabusId;
@@ -61,9 +59,22 @@ public class Account {
 		this.userName = userName;
 		this.password = password;
 		this.email = email;
-		this.fullName = fullName;
+		this.fullname = fullName;
+	}
+
+	public Account(String userName, String password, String fullname, String email, List<UserRole> roleId) {
+		this.userName = userName;
+		this.password = password;
+		this.fullname = fullname;
+		this.email = email;
+		this.roleId = roleId;
 	}
 
 	@Column(name = "role", columnDefinition = "longtext")
 	private String role;
+
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name = "Account_UserRole", joinColumns = @JoinColumn(name = "accountId"),
+			inverseJoinColumns = @JoinColumn(name = "roleId"))
+	private List<UserRole> roleId;
 }
