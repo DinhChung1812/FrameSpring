@@ -7,6 +7,7 @@ public class JwtResponse {
     private String type = "Bearer";
     private String id;
     private String username;
+    private String fullName;
 
     private List<String> roles;
 
@@ -20,10 +21,11 @@ public class JwtResponse {
 //        this.roles = roles;
 //    }
 
-    public JwtResponse(String accessToken, String id, String username, List<String> roles,String avatarImage) {
+    public JwtResponse(String accessToken, String id, String username, String full, List<String> roles,String avatarImage) {
         this.token = accessToken;
         this.id = id;
         this.username = username;
+        this.fullName = full;
         this.roles = roles;
         this.avatarImage = avatarImage;
     }

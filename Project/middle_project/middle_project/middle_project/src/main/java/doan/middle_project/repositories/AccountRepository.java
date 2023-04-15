@@ -16,11 +16,11 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Integer> {
 
-//    @Query("select a from Account a where a.status = 1 and a.userName =?1")
-//    Optional<Account> findByUserName(String userName);
-//
-//    @Query("select new doan.middle_project.common.vo.FriendsVo(a.accountId,a.name, a.avatarImage) from Account a where a.status = 1 and a.name = :searchName")
-//    List<FriendsVo> searchByName(String searchName);
+    @Query("select a from Account a where a.userName =?1")
+    Optional<Account> findByUserName(String userName);
+
+    @Query("select new doan.middle_project.common.vo.FriendsVo(a.accountId,a.fullName, a.avatarImage) from Account a where a.fullName = :searchName")
+    List<FriendsVo> searchByName(String searchName);
 
     @Query("select a from Account a where a.userName =?1")
     Account findAccountByUserName(String userName);

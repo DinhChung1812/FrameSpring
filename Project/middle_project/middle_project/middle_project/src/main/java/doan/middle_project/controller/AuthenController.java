@@ -7,8 +7,10 @@ import doan.middle_project.common.utils.LoginRequest;
 import doan.middle_project.common.utils.SignupRequest;
 import doan.middle_project.common.vo.MessageVo;
 import doan.middle_project.common.vo.UserDetailsImpl;
+import doan.middle_project.entities.UserRole;
 import doan.middle_project.repositories.AccountRepository;
 import doan.middle_project.entities.Account;
+import doan.middle_project.repositories.UserRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -33,6 +35,8 @@ public class AuthenController {
 	@Autowired
 	AccountRepository accountRepository;
 
+	@Autowired
+	UserRoleRepository userRoleRepository;
 
 	@Autowired
 	PasswordEncoder encoder;
@@ -68,8 +72,10 @@ public class AuthenController {
 		return ResponseEntity.ok(new JwtResponse(jwt,
 				userDetails.getId(),
 				userDetails.getUsername(),
-				roles, account.getAvatarImage()));
-		}
+				account.getFullName(),
+				roles,
+				account.getAvatarImage()));
+	}
 
 	@PostMapping("/signout")
 	public  ResponseEntity<?> logout(){
@@ -116,10 +122,16 @@ public class AuthenController {
 		// Create new user's account
 		Account account = new Account(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()),
 				signUpRequest.getEmail(), signUpRequest.getFullname());
-
-
-		//account.setRole("ROLE_USER");
 		accountRepository.save(account);
+
+		//Set role
+		UserRole userRole = new UserRole();
+		userRole.setRole("ROLE_USER");
+		userRole.setIsActive(1);
+		userRole.setAccount(account);
+		userRoleRepository.save(userRole);
+
+
 		LogUtils.getLog().info("END registerUser");
 		return ResponseEntity.ok(new MessageVo("Bạn đã đăng ký thành công", "info"));
 	}
