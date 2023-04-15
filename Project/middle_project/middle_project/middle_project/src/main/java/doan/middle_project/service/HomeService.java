@@ -6,7 +6,7 @@ import doan.middle_project.dto.Requests.ProfileRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface HomeService {
-    ProfileRequest getProfile(Integer username);
+    ProfileRequest getProfile(Integer accountId);
 
     ResponseEntity<?> updateProfile(Integer profileId, ProfileEditRequest profileRequest) throws BadRequestException;
 

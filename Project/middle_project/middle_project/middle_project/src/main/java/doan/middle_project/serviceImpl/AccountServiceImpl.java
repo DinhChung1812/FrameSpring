@@ -52,14 +52,14 @@ public class AccountServiceImpl implements AccountService {
             }
     }
 
-//    @Override
-//    public Page<AccountManageVo> findAll(String searchData,Integer pageIndex, Integer pageSize) {
-//        if (searchData == null) {
-//            searchData = "";
-//        }
-//        Pageable pageable = PageRequest.of(pageIndex, pageSize);
-//        return accountRepository.findAll("%" + searchData.trim() + "%",pageable);
-//    }
+    @Override
+    public  Page<AccountManageVo> findAll(String searchData,Integer pageIndex, Integer pageSize) {
+        if (searchData == null) {
+            searchData = "";
+        }
+        Pageable pageable = PageRequest.of(pageIndex, pageSize);
+        return accountRepository.findAll("%" + searchData.trim() + "%",pageable);
+    }
 
 
 //    @Override

@@ -110,7 +110,7 @@ public class ForgotPasswordController {
 //        return new ResponseEntity<>(model, HttpStatus.OK);
 //
 //    }
-//
+
 //    @PostMapping("/resetPassword")
 //    public ResponseEntity<?> processResetPassword(HttpServletRequest request, Model model) {
 //        MessageVo message = new MessageVo();
@@ -136,7 +136,7 @@ public class ForgotPasswordController {
 
     //thay đổi mật khẩu
     @PostMapping("/change_password")
-    @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_MOD')or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> changePassword(Authentication authentication, @Valid @RequestBody ChangePasswordRequest changePasswordRequest)
             throws AccountNotFoundException {
         MessageVo message = new MessageVo();

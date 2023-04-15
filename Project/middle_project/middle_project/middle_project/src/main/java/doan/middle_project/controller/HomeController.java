@@ -15,16 +15,16 @@ public class HomeController {
     private HomeService homeService;
 
     @GetMapping("/getprofile")
-    @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_MOD')or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ProfileRequest> getUserProfile(@RequestParam("account_id") Integer accountId) {
         ProfileRequest profileRequest = homeService.getProfile(accountId);
         return ResponseEntity.ok(profileRequest);
     }
 
     @PutMapping("/updateprofile")
-    @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_MOD')or hasRole('ROLE_USER')")
-    public ResponseEntity<?> UpdateProfile(@RequestParam("profile_id") Integer profileId, @RequestBody ProfileEditRequest profileRequest)  {
-        return homeService.updateProfile(profileId, profileRequest);
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> UpdateProfile(@RequestParam("account_id") Integer accountId, @RequestBody ProfileEditRequest profileRequest)  {
+        return homeService.updateProfile(accountId, profileRequest);
     }
 
     @PutMapping("/updateimage")

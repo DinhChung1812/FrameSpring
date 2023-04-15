@@ -25,19 +25,7 @@ public class ProfileRequest {
 
     private String address;
 
-    private int status;
-
     private String role;
-
-    private Double high;
-
-    private Double weight;
-
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate createDate;
-
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate updateDate;
 
     private String avatarImage;
 

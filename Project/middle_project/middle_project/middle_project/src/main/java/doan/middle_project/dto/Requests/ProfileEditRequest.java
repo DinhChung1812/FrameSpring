@@ -19,9 +19,5 @@ public class ProfileEditRequest {
 
     private String address;
 
-    private Double high;
-
-    private Double weight;
-
     private String avatarImage;
 }

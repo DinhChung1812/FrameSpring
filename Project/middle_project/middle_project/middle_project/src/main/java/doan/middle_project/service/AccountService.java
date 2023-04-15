@@ -12,8 +12,8 @@ public interface AccountService {
 //     void updateResetPassword (String password, String email) throws AccountNotFoundException;
 
      void changePassword (String userName,  String newPass) throws AccountNotFoundException;
-//
-//     Page<AccountManageVo> findAll(String searchData, Integer pageIndex, Integer pageSize);
+
+     Page<AccountManageVo> findAll(String searchData, Integer pageIndex, Integer pageSize);
 //
 //     Account getByResetPasswordToken(String token);
 //

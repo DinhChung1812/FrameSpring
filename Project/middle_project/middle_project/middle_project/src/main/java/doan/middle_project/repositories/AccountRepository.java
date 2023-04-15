@@ -32,11 +32,11 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
 //    @Query("select a from Account a where a.status = 1 and a.email =?1")
 //    public Account findAccountByEmail(String email);
 //
-//    @Query("select new doan.middle_project.common.vo.AccountManageVo(" +
-//            "a.accountId,a.userName,a.role,a.email,a.avatarImage, cast(a.createDate as string)" +
-//            ") from Account a where a.status = 1 and (cast(a.accountId as string ) LIKE :searchData " +
-//            "or a.userName LIKE :searchData )")
-//    public Page<AccountManageVo> findAll(String searchData, Pageable pageable);
+    @Query("select new doan.middle_project.common.vo.AccountManageVo(" +
+            "a.accountId,a.userName,a.role,a.email,a.avatarImage" +
+            ") from Account a where (cast(a.accountId as string ) LIKE :searchData " +
+            "or a.userName LIKE :searchData )")
+    public Page<AccountManageVo> findAll(String searchData, Pageable pageable);
 //
 //    public Account findByResetPasswordToken(String token);
 
