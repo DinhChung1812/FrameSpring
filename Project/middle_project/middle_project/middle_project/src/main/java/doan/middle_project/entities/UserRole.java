@@ -26,4 +26,7 @@ public class UserRole {
 
     @ManyToMany (mappedBy = "roleId",cascade = {CascadeType.MERGE})
     private Set<Account> accountId;
+
+    @OneToMany( mappedBy = "userRole",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Setting> settings;
 }
