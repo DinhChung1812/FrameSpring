@@ -11,13 +11,13 @@ public class ProfileEditRequest {
 
     private String email;
 
-    private LocalDate dob;
+    private String company;
 
-    private String gender;
+    private String title;
 
     private String phone;
 
-    private String address;
+    private String jobTitle;
 
     private String avatarImage;
 }

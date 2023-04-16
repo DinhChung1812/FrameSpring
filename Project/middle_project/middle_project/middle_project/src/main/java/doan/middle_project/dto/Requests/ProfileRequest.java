@@ -8,7 +8,7 @@ import java.time.LocalDate;
 @Data
 public class ProfileRequest {
 
-    private int profileId;
+    private int accountId;
 
     private String name;
 
@@ -16,14 +16,13 @@ public class ProfileRequest {
 
     private String email;
 
-    @JsonFormat(pattern="yyyy-MM-dd")
-    private LocalDate dob;
+    private String company;
 
-    private String gender;
+    private String title;
 
     private String phone;
 
-    private String address;
+    private String job_Title;
 
     private String role;
 

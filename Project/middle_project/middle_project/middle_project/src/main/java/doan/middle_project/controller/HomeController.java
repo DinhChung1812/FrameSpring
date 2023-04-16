@@ -6,6 +6,7 @@ import doan.middle_project.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,6 +18,13 @@ public class HomeController {
     @GetMapping("/getprofile")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ProfileRequest> getUserProfile(@RequestParam("account_id") Integer accountId) {
+        ProfileRequest profileRequest = homeService.getProfile(accountId);
+        return ResponseEntity.ok(profileRequest);
+    }
+
+    @GetMapping("/admin/get_account_detail")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<ProfileRequest> getAccountDetail(@RequestParam("account_id") Integer accountId) {
         ProfileRequest profileRequest = homeService.getProfile(accountId);
         return ResponseEntity.ok(profileRequest);
     }
