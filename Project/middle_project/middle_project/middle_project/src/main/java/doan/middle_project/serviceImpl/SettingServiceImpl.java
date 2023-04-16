@@ -61,12 +61,12 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public void settingEdit(SettingEditRequest setting) {
-        Setting s = new Setting();
+    public void settingEdit(Integer id, SettingEditRequest setting) {
+        Setting s = settingRepository.findSettingBySettingId(id);
         UserRole userRole = new UserRole();
         userRole.setRoleId(setting.getType());
 
-        s.setSettingId(setting.getSettingId());
+//        s.setSettingId(setting.getSettingId());
         s.setName(setting.getName());
         s.setDisplayOrder(setting.getDisplayOrder());
         s.setUserRole(userRole);
@@ -100,6 +100,5 @@ public class SettingServiceImpl implements SettingService {
         }
         settingRepository.save(s);
     }
-
 
 }

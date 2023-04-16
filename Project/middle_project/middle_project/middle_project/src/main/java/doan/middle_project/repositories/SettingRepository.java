@@ -14,4 +14,6 @@ public interface SettingRepository extends JpaRepository<Setting,Integer> {
     @Query(value = "select * from setting  where  type = ?1 and status = ?2", nativeQuery = true)
     List<Setting> findSettingByStatusAndUserRole(Integer type, Integer status, Pageable pageable);
 
+    Setting findSettingBySettingId(Integer id);
+
 }

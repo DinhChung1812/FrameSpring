@@ -138,7 +138,6 @@ public class AuthenController {
 //		userRole.setAccountId(setAcc);
 //		userRoleRepository.save(userRole);
 
-
 		LogUtils.getLog().info("END registerUser");
 		return ResponseEntity.ok(new MessageVo("Bạn đã đăng ký thành công", "info"));
 	}
