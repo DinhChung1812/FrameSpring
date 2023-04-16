@@ -127,7 +127,7 @@ public class AuthenController {
 
 		// Create new user's account
 		Account account = new Account(signUpRequest.getUsername(), encoder.encode(signUpRequest.getPassword()),
-				signUpRequest.getEmail(), signUpRequest.getFullname(), lstUserRole);
+				signUpRequest.getFullname(), signUpRequest.getEmail(), lstUserRole);
 		accountRepository.save(account);
 		Set<Account> setAcc = new HashSet<Account>();
 		setAcc.add(account);

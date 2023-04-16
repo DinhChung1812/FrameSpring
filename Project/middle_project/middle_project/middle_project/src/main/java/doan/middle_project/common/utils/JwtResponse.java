@@ -7,7 +7,8 @@ public class JwtResponse {
     private String type = "Bearer";
     private String id;
     private String username;
-    private String fullName;
+
+    private String fullname;
 
     private List<String> roles;
 
@@ -25,7 +26,7 @@ public class JwtResponse {
         this.token = accessToken;
         this.id = id;
         this.username = username;
-        this.fullName = fullName;
+        this.fullname = fullName;
         this.roles = roles;
         this.avatarImage = avatarImage;
     }
@@ -62,19 +63,17 @@ public class JwtResponse {
         return id;
     }
 
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-
 
     public String getUsername() {
         return username;

@@ -55,12 +55,12 @@ public class Account {
 	@JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id")
 	private Curriculum curriculumId;
 
-	public Account(String userName, String password, String email, String fullName) {
-		this.userName = userName;
-		this.password = password;
-		this.email = email;
-		this.fullname = fullName;
-	}
+//	public Account(String userName, String password, String email, String fullName) {
+//		this.userName = userName;
+//		this.password = password;
+//		this.email = email;
+//		this.fullname = fullName;
+//	}
 
 	public Account(String userName, String password, String fullname, String email, List<UserRole> roleId) {
 		this.userName = userName;
