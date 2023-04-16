@@ -7,7 +7,9 @@ import doan.middle_project.dto.Responds.SettingResponse;
 import java.util.List;
 
 public interface SettingService {
-    List<SettingResponse> getListSetting(Integer role, Integer status, Integer pageIndex);
+    List<SettingResponse> getListSetting();
+
+//    List<SettingResponse> getListSetting(Integer role, Integer status, Integer pageIndex);
 
     void settingNew(SettingRequest settingRequest);
 

@@ -22,14 +22,10 @@ public class SettingServiceImpl implements SettingService {
     SettingRepository settingRepository;
 
     @Override
-    public List<SettingResponse> getListSetting(Integer role, Integer status, Integer pageIndex) {
+    public List<SettingResponse> getListSetting() {
 
-        if (pageIndex == null || pageIndex <= 0) {
-            pageIndex = 1;
-        }
-        Pageable pageable = PageRequest.of(pageIndex - 1, 5);
 
-        List<Setting> settingList = settingRepository.findSettingByStatusAndUserRole(role,status,pageable);
+        List<Setting> settingList = settingRepository.findAll();
         List<SettingResponse> settingResponseList = new ArrayList<>();
 
         for (Setting s: settingList) {
@@ -45,6 +41,31 @@ public class SettingServiceImpl implements SettingService {
 
         return settingResponseList;
     }
+
+//    @Override
+//    public List<SettingResponse> getListSetting(Integer role, Integer status, Integer pageIndex) {
+//
+//        if (pageIndex == null || pageIndex <= 0) {
+//            pageIndex = 1;
+//        }
+//        Pageable pageable = PageRequest.of(pageIndex - 1, 5);
+//
+//        List<Setting> settingList = settingRepository.findSettingByStatusAndUserRole(role,status,pageable);
+//        List<SettingResponse> settingResponseList = new ArrayList<>();
+//
+//        for (Setting s: settingList) {
+//            SettingResponse sr = new SettingResponse();
+//            sr.setSettingId(s.getSettingId());
+//            sr.setName(s.getName());
+//            sr.setDescription(s.getDescription());
+//            sr.setDisplayOrder(s.getDisplayOrder());
+//            sr.setStatus(s.getStatus());
+//            sr.setType(s.getUserRole().getRole());
+//            settingResponseList.add(sr);
+//        }
+//
+//        return settingResponseList;
+//    }
 
     @Override
     public void settingNew(SettingRequest settingRequest) {
