@@ -15,4 +15,5 @@ public class AccountManageVo {
     private String role;
     private String email;
     private String avatarImage;
+    private String fullname;
 }
