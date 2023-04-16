@@ -13,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
-
 @Service
 @Transactional
 public class HomeServiceInpl implements HomeService {
@@ -26,36 +24,27 @@ public class HomeServiceInpl implements HomeService {
     public ProfileRequest getProfile(Integer profileId) throws NotFoundException {
         Account account = accountRepository.findById(profileId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy người dùng!!!"));
         ProfileRequest request = new ProfileRequest();
-        request.setProfileId(account.getAccountId());
-        //request.setName(account.getName());
+        request.setAccountId(account.getAccountId());
+        request.setName(account.getFullname());
         request.setUserName(account.getUserName());
-        request.setAddress(account.getAddress());
-        request.setDob(account.getDob());
+        request.setJob_Title(account.getJobTitle());
+        request.setCompany(account.getCompany());
         request.setEmail(account.getEmail());
-        request.setGender(account.getGender());
-        //request.setHigh(account.getHigh());
+        request.setTitle(account.getTitle());
         request.setPhone(account.getPhone());
-        //request.setWeight(account.getWeight());
-        //request.setStatus(account.getStatus());
         request.setRole(account.getRole());
         request.setAvatarImage(account.getAvatarImage());
-        //request.setUpdateDate(account.getUpdateDate());
-        //request.setCreateDate(account.getCreateDate());
         return request;
     }
 
     @Override
     public ResponseEntity<?> updateProfile(Integer profileId, ProfileEditRequest profileRequest) throws NotFoundException {
         Account account = accountRepository.findById(profileId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy người dùng!!!"));
-        //account.setName(profileRequest.getName());
-        account.setAddress(profileRequest.getAddress());
-        account.setDob(profileRequest.getDob());
+        account.setJobTitle(profileRequest.getJobTitle());
+        account.setCompany(profileRequest.getCompany());
         account.setEmail(profileRequest.getEmail());
-        account.setGender(profileRequest.getGender());
-        //account.setHigh(profileRequest.getHigh());
+        account.setTitle(profileRequest.getTitle());
         account.setPhone(profileRequest.getPhone());
-        //account.setWeight(profileRequest.getWeight());
-        //account.setUpdateDate(LocalDate.now());
         account.setAvatarImage(profileRequest.getAvatarImage());
         accountRepository.save(account);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"Cập nhật profile thành công"));

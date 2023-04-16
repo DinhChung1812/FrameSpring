@@ -5,7 +5,6 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Account")
@@ -29,11 +28,11 @@ public class Account {
 	@Column(name = "fullname", columnDefinition = "longtext")
 	private String fullname;
 
-	@Column(name = "address", columnDefinition = "longtext")
-	private String address;
+	@Column(name = "job_title", columnDefinition = "longtext")
+	private String jobTitle;
 
-	@Column(name = "gender", columnDefinition = "longtext")
-	private String gender;
+	@Column(name = "title", columnDefinition = "longtext")
+	private String title;
 
 	@Column(name = "email", columnDefinition = "longtext")
 	private String email;
@@ -44,8 +43,8 @@ public class Account {
 	@Column(name = "avatarImage", columnDefinition = "longtext")
 	private String avatarImage;
 
-	@Column(name = "dob", columnDefinition = "DATE")
-	private LocalDate dob;
+	@Column(name = "company", columnDefinition = "longtext")
+	private String company;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "syllabus_id", referencedColumnName = "syllabus_id")
