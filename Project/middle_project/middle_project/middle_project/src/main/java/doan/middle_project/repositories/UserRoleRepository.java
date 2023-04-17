@@ -11,4 +11,7 @@ public interface UserRoleRepository extends JpaRepository<UserRole, Integer> {
 
     @Query("select a from UserRole a where a.role =?1")
     UserRole findRole(String role);
+
+    @Query(value = "select u.* from user_role u where u.setting_id = ?1 ",nativeQuery = true)
+    UserRole findUserRoleBySettingId(Integer settingId);
 }
