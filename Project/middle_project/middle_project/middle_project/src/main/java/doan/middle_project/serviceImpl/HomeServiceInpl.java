@@ -40,7 +40,13 @@ public class HomeServiceInpl implements HomeService {
     @Override
     public ResponseEntity<?> updateProfile(Integer profileId, ProfileEditRequest profileRequest) throws NotFoundException {
         Account account = accountRepository.findById(profileId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy người dùng!!!"));
-       
+        account.setJobTitle(profileRequest.getJobTitle());
+        account.setCompany(profileRequest.getCompany());
+        account.setEmail(profileRequest.getEmail());
+        account.setTitle(profileRequest.getTitle());
+        account.setPhone(profileRequest.getPhone());
+        account.setAvatarImage(profileRequest.getAvatarImage());
+        accountRepository.save(account);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"Cập nhật profile thành công"));
     }
 
