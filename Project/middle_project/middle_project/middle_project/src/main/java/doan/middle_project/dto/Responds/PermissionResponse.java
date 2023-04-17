@@ -9,9 +9,9 @@ public class PermissionResponse {
     private Integer settingPageId;
     private String pageName;
     private String roleName;
-    private Integer accessAll;
-    private Integer canRead;
-    private Integer canAdd;
-    private Integer canEdit;
+    private Boolean accessAll;
+    private Boolean canRead;
+    private Boolean canAdd;
+    private Boolean canEdit;
 
 }

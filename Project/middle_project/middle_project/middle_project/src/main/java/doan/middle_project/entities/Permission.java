@@ -16,16 +16,16 @@ public class Permission {
     private Integer permissionId;
 
     @Column(name = "access_all")
-    private Integer accessAll;
+    private Boolean accessAll;
 
     @Column(name = "can_read")
-    private Integer canRead;
+    private Boolean canRead;
 
     @Column(name = "can_add")
-    private Integer canAdd;
+    private Boolean canAdd;
 
     @Column(name = "can_edit")
-    private Integer canEdit;
+    private Boolean canEdit;
 
     @ManyToOne
     @JoinColumn(name = "role_id", referencedColumnName = "setting_id", nullable = false)
