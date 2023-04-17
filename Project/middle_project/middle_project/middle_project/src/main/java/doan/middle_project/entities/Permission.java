@@ -1,10 +1,13 @@
 package doan.middle_project.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "Permission")
+@Data
 public class Permission {
 
     @Id

@@ -3,9 +3,11 @@ package doan.middle_project.controller;
 import doan.middle_project.dto.Requests.SettingEditRequest;
 import doan.middle_project.dto.Requests.SettingRequest;
 import doan.middle_project.dto.Responds.SettingResponse;
+import doan.middle_project.entities.Permission;
 import doan.middle_project.entities.Setting;
 import doan.middle_project.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
