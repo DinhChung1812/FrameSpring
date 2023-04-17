@@ -10,5 +10,4 @@ public class SettingResponse {
     private int displayOrder;
     private Integer status;
     private Integer type;
-    private Integer typeId;
 }

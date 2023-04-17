@@ -20,15 +20,15 @@ public class SettingController {
     SettingService settingService;
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/getSettingList")
-    public List<SettingResponse> getSettingList(){
-        return settingService.getListSetting();
-    }
-
 //    @GetMapping("/getSettingList")
-//    public List<SettingResponse> getSettingList(@RequestParam("role")Integer role, @RequestParam("status")Integer status, @RequestParam(value = "page_index",required = false)Integer pageIndex){
-//        return settingService.getListSetting(role,status,pageIndex);
+//    public List<SettingResponse> getSettingList(){
+//        return settingService.getListSetting();
 //    }
+
+    @GetMapping("/getSettingList")
+    public List<SettingResponse> getSettingList(@RequestParam(value = "type",required = false)Integer type, @RequestParam(value = "status",required = false)Integer status, @RequestParam(value = "name",required = false)String name){
+        return settingService.getListSetting(type,status,name);
+    }
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/newSetting")

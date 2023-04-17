@@ -25,11 +25,41 @@ public class SettingServiceImpl implements SettingService {
     @Autowired
     UserRoleRepository userRoleRepository;
 
+//    @Override
+//    public List<SettingResponse> getListSetting() {
+//
+//
+//        List<Setting> settingList = settingRepository.findAll();
+//        List<SettingResponse> settingResponseList = new ArrayList<>();
+//
+//        for (Setting s : settingList) {
+//            SettingResponse sr = new SettingResponse();
+//            sr.setSettingId(s.getSettingId());
+//            sr.setName(s.getName());
+//            sr.setDescription(s.getDescription());
+//            sr.setDisplayOrder(s.getDisplayOrder());
+//            sr.setStatus(s.getStatus());
+//            sr.setType(s.getType());
+//            settingResponseList.add(sr);
+//        }
+//        return settingResponseList;
+//    }
+
     @Override
-    public List<SettingResponse> getListSetting() {
+    public List<SettingResponse> getListSetting(Integer type, Integer status, String name) {
 
+        name = name.trim();
 
-        List<Setting> settingList = settingRepository.findAll();
+        if (name==null){
+            name="_";
+        }
+        List<Setting> settingList = new ArrayList<>();
+        if (name.isEmpty() || name==null) {
+            settingList = settingRepository.findSettingByTypeAndStatus(type,status);
+        } else{
+            settingList=settingRepository.findSettingByStatusAndUserRole(type,status,name);
+        }
+
         List<SettingResponse> settingResponseList = new ArrayList<>();
 
         for (Setting s : settingList) {
@@ -42,33 +72,9 @@ public class SettingServiceImpl implements SettingService {
             sr.setType(s.getType());
             settingResponseList.add(sr);
         }
+
         return settingResponseList;
     }
-
-//    @Override
-//    public List<SettingResponse> getListSetting(Integer role, Integer status, Integer pageIndex) {
-//
-//        if (pageIndex == null || pageIndex <= 0) {
-//            pageIndex = 1;
-//        }
-//        Pageable pageable = PageRequest.of(pageIndex - 1, 5);
-//
-//        List<Setting> settingList = settingRepository.findSettingByStatusAndUserRole(role,status,pageable);
-//        List<SettingResponse> settingResponseList = new ArrayList<>();
-//
-//        for (Setting s: settingList) {
-//            SettingResponse sr = new SettingResponse();
-//            sr.setSettingId(s.getSettingId());
-//            sr.setName(s.getName());
-//            sr.setDescription(s.getDescription());
-//            sr.setDisplayOrder(s.getDisplayOrder());
-//            sr.setStatus(s.getStatus());
-//            sr.setType(s.getUserRole().getRole());
-//            settingResponseList.add(sr);
-//        }
-//
-//        return settingResponseList;
-//    }
 
     //status: 1-active , 0-inactive
     //type: 1-user_role. 2-page
@@ -136,7 +142,6 @@ public class SettingServiceImpl implements SettingService {
         settingRepository.save(s);
         userRoleRepository.save(u);
     }
-
 
 
 }
