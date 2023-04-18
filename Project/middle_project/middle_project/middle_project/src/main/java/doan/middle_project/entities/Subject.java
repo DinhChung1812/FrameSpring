@@ -37,6 +37,9 @@ public class Subject {
     @Column(name = "prerequisite")
     private Integer preRequisite;
 
+    @Column(name = "status")
+    private Integer status;
+
     @ManyToOne
     @JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id", nullable = false)
     private Curriculum curriculum;

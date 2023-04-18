@@ -33,6 +33,9 @@ public class Curriculum {
     @Column(name = "description_no", columnDefinition = "longtext")
     private String descriptionNO;
 
+    @Column(name = "status")
+    private Integer status;
+
     @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subject;
 
