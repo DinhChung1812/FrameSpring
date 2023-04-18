@@ -1,5 +1,6 @@
 package doan.middle_project.controller;
 
+import doan.middle_project.dto.Requests.SubjectRequest;
 import doan.middle_project.entities.Subject;
 import doan.middle_project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ public class SubjectController {
     SubjectService subjectService;
 
     @PostMapping("/createSubject")
-    public void createSubject(@RequestBody Subject subject){
-//        subjectService.createSubject(subject);
+    public void createSubject(@RequestBody SubjectRequest subject){
+        subjectService.createSubject(subject);
     }
 
 }
