@@ -11,4 +11,5 @@ public class SubjectRequest {
     private Integer credit;
     private String preRequisite;
     private Integer status;
+    private String curriculumCode;
 }
