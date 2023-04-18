@@ -36,6 +36,9 @@ public class Curriculum {
     @Column(name = "status")
     private Integer status;
 
+    @Column(name = "total_credit")
+    private Integer totalCredit;
+
     @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Subject> subject;
 
