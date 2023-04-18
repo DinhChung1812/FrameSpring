@@ -31,7 +31,20 @@ public class Setting {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne
-    @JoinColumn(name = "type", referencedColumnName = "role_id", nullable = false)
+    @Column(name = "type")
+    private Integer type;
+
+//    @ManyToOne
+//    @JoinColumn(name = "type", referencedColumnName = "role_id", nullable = false)
+//    private UserRole userRole;
+
+    @OneToOne(mappedBy = "setting")
     private UserRole userRole;
+
+    @OneToMany(mappedBy = "settingRoleId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Permission> permissionsRole;
+
+    @OneToMany(mappedBy = "settingPageId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Permission> permissionsPage;
+
 }

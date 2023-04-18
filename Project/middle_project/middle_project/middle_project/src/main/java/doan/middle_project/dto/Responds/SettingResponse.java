@@ -9,6 +9,5 @@ public class SettingResponse {
     private String description;
     private int displayOrder;
     private Integer status;
-    private String type;
-    private Integer typeId;
+    private Integer type;
 }

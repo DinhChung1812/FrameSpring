@@ -11,9 +11,17 @@ import java.util.List;
 @Repository
 public interface SettingRepository extends JpaRepository<Setting,Integer> {
 
-    @Query(value = "select * from setting  where  type = ?1 and status = ?2", nativeQuery = true)
-    List<Setting> findSettingByStatusAndUserRole(Integer type, Integer status, Pageable pageable);
+    @Query(value = "select * from setting  where  type = ?1 and status = ?2 and name like %?3%", nativeQuery = true)
+    List<Setting> findSettingByStatusAndUserRole(Integer type, Integer status, String name);
 
     Setting findSettingBySettingId(Integer id);
+
+    List<Setting> findSettingByTypeAndStatus(Integer type,Integer status);
+
+    Setting findSettingByType(Integer type);
+
+    Setting findSettingByStatus(Integer status);
+
+    Setting findSettingByName(String name);
 
 }

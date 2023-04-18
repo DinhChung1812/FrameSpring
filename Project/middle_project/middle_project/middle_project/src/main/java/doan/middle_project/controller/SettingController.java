@@ -3,9 +3,11 @@ package doan.middle_project.controller;
 import doan.middle_project.dto.Requests.SettingEditRequest;
 import doan.middle_project.dto.Requests.SettingRequest;
 import doan.middle_project.dto.Responds.SettingResponse;
+import doan.middle_project.entities.Permission;
 import doan.middle_project.entities.Setting;
 import doan.middle_project.service.SettingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,15 +20,15 @@ public class SettingController {
     SettingService settingService;
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/getSettingList")
-    public List<SettingResponse> getSettingList(){
-        return settingService.getListSetting();
-    }
-
 //    @GetMapping("/getSettingList")
-//    public List<SettingResponse> getSettingList(@RequestParam("role")Integer role, @RequestParam("status")Integer status, @RequestParam(value = "page_index",required = false)Integer pageIndex){
-//        return settingService.getListSetting(role,status,pageIndex);
+//    public List<SettingResponse> getSettingList(){
+//        return settingService.getListSetting();
 //    }
+
+    @GetMapping("/getSettingList")
+    public List<SettingResponse> getSettingList(@RequestParam(value = "type",required = false)Integer type, @RequestParam(value = "status",required = false)Integer status, @RequestParam(value = "name",required = false)String name){
+        return settingService.getListSetting(type,status,name);
+    }
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/newSetting")
