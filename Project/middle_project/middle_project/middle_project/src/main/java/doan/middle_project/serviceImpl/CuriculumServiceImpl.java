@@ -1,15 +1,18 @@
 package doan.middle_project.serviceImpl;
 
 import doan.middle_project.common.vo.CuriculumVo;
+import doan.middle_project.common.vo.PLOVo;
+import doan.middle_project.common.vo.POVo;
+import doan.middle_project.common.vo.SubjectVo;
 import doan.middle_project.dto.Requests.CuriculumEditRequest;
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.entities.Account;
 import doan.middle_project.entities.Curriculum;
+import doan.middle_project.entities.PO;
 import doan.middle_project.exception.BadRequestException;
 import doan.middle_project.exception.NotFoundException;
 import doan.middle_project.exception.StatusCode;
-import doan.middle_project.repositories.CuriculumRepository;
-import doan.middle_project.repositories.SettingRepository;
+import doan.middle_project.repositories.*;
 import doan.middle_project.service.CuriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,14 @@ import java.util.List;
 public class CuriculumServiceImpl implements CuriculumService {
     @Autowired
     CuriculumRepository _curiculumRepository;
+    @Autowired
+    PLORepository _PLORepository;
+    @Autowired
+    PORepository _PORepository;
+
+    @Autowired
+    SubjectRepository _subjectRepository;
+
     @Override
     public List<CuriculumVo> getAllCuriculum(String code){
         List<CuriculumVo> lstCuriculum = new ArrayList<>();
@@ -32,6 +43,15 @@ public class CuriculumServiceImpl implements CuriculumService {
         }
         if (lstCuriculum.size() == 0){
             return null;
+        } else {
+            for (CuriculumVo item : lstCuriculum) {
+                List<PLOVo> lstPLOByCuriculumCode = _PLORepository.getPLOByCuriculumCode(item.getCurriculumCode());
+                item.setLstPLO(lstPLOByCuriculumCode);
+                List<POVo> lstPOByCuriculumCode = _PORepository.getPOByCuriculumCode(item.getCurriculumCode());
+                item.setLstPO(lstPOByCuriculumCode);
+                List<SubjectVo> lstSubjectByCuriculumCode = _subjectRepository.getSubjectByCuriculumCode(item.getCurriculumCode());
+                item.setLstSubject(lstSubjectByCuriculumCode);
+            }
         }
         return lstCuriculum;
     }

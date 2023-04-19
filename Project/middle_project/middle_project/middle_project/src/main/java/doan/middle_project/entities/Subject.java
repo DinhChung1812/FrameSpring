@@ -34,8 +34,8 @@ public class Subject {
     @Column(name = "credit")
     private Integer credit;
 
-    @Column(name = "prerequisite")
-    private Integer preRequisite;
+    @Column(name = "prerequisite", columnDefinition = "longtext")
+    private String preRequisite;
 
     @Column(name = "status")
     private Integer status;

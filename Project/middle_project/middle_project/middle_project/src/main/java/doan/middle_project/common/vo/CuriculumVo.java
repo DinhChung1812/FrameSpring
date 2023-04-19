@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,6 +28,10 @@ public class CuriculumVo {
     private Integer status;
 
     private Integer totalCredit;
+
+    private List<PLOVo> lstPLO;
+    private List<POVo> lstPO;
+    private List<SubjectVo> lstSubject;
 
     public CuriculumVo(Integer curriculumId, String curriculumCode, String curriculumName, String curriculumNameEnglish, String description, String descriptionNO, Integer totalCredit) {
         this.curriculumId = curriculumId;

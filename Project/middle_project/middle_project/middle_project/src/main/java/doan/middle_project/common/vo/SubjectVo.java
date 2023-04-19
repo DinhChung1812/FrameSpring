@@ -24,11 +24,11 @@ public class SubjectVo {
 
     private Integer credit;
 
-    private Integer preRequisite;
+    private String preRequisite;
 
     private Integer status;
 
-    public SubjectVo(Integer subjectId, String subjectCode, String subjectName, String subjectNote, Integer semester, Integer credit, Integer preRequisite) {
+    public SubjectVo(Integer subjectId, String subjectCode, String subjectName, String subjectNote, Integer semester, Integer credit, String preRequisite) {
         this.subjectId = subjectId;
         this.subjectCode = subjectCode;
         this.subjectName = subjectName;
