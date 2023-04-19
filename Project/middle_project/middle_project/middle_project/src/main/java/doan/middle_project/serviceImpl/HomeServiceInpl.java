@@ -27,7 +27,7 @@ public class HomeServiceInpl implements HomeService {
         request.setAccountId(account.getAccountId());
         request.setName(account.getFullname());
         request.setUserName(account.getUserName());
-        request.setJob_Title(account.getJobTitle());
+        request.setJobTitle(account.getJobTitle());
         request.setCompany(account.getCompany());
         request.setEmail(account.getEmail());
         request.setTitle(account.getTitle());

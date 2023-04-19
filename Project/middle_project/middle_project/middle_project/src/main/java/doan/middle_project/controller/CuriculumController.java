@@ -6,6 +6,9 @@ import doan.middle_project.dto.Requests.CuriculumEditRequest;
 import doan.middle_project.dto.Requests.CurriculumRequest;
 import doan.middle_project.service.CuriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import doan.middle_project.service.CuriculumService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,7 @@ public class CuriculumController {
     @Autowired
     CuriculumService curiculumService;
 
+
     @Autowired
     CuriculumService curriculumService;
 
@@ -28,7 +32,7 @@ public class CuriculumController {
 
     @GetMapping("/get_all_curiculum")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllCuriculum(@RequestParam(required = false) String code) {
+   public ResponseEntity<?> getAllCuriculum(@RequestParam(required = false) String code) {
         List<CuriculumVo> listCuriculum = curiculumService.getAllCuriculum(code);
         if (listCuriculum == null){
             return ResponseEntity.ok(new MessageVo("Không tồn tại curiculum nào!!!", "Infor"));
@@ -37,12 +41,14 @@ public class CuriculumController {
     }
 
     @PutMapping("/edit_curiculum")
+
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> editCuriculum(@RequestParam("curiculum_id") Integer curiculumId, @RequestBody CuriculumEditRequest curiculumEditRequest)  {
         return curiculumService.addOrEditCuriculum(curiculumId, curiculumEditRequest);
     }
 
     @PutMapping("/delete_curiculum")
+
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> deleteCuriculum(@RequestParam("curiculum_id") Integer curiculumId){
         return curiculumService.deleteCuriculum(curiculumId);
@@ -53,4 +59,5 @@ public class CuriculumController {
 //    public ResponseEntity<?> addCuriculum(@Valid @RequestBody CuriculumEditRequest curiculumEditRequest)  {
 //        return curiculumService.addOrEditCuriculum(-1, curiculumEditRequest);
 //    }
+
 }
