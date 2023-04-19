@@ -36,7 +36,7 @@ public class HomeController {
     }
 
     @PutMapping("/updateimage")
-    @PreAuthorize("hasRole('ROLE_ADMIN')or hasRole('ROLE_MOD')or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> updateImage(@RequestParam("profile_id") Integer profileId,@RequestBody String image){
         return homeService.updateImage(profileId,image);
     }

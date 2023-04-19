@@ -1,5 +1,6 @@
 package doan.middle_project.serviceImpl;
 
+
 import doan.middle_project.dto.Requests.SubjectRequest;
 import doan.middle_project.dto.Responds.PloDto;
 import doan.middle_project.dto.Responds.SubjectPloResponse;
@@ -7,6 +8,9 @@ import doan.middle_project.dto.Responds.SubjectPloMappingResponse;
 import doan.middle_project.entities.Curriculum;
 import doan.middle_project.entities.Subject;
 import doan.middle_project.repositories.CurriculumRepository;
+import doan.middle_project.common.vo.CuriculumVo;
+import doan.middle_project.common.vo.SubjectVo;
+import doan.middle_project.repositories.CuriculumRepository;
 import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,7 @@ public class SubjectServiceImpl implements SubjectService {
 
     @Autowired
     SubjectRepository subjectRepository;
+
 
     @Autowired
     CurriculumRepository curriculumRepository;
@@ -90,5 +95,20 @@ public class SubjectServiceImpl implements SubjectService {
 
     }
 
+
+
+    @Override
+    public List<SubjectVo> getAllSubject(String code) {
+        List<SubjectVo> lstSubject = new ArrayList<>();
+        if(code == null || code.equals("") ){
+            lstSubject = subjectRepository.getAllSubject();
+        } else {
+            lstSubject = subjectRepository.getSubjectByCode(code);
+        }
+        if (lstSubject == null){
+            return null;
+        }
+        return lstSubject;
+    }
 
 }
