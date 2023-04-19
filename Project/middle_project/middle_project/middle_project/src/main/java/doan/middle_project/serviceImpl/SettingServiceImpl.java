@@ -50,14 +50,16 @@ public class SettingServiceImpl implements SettingService {
 
         name = name.trim();
 
-        if (name==null){
-            name="_";
-        }
+//        if (name==null){
+//            name="";
+//        }
         List<Setting> settingList = new ArrayList<>();
-        if (name.isEmpty() || name==null) {
-            settingList = settingRepository.findSettingByTypeAndStatus(type,status);
-        } else{
-            settingList=settingRepository.findSettingByStatusAndUserRole(type,status,name);
+        if (name.isEmpty() && type == null && status == null) {
+            settingList = settingRepository.findAll();
+        }else if (name.isEmpty() || name == null) {
+            settingList = settingRepository.findSettingByTypeAndStatus(type, status);
+        } else {
+            settingList = settingRepository.findSettingByStatusAndUserRole(type, status, name);
         }
 
         List<SettingResponse> settingResponseList = new ArrayList<>();

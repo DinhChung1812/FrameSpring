@@ -5,6 +5,9 @@ import doan.middle_project.common.vo.PLOVo;
 import doan.middle_project.common.vo.POVo;
 import doan.middle_project.common.vo.SubjectVo;
 import doan.middle_project.dto.Requests.CuriculumEditRequest;
+
+import doan.middle_project.dto.Requests.CurriculumRequest;
+
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.entities.Account;
 import doan.middle_project.entities.Curriculum;
@@ -32,6 +35,23 @@ public class CuriculumServiceImpl implements CuriculumService {
 
     @Autowired
     SubjectRepository _subjectRepository;
+
+
+
+    @Autowired
+    CurriculumRepository curriculumRepository;
+
+    @Override
+    public void createCurriculum(CurriculumRequest curriculumRequest) {
+        Curriculum c = new Curriculum();
+        c.setCurriculumCode(curriculumRequest.getCurriculumCode());
+        c.setCurriculumName(curriculumRequest.getCurriculumName());
+        c.setCurriculumNameEnglish(curriculumRequest.getCurriculumNameEnglish());
+        c.setDescription(curriculumRequest.getDescription());
+        c.setDescriptionNO(curriculumRequest.getDescriptionNO());
+        c.setStatus(1);
+        curriculumRepository.save(c);
+    }
 
     @Override
     public List<CuriculumVo> getAllCuriculum(String code){
