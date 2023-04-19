@@ -16,14 +16,14 @@ public class HomeController {
     private HomeService homeService;
 
     @GetMapping("/getprofile")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<ProfileRequest> getUserProfile(@RequestParam("account_id") Integer accountId) {
         ProfileRequest profileRequest = homeService.getProfile(accountId);
         return ResponseEntity.ok(profileRequest);
     }
 
     @GetMapping("/admin/get_account_detail")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProfileRequest> getAccountDetail(@RequestParam("account_id") Integer accountId) {
         ProfileRequest profileRequest = homeService.getProfile(accountId);
         return ResponseEntity.ok(profileRequest);
@@ -36,13 +36,13 @@ public class HomeController {
     }
 
     @PutMapping("/admin/editprofile")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> editProfile(@RequestParam("account_id") Integer accountId, @RequestBody ProfileEditRequest profileRequest)  {
         return homeService.updateProfile(accountId, profileRequest);
     }
 
     @PutMapping("/updateimage")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> updateImage(@RequestParam("profile_id") Integer profileId,@RequestBody String image){
         return homeService.updateImage(profileId,image);
     }

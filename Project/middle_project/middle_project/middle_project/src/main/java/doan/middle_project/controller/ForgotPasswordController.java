@@ -136,7 +136,7 @@ public class ForgotPasswordController {
 
     //thay đổi mật khẩu
     @PostMapping("/change_password")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> changePassword(Authentication authentication, @Valid @RequestBody ChangePasswordRequest changePasswordRequest)
             throws AccountNotFoundException {
         MessageVo message = new MessageVo();

@@ -24,7 +24,7 @@ public class AccountManageController {
     private AccountService accountService;
 
     @GetMapping("/admin/listAccount")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> getAllAccountActive(Model model, @RequestParam(required = false) String searchData,
                                                  @RequestParam(required = false) Integer pageIndex) {
         LogUtils.getLog().info("START getAllAccountActive");
@@ -42,14 +42,14 @@ public class AccountManageController {
         return ResponseEntity.ok(model);
     }
     @PostMapping ("/admin/changeRole")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> changeRole( @RequestParam Integer accountId,
                                          @RequestParam String role) {
         return accountService.changeRole(accountId,role);
     }
 
     @PostMapping ("/admin/deleteAccount")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteAccount( @RequestParam Integer accountId) {
         return accountService.deleteAccount(accountId);
     }
