@@ -37,7 +37,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
     @Query("select new doan.middle_project.common.vo.SubjectVo(" +
             "s.subjectId,s.subjectCode,s.subjectName,s.subjectNote, s.semester, s.credit, s.preRequisite)" +
-            "from Subject s join s.curriculum c " +
+            "from Subject s join s.curriculumId c " +
             "where s.status = 1 and c.curriculumCode LIKE :code")
     public List<SubjectVo> getSubjectByCuriculumCode(String code);
 

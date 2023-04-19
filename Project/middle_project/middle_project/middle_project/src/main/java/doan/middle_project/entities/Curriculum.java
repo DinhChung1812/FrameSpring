@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -39,8 +40,14 @@ public class Curriculum {
     @Column(name = "total_credit")
     private Integer totalCredit;
 
-    @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Subject> subject;
+//    @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Subject> subject;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Curriculum_Subject", joinColumns = @JoinColumn(name = "curriculumId"),
+            inverseJoinColumns = @JoinColumn(name = "subjectId"))
+    private List<Subject> subjectId;
+
 
     @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PO> po;
