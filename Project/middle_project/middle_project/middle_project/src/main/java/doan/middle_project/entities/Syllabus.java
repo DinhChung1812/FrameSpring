@@ -17,13 +17,13 @@ public class Syllabus {
     @Column(name = "syllabus_id")
     private Integer syllabusId;
 
-    @Column(name = "curriculum_code", columnDefinition = "longtext")
+    @Column(name = "syllabus_code", columnDefinition = "longtext")
     private String syllabusCode;
 
-    @Column(name = "curriculum_name", columnDefinition = "longtext")
+    @Column(name = "syllabus_name", columnDefinition = "longtext")
     private String syllabusName;
 
-    @Column(name = "curriculum_description", columnDefinition = "longtext")
+    @Column(name = "syllabus_description", columnDefinition = "longtext")
     private String syllabusDescription;
 
     @Column(name = "syllabus_status")
@@ -35,4 +35,8 @@ public class Syllabus {
 
     @OneToOne(mappedBy = "syllabusId")
     private Account account;
+
+//    @ManyToOne
+//    @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
+//    private Decision decision;
 }
