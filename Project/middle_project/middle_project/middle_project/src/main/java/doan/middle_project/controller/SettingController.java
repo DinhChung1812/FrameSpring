@@ -26,7 +26,7 @@ public class SettingController {
 //    }
 
     @GetMapping("/getSettingList")
-    public List<SettingResponse> getSettingList(@RequestParam(value = "type",required = false)Integer type, @RequestParam(value = "status",required = false)Integer status, @RequestParam(value = "name",required = false)String name){
+    public List<SettingResponse> getSettingList(@RequestParam(value = "type",required = false,defaultValue = "")Integer type, @RequestParam(value = "status",required = false,defaultValue = "")Integer status, @RequestParam(value = "name",required = false,defaultValue = " ")String name){
         return settingService.getListSetting(type,status,name);
     }
 

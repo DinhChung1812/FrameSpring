@@ -19,7 +19,7 @@ public class Subject {
     @Column(name = "subject_id")
     private Integer subjectId;
 
-    @Column(name = "subject_code", columnDefinition = "longtext")
+    @Column(name = "subject_code", columnDefinition = "varchar(250)")
     private String subjectCode;
 
     @Column(name = "subject_name", columnDefinition = "longtext")
@@ -34,15 +34,18 @@ public class Subject {
     @Column(name = "credit")
     private Integer credit;
 
-    @Column(name = "prerequisite")
+    @Column(name = "prerequisite", columnDefinition = "longtext")
     private String preRequisite;
 
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne
-    @JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id", nullable = false)
-    private Curriculum curriculum;
+//    @ManyToOne
+//    @JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id", nullable = false)
+//    private Curriculum curriculum;
+
+    @ManyToMany (mappedBy = "subjectId",cascade = {CascadeType.MERGE})
+    private Set<Curriculum> curriculumId;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "Subject_PLO", joinColumns = @JoinColumn(name = "subjectId"),
@@ -60,4 +63,10 @@ public class Subject {
 
     @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Assessment> assessment;
+
+    @OneToMany( mappedBy = "subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PreRequisite> subject_code;
+
+    @OneToMany( mappedBy = "requisite_subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PreRequisite> requisite_subject_code;
 }
