@@ -20,4 +20,6 @@ public class ProfileEditRequest {
     private String jobTitle;
 
     private String avatarImage;
+
+    private String role;
 }

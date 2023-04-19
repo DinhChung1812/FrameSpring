@@ -35,6 +35,12 @@ public class HomeController {
         return homeService.updateProfile(accountId, profileRequest);
     }
 
+    @PutMapping("/admin/editprofile")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<?> editProfile(@RequestParam("account_id") Integer accountId, @RequestBody ProfileEditRequest profileRequest)  {
+        return homeService.updateProfile(accountId, profileRequest);
+    }
+
     @PutMapping("/updateimage")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> updateImage(@RequestParam("profile_id") Integer profileId,@RequestBody String image){
