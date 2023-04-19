@@ -2,6 +2,8 @@ package doan.middle_project.controller;
 
 import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.MessageVo;
+import doan.middle_project.common.vo.PLOVo;
+import doan.middle_project.common.vo.POVo;
 import doan.middle_project.dto.Requests.CuriculumEditRequest;
 import doan.middle_project.dto.Requests.CurriculumRequest;
 import doan.middle_project.service.CuriculumService;
@@ -59,5 +61,25 @@ public class CuriculumController {
 //    public ResponseEntity<?> addCuriculum(@Valid @RequestBody CuriculumEditRequest curiculumEditRequest)  {
 //        return curiculumService.addOrEditCuriculum(-1, curiculumEditRequest);
 //    }
+
+    @GetMapping("/get_all_plo")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getAllPlo(@RequestParam(required = false) String code) {
+        List<PLOVo> listPlo = curiculumService.getAllPLO(code);
+        if (listPlo == null){
+            return ResponseEntity.ok(new MessageVo("Không tồn tại plo nào!!!", "Infor"));
+        }
+        return ResponseEntity.ok(listPlo);
+    }
+
+    @GetMapping("/get_all_po")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getAllPo (@RequestParam(required = false) String code) {
+        List<POVo> listPo = curiculumService.getAllPO(code);
+        if (listPo == null){
+            return ResponseEntity.ok(new MessageVo("Không tồn tại po nào!!!", "Infor"));
+        }
+        return ResponseEntity.ok(listPo);
+    }
 
 }

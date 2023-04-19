@@ -105,4 +105,24 @@ public class CuriculumServiceImpl implements CuriculumService {
         _curiculumRepository.save(curriculum);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"Đã xóa curiculum: "+curiculumId+" thành công"));
     }
+
+    @Override
+    public List<PLOVo> getAllPLO(String code) {
+        List<PLOVo> lstPLOByCuriculumCode = _PLORepository.getPLOByCuriculumCode(code);
+        if (lstPLOByCuriculumCode.size() == 0){
+            return null;
+        }
+        return lstPLOByCuriculumCode;
+    }
+
+    @Override
+    public List<POVo> getAllPO(String code) {
+        List<POVo> lstPOByCuriculumCode = _PORepository.getPOByCuriculumCode(code);
+        if (lstPOByCuriculumCode.size() == 0){
+            return null;
+        }
+        return lstPOByCuriculumCode;
+    }
+
+
 }
