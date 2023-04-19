@@ -19,7 +19,7 @@ public class Subject {
     @Column(name = "subject_id")
     private Integer subjectId;
 
-    @Column(name = "subject_code", columnDefinition = "longtext")
+    @Column(name = "subject_code", columnDefinition = "varchar(250)")
     private String subjectCode;
 
     @Column(name = "subject_name", columnDefinition = "longtext")
@@ -63,4 +63,10 @@ public class Subject {
 
     @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Assessment> assessment;
+
+    @OneToMany( mappedBy = "subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PreRequisite> subject_code;
+
+    @OneToMany( mappedBy = "requisite_subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<PreRequisite> requisite_subject_code;
 }
