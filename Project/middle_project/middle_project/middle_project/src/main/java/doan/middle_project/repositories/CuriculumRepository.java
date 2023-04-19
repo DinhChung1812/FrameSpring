@@ -15,4 +15,9 @@ public interface CuriculumRepository extends JpaRepository<Curriculum, Integer> 
             "c.curriculumId,c.curriculumCode,c.curriculumName,c.curriculumNameEnglish, c.description, c.descriptionNO, c.totalCredit)" +
             "from Curriculum c where c.status = 1")
     public List<CuriculumVo> getAllCuriculum();
+
+    @Query("select new doan.middle_project.common.vo.CuriculumVo(" +
+            "c.curriculumId,c.curriculumCode,c.curriculumName,c.curriculumNameEnglish, c.description, c.descriptionNO, c.totalCredit)" +
+            "from Curriculum c where c.status = 1 and c.curriculumCode LIKE :code")
+    public List<CuriculumVo> getCuriculumByCode(String code);
 }
