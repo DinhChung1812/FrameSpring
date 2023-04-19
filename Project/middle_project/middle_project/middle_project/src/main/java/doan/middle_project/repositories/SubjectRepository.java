@@ -23,7 +23,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     @Query(value = "select p.plo_id,p.plo_name from plo p join subject_plo sp on sp.plo_id = p.plo_id where sp.subject_id=?1",nativeQuery = true)
     List<Object[]> getListPlo(Integer subjectId);
 
-public interface SubjectRepository extends JpaRepository<Subject,Integer> {
 
     @Query("select new doan.middle_project.common.vo.SubjectVo(" +
             "s.subjectId,s.subjectCode,s.subjectName,s.subjectNote, s.semester, s.credit, s.preRequisite)" +
