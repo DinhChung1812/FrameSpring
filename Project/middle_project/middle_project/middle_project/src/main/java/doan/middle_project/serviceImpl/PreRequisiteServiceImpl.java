@@ -18,8 +18,9 @@ public class PreRequisiteServiceImpl implements PreRequisiteService {
     PreRequisiteRepository preRequisiteRepository;
 
     @Override
-    public PreRequisiteDto getPreRequisite(String subjectCode) {
+    public List<PreRequisiteDto> getPreRequisite(String subjectCode) {
         List<Object[]> preRequisite = preRequisiteRepository.getPreRequisite(subjectCode);
+        List<PreRequisiteDto> preRequisiteDtoList = new ArrayList<>();
         PreRequisiteDto preRequisiteDto = new PreRequisiteDto();
         for (Object[] o: preRequisite) {
             preRequisiteDto.setSyllabusId((Integer) o[0]);
@@ -35,6 +36,7 @@ public class PreRequisiteServiceImpl implements PreRequisiteService {
             learnAfter.add(s);
         }
         preRequisiteDto.setLearnAfter(learnAfter);
-        return preRequisiteDto;
+        preRequisiteDtoList.add(preRequisiteDto);
+        return preRequisiteDtoList;
     }
 }
