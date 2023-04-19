@@ -58,8 +58,8 @@ public class Curriculum {
     @OneToOne(mappedBy = "curriculumId")
     private Account account;
 
-//    @ManyToOne
-//    @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
-//    private Decision decision;
+    @ManyToOne
+    @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
+    private Decision decision;
 
 }

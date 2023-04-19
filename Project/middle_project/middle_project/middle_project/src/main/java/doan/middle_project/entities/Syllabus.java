@@ -36,7 +36,7 @@ public class Syllabus {
     @OneToOne(mappedBy = "syllabusId")
     private Account account;
 
-//    @ManyToOne
-//    @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
-//    private Decision decision;
+    @ManyToOne
+    @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
+    private Decision decision;
 }

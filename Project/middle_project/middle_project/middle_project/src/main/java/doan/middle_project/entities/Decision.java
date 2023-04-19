@@ -25,9 +25,9 @@ public class Decision {
     @Column(name = "decision_date")
     private Date decisionDate;
 
-//    @OneToMany( mappedBy = "decision",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Curriculum> curriculum;
+    @OneToMany( mappedBy = "decision",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Curriculum> curriculum;
 
-//    @OneToMany( mappedBy = "decision",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Syllabus> syllabus;
+    @OneToMany( mappedBy = "decision",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Syllabus> syllabus;
 }

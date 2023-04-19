@@ -38,7 +38,7 @@ public class SubjectController {
         return subjectService.getSubjectPlo2(curriculumId);
     }
     @GetMapping("/get_all_subject")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> getAllSubject(@RequestParam(required = false) String code) {
         List<SubjectVo> listSubject = subjectService.getAllSubject(code);
         if (listSubject == null){
