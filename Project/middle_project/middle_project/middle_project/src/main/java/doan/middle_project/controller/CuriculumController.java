@@ -28,8 +28,8 @@ public class CuriculumController {
     CuriculumService curriculumService;
 
     @PostMapping("/createCurriculum")
-    public void createCurriculum(@RequestBody CurriculumRequest curriculumRequest){
-        curriculumService.createCurriculum(curriculumRequest);
+    public void createCurriculum(@RequestParam(required = false) Integer decisionId, @RequestBody CurriculumRequest curriculumRequest){
+        curriculumService.createCurriculum(decisionId, curriculumRequest);
     }
 
     @GetMapping("/get_all_curiculum")

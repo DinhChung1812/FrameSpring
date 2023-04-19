@@ -11,6 +11,7 @@ import doan.middle_project.dto.Requests.CurriculumRequest;
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.entities.Account;
 import doan.middle_project.entities.Curriculum;
+import doan.middle_project.entities.Decision;
 import doan.middle_project.entities.PO;
 import doan.middle_project.exception.BadRequestException;
 import doan.middle_project.exception.NotFoundException;
@@ -36,13 +37,14 @@ public class CuriculumServiceImpl implements CuriculumService {
     @Autowired
     SubjectRepository _subjectRepository;
 
-
+    @Autowired
+    DecisionRepository decisionRepository;
 
     @Autowired
     CurriculumRepository curriculumRepository;
 
     @Override
-    public void createCurriculum(CurriculumRequest curriculumRequest) {
+    public void createCurriculum(Integer decisionId, CurriculumRequest curriculumRequest) {
         Curriculum c = new Curriculum();
         c.setCurriculumCode(curriculumRequest.getCurriculumCode());
         c.setCurriculumName(curriculumRequest.getCurriculumName());
@@ -50,6 +52,8 @@ public class CuriculumServiceImpl implements CuriculumService {
         c.setDescription(curriculumRequest.getDescription());
         c.setDescriptionNO(curriculumRequest.getDescriptionNO());
         c.setStatus(1);
+        Decision decision = decisionRepository.findById(1).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+decisionId+"!!!"));
+        c.setDecision(decision);
         curriculumRepository.save(c);
     }
 
