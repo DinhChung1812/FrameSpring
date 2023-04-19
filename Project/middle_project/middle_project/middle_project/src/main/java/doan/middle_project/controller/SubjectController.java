@@ -1,12 +1,12 @@
 package doan.middle_project.controller;
 
 import doan.middle_project.dto.Requests.SubjectRequest;
-import doan.middle_project.entities.Subject;
+import doan.middle_project.dto.Responds.SubjectPloMappingResponse;
 import doan.middle_project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class SubjectController {
@@ -19,6 +19,15 @@ public class SubjectController {
         subjectService.createSubject(subject);
     }
 
+//    @GetMapping("/getSubjectPlo")
+//    public List<SubjectPloResponse> getSubjectPlo(@RequestParam("Curriculum_id") Integer curriculumId){
+//        return subjectService.getSubjectPlo(curriculumId);
+//    }
+
+    @GetMapping("/getSubjectPlo")
+    public List<SubjectPloMappingResponse> getSubjectPlo(@RequestParam("Curriculum_id") Integer curriculumId){
+        return subjectService.getSubjectPlo2(curriculumId);
+    }
 
 
 }

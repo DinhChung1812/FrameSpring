@@ -30,7 +30,7 @@ public class HomeController {
     }
 
     @PutMapping("/updateprofile")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> UpdateProfile(@RequestParam("account_id") Integer accountId, @RequestBody ProfileEditRequest profileRequest)  {
         return homeService.updateProfile(accountId, profileRequest);
     }
