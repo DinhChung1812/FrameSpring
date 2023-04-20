@@ -15,6 +15,12 @@ public interface PLORepository extends JpaRepository<PLO, Integer> {
     @Query("select new doan.middle_project.common.vo.PLOVo(" +
             "plo.ploId,plo.ploName,plo.ploDescription)" +
             "from PLO plo join plo.curriculum c " +
+            "where plo.status = 1")
+    public List<PLOVo> getPLOByCuriculum();
+
+    @Query("select new doan.middle_project.common.vo.PLOVo(" +
+            "plo.ploId,plo.ploName,plo.ploDescription)" +
+            "from PLO plo join plo.curriculum c " +
             "where plo.status = 1 and c.curriculumCode LIKE :code")
     public List<PLOVo> getPLOByCuriculumCode(String code);
 }

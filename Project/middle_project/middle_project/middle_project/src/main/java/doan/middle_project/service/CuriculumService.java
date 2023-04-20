@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface CuriculumService {
 
-    void createCurriculum(Integer decisionId,CurriculumRequest curriculumRequest);
+    ResponseEntity<?> createCurriculum(Integer decisionId,CurriculumRequest curriculumRequest);
     List<CuriculumVo> getAllCuriculum(String code);
     ResponseEntity<?> addOrEditCuriculum(Integer curiculumId, CuriculumEditRequest curiculumEditRequest) throws BadRequestException;
     ResponseEntity<?> deleteCuriculum(Integer curiculumId);
