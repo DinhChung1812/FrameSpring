@@ -16,6 +16,12 @@ public interface PORepository extends JpaRepository<PO, Integer> {
     @Query("select new doan.middle_project.common.vo.POVo(" +
             "po.poId,po.poName,po.poDescription)" +
             "from PO po join po.curriculum c " +
+            "where po.status = 1")
+    public List<POVo> getPOByCuriculum();
+
+    @Query("select new doan.middle_project.common.vo.POVo(" +
+            "po.poId,po.poName,po.poDescription)" +
+            "from PO po join po.curriculum c " +
             "where po.status = 1 and c.curriculumCode LIKE :code")
     public List<POVo> getPOByCuriculumCode(String code);
 }

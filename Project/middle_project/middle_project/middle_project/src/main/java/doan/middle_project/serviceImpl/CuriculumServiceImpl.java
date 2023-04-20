@@ -11,6 +11,7 @@ import doan.middle_project.dto.Requests.CurriculumRequest;
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.entities.Account;
 import doan.middle_project.entities.Curriculum;
+import doan.middle_project.entities.Decision;
 import doan.middle_project.entities.PO;
 import doan.middle_project.exception.BadRequestException;
 import doan.middle_project.exception.NotFoundException;
@@ -18,6 +19,7 @@ import doan.middle_project.exception.StatusCode;
 import doan.middle_project.repositories.*;
 import doan.middle_project.service.CuriculumService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -36,13 +38,18 @@ public class CuriculumServiceImpl implements CuriculumService {
     @Autowired
     SubjectRepository _subjectRepository;
 
-
+    @Autowired
+    DecisionRepository decisionRepository;
 
     @Autowired
     CurriculumRepository curriculumRepository;
 
     @Override
-    public void createCurriculum(CurriculumRequest curriculumRequest) {
+    public ResponseEntity<?> createCurriculum(Integer decisionId, CurriculumRequest curriculumRequest) {
+        List<CuriculumVo> lstCuriculum = _curiculumRepository.getCuriculumByCode(curriculumRequest.getCurriculumCode().trim());
+        if(lstCuriculum.size()!= 0){
+            return new ResponseEntity<>("Bị trùng code", HttpStatus.NOT_FOUND);
+        }
         Curriculum c = new Curriculum();
         c.setCurriculumCode(curriculumRequest.getCurriculumCode());
         c.setCurriculumName(curriculumRequest.getCurriculumName());
@@ -50,7 +57,12 @@ public class CuriculumServiceImpl implements CuriculumService {
         c.setDescription(curriculumRequest.getDescription());
         c.setDescriptionNO(curriculumRequest.getDescriptionNO());
         c.setStatus(1);
+        Decision decision = decisionRepository.findById(1).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+decisionId+"!!!"));
+        c.setDecision(decision);
         curriculumRepository.save(c);
+
+        return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"Đã them: "+curriculumRequest.getCurriculumCode()+" thành công"));
+
     }
 
     @Override
@@ -108,20 +120,30 @@ public class CuriculumServiceImpl implements CuriculumService {
 
     @Override
     public List<PLOVo> getAllPLO(String code) {
-        List<PLOVo> lstPLOByCuriculumCode = _PLORepository.getPLOByCuriculumCode(code);
-        if (lstPLOByCuriculumCode.size() == 0){
+        List<PLOVo> lstPlo = new ArrayList<>();
+        if(code == null || code.equals("") ){
+            lstPlo = _PLORepository.getPLOByCuriculum();
+        } else {
+            lstPlo = _PLORepository.getPLOByCuriculumCode(code);
+        }
+        if (lstPlo.size() == 0){
             return null;
         }
-        return lstPLOByCuriculumCode;
+        return lstPlo;
     }
 
     @Override
     public List<POVo> getAllPO(String code) {
-        List<POVo> lstPOByCuriculumCode = _PORepository.getPOByCuriculumCode(code);
-        if (lstPOByCuriculumCode.size() == 0){
+        List<POVo> lstPo = new ArrayList<>();
+        if(code == null || code.equals("") ){
+            lstPo = _PORepository.getPOByCuriculum();
+        } else {
+            lstPo = _PORepository.getPOByCuriculumCode(code);
+        }
+        if (lstPo.size() == 0){
             return null;
         }
-        return lstPOByCuriculumCode;
+        return lstPo;
     }
 
 
