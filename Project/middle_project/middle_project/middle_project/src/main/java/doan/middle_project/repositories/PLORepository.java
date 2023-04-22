@@ -23,4 +23,8 @@ public interface PLORepository extends JpaRepository<PLO, Integer> {
             "from PLO plo join plo.curriculum c " +
             "where plo.status = 1 and c.curriculumCode LIKE :code")
     public List<PLOVo> getPLOByCuriculumCode(String code);
+
+    @Query(value = "select p.* from plo p join curriculum c on p.curriculum_id = c.curriculum_id where c.curriculum_code = ?1",nativeQuery = true)
+    List<PLO> findByCurriculumCode(String curriculumCode);
+
 }
