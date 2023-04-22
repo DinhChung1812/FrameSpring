@@ -24,4 +24,8 @@ public interface PORepository extends JpaRepository<PO, Integer> {
             "from PO po join po.curriculum c " +
             "where po.status = 1 and c.curriculumCode LIKE :code")
     public List<POVo> getPOByCuriculumCode(String code);
+
+
+    @Query(value = "select p.* from po p join curriculum c on p.curriculum_id = c.curriculum_id where c.curriculum_code = ?1", nativeQuery = true)
+    List<PO> getPOByCurriculumCode(String curriculumCode);
 }

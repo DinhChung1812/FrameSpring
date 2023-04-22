@@ -42,7 +42,7 @@ public class CuriculumServiceImpl implements CuriculumService {
     DecisionRepository decisionRepository;
 
     @Autowired
-    CurriculumRepository curriculumRepository;
+    CuriculumRepository curriculumRepository;
 
     @Override
     public ResponseEntity<?> createCurriculum(Integer decisionId, CurriculumRequest curriculumRequest) {

@@ -1,6 +1,7 @@
 package doan.middle_project.exception;
 
 import doan.middle_project.dto.Responds.MessageResponse;
+import doan.middle_project.dto.Responds.MessageResponse2;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -56,11 +57,16 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
 
-
     @ExceptionHandler(NotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public MessageResponse handleNotFoundException(NotFoundException ex, WebRequest request) {
         return new MessageResponse(StatusCode.Not_Found, ex.getMessage());
+    }
+
+    @ExceptionHandler(ResponseException.class)
+//    @ResponseStatus(value = HttpStatus.FOUND)
+    public MessageResponse2 handleNotFoundException2(ResponseException ex, WebRequest request) {
+        return new MessageResponse2(ex.getMessage());
     }
 
 }

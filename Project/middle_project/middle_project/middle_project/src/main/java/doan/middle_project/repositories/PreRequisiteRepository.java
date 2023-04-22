@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface PreRequisiteRepository extends JpaRepository<PreRequisite,Integer> {
 
-    @Query(value = "select sl.syllabus_id, s.subject_code,sl.syllabus_name, d.decision_no,d.decision_date from subject s join syllabus sl on s.subject_id = sl.subject_id\n" +
+    @Query(value = "select sl.syllabus_id, s.subject_code,sl.syllabus_name, d.decision_no from subject s join syllabus sl on s.subject_id = sl.subject_id\n" +
             "join decision d on sl.decision_id = d.decision_id where s.subject_code = ?1",nativeQuery = true)
     List<Object[]> getPreRequisite(String subjectCode);
 

@@ -29,6 +29,12 @@ public class Syllabus {
     @Column(name = "syllabus_status")
     private Integer syllabusStatus;
 
+    @Column(name = "isActive")
+    private Boolean isActive;
+
+    @Column(name = "isProved")
+    private boolean isProved;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
     private Subject subjectId;
