@@ -33,7 +33,7 @@ public class Syllabus {
     private Boolean isActive;
 
     @Column(name = "isProved")
-    private boolean isProved;
+    private Boolean isProved;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
