@@ -64,6 +64,7 @@ public class ElectiveServiceImpl implements ElectiveService {
                     elect.setEletiveName(item.getElectiveName());
                     check = false;
                 }
+                subj.setSubjectId(item.getSubjectId());
                 subj.setSubjectCode(item.getSubjectCode());
                 subj.setSubjectName(item.getSubjectName());
                 lstSubjectResponse.add(subj);

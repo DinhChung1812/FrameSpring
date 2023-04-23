@@ -20,4 +20,5 @@ public class ElectiveVo {
     private String subjectName;
 
     private String subjectCode;
+    private Integer subjectId;
 }
