@@ -22,4 +22,7 @@ public interface AssessmentRepository extends JpaRepository<Assessment, Integer>
 
     @Query(value = "select assessment_cate_id, assessment_cate_name from assessment_category where assessment_cate_id = ?1",nativeQuery = true)
     public List<Object[]> getAssessmenCatetById(Integer idAssCate);
+    @Query(value = "select assessment_cate_id, assessment_cate_name from assessment_category",nativeQuery = true)
+    public List<Object[]> getAssessmenCate();
+
 }

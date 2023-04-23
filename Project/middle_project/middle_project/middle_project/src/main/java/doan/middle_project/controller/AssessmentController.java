@@ -23,7 +23,7 @@ public class AssessmentController {
 
     @GetMapping("/get_all_assessment_cate")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-        public ResponseEntity<?> getAllAssessmentCate(@RequestParam("id_ass_cate") Integer idAssCate) {
+        public ResponseEntity<?> getAllAssessmentCate(@RequestParam(required = false) Integer idAssCate) {
         return assessmentService.getAllAssessmentCate(idAssCate);
     }
 

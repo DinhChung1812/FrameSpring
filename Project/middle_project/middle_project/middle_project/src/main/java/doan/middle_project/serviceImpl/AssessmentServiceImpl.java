@@ -74,15 +74,15 @@ public class AssessmentServiceImpl implements AssessmentService {
         List<Object[]> lstObject = new ArrayList<>();
         List<AssessmentCateVO>  lstAssessment = new ArrayList<>();
         if(idAssCate == null || idAssCate.equals("") ){
-            return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
+            lstObject = assessmentRepository.getAssessmenCate();
         } else {
             lstObject = assessmentRepository.getAssessmenCatetById(idAssCate);
-            for (Object[] o: lstObject) {
-                AssessmentCateVO assessment = new AssessmentCateVO();
-                assessment.setAssessmentCateId((Integer) o[0]);
-                assessment.setAssessmentCateName((String) o[1]);
-                lstAssessment.add(assessment);
-            }
+        }
+        for (Object[] o: lstObject) {
+            AssessmentCateVO assessment = new AssessmentCateVO();
+            assessment.setAssessmentCateId((Integer) o[0]);
+            assessment.setAssessmentCateName((String) o[1]);
+            lstAssessment.add(assessment);
         }
         return ResponseEntity.ok(lstAssessment);
     }
