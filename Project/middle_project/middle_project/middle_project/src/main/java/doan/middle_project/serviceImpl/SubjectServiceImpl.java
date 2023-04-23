@@ -7,8 +7,6 @@ import doan.middle_project.dto.Responds.SubjectPloResponse;
 import doan.middle_project.dto.Responds.SubjectPloMappingResponse;
 import doan.middle_project.entities.Curriculum;
 import doan.middle_project.entities.Subject;
-import doan.middle_project.repositories.CurriculumRepository;
-import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.SubjectVo;
 import doan.middle_project.repositories.CuriculumRepository;
 import doan.middle_project.repositories.SubjectRepository;
@@ -27,7 +25,7 @@ public class SubjectServiceImpl implements SubjectService {
 
 
     @Autowired
-    CurriculumRepository curriculumRepository;
+    CuriculumRepository curriculumRepository;
 
     @Override
     public void createSubject(SubjectRequest subject) {

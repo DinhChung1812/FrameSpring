@@ -18,7 +18,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 //            "                         join plo p on sp.plo_id = p.plo_id where p.curriculum_id=?1",nativeQuery = true)
 //    List<Object[]> findByCurriculum(Integer curriculum);
 
-    @Query(value = "select * from subject where curriculum_id =?1", nativeQuery = true)
+    @Query(value = "select s.* from subject s join curriculum_subject cs on s.subject_id = cs.subject_id where curriculum_id = ?1", nativeQuery = true)
     List<Subject> findSubjectByCurriculum(Integer curriculumId);
 
     @Query(value = "select p.plo_id,p.plo_name from plo p join subject_plo sp on sp.plo_id = p.plo_id where sp.subject_id=?1",nativeQuery = true)

@@ -26,7 +26,7 @@ public class PreRequisiteServiceImpl implements PreRequisiteService {
             preRequisiteDto.setSyllabusId((Integer) o[0]);
             preRequisiteDto.setSubjectCode((String) o[1]);
             preRequisiteDto.setSyllabusName((String) o[2]);
-            preRequisiteDto.setDecisionNo(String.valueOf(o[3]));
+            preRequisiteDto.setDecisionNo((String)o[3]);
         }
 
         List<Object[]> preRequisiteOf = preRequisiteRepository.getPreRequisiteOf(subjectCode);

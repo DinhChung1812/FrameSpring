@@ -11,6 +11,10 @@ import java.util.List;
 
 @Repository
 public interface CuriculumRepository extends JpaRepository<Curriculum, Integer> {
+
+    @Query(value = "select * from curriculum  where curriculum_code=?1",nativeQuery = true)
+    Curriculum findByCurriculumCode(String code);
+
     @Query("select new doan.middle_project.common.vo.CuriculumVo(" +
             "c.curriculumId,c.curriculumCode,c.curriculumName,c.curriculumNameEnglish, c.description, c.descriptionNO, c.totalCredit, c.status)" +
             "from Curriculum c where c.status = 1")
