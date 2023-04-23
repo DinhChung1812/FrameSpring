@@ -21,6 +21,12 @@ public class AssessmentController {
         return assessmentService.getAllAssessment(code_syllabus);
     }
 
+    @GetMapping("/get_all_assessment_cate")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+        public ResponseEntity<?> getAllAssessmentCate(@RequestParam("id_syllabus") Integer id_syllabus) {
+        return assessmentService.getAllAssessmentCate(id_syllabus);
+    }
+
     @PutMapping("/update_insert_assessment")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> UpdateInsertAssessment(@RequestParam("assessment_id") Integer assessmentId, @RequestBody AssessmentRequest assessmentRequest){

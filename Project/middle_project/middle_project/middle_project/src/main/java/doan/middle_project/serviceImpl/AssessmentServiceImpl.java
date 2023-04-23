@@ -69,6 +69,34 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
+    public ResponseEntity<?> getAllAssessmentCate(Integer id_syllabus) {
+        List<Object[]> lstObject = new ArrayList<>();
+        List<AssessmentVo>  lstAssessment = new ArrayList<>();
+        if(id_syllabus == null || id_syllabus.equals("") ){
+            return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
+        } else {
+            lstObject = assessmentRepository.getAssessmentById(id_syllabus);
+            for (Object[] o: lstObject) {
+                AssessmentVo assessment = new AssessmentVo();
+                assessment.setAssessmentId((Integer) o[0]);
+                assessment.setType((String) o[1]);
+                assessment.setPart((Integer) o[2]);
+                assessment.setWeight((String) o[3]);
+                assessment.setCompletionCriteria((String) o[4]);
+                assessment.setDuration((Integer) o[5]);
+                assessment.setQuestionType((String) o[6]);
+                assessment.setQuestionNo((String) o[7]);
+                assessment.setKnowledgeSkill((String) o[8]);
+                assessment.setGradingGuide((String) o[9]);
+                assessment.setNote((String) o[10]);
+                lstAssessment.add(assessment);
+            }
+        }
+
+        return ResponseEntity.ok(lstAssessment);
+    }
+
+    @Override
     public ResponseEntity<?> UpdateInsertAssessment(Integer assessmentId, AssessmentRequest assessmentRequest) {
         Assessment assessment = new Assessment();
         Syllabus syllabus = new Syllabus();

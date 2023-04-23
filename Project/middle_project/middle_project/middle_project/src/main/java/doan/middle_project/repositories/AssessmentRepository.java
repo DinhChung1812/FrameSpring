@@ -19,4 +19,9 @@ public interface AssessmentRepository extends JpaRepository<Assessment, Integer>
             "join syllabus s on sa.syllabus_id = s.syllabus_id " +
             "where s.syllabus_code like %?1%",nativeQuery = true)
     public List<Object[]> getAssessmentBySubject(String code);
+
+    @Query(value = "select a.assessment_id, a.type, a.part, a.weight, a.completion_criteria, a.duration, a.question_type, a.question_no, a.knowledge_skill, a.grading_guide, a.note\n" +
+            "from assessment a \n" +
+            "where a.assessment_id = ?1 ",nativeQuery = true)
+    public List<Object[]> getAssessmentById(Integer id_syllabus);
 }
