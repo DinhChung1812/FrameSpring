@@ -16,15 +16,18 @@ public class SyllabusController {
     SyllabusService syllabusService;
 
     @GetMapping("/getSyllabusList")
-    public List<SyllabusDto> getSyllabusList(@RequestParam("type")Integer type, @RequestParam("text_search") String textSearch ){
+    public List<SyllabusDto> getSyllabusList(@RequestParam("type")Integer type, @RequestParam(value = "text_search",required = false,defaultValue = "") String textSearch ){
         return syllabusService.getSyllabusList(type,textSearch);
     }
 
     @PostMapping("/addSyllabus")
-    public void SyllabusRequest(@RequestBody SyllabusRequest syllabusRequest){
+    public void addSyllabus(@RequestBody SyllabusRequest syllabusRequest){
         syllabusService.addSyllabus(syllabusRequest);
     }
 
-
+    @PutMapping("/editSyllabus")
+    public void editSyllabus(@RequestBody SyllabusRequest syllabusRequest, @RequestParam("syllabus_id")Integer syllabusId){
+        syllabusService.editSyllabus(syllabusRequest,syllabusId);
+    }
 
 }

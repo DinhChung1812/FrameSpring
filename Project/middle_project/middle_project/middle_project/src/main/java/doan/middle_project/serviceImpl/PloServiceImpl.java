@@ -18,12 +18,12 @@ public class PloServiceImpl implements PloService {
     PLORepository ploRepository;
 
     @Override
-    public List<PloResponse> getListPlo(String curriculumCode) {
+    public List<PloResponse> getListPlo(String curriculumCode, Integer status) {
 
         if (curriculumCode.isEmpty() || curriculumCode==null) {
             throw new ResponseException("not found");
         }
-            List<PLO> ploList = ploRepository.findByCurriculumCode(curriculumCode);
+            List<PLO> ploList = ploRepository.findByCurriculumCode(curriculumCode,status);
 
             if (ploList.isEmpty() || ploList == null) {
                 throw new ResponseException("not found");

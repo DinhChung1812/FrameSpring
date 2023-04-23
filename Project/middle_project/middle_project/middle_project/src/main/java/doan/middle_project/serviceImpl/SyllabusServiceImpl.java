@@ -35,20 +35,25 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         List<Object[]> syllabusList = new ArrayList<>();
 
-        if (type == 1) {
-            syllabusList = syllabusRepository.getSyllabusBysubjectCode(textSearch);
-        } else if (type == 2) {
+        textSearch.trim();
+
+        if ((type == 1 && textSearch.isEmpty())||type == 2 && textSearch.isEmpty()) {
+            syllabusList = syllabusRepository.getAllSyllabus();
+        }
+         else if (type == 2 && textSearch != null) {
             syllabusList = syllabusRepository.getSyllabusBysubjectName(textSearch);
+        } else  if (type == 1 && !textSearch.isEmpty()) {
+            syllabusList = syllabusRepository.getSyllabusBysubjectCode(textSearch);
         }
 
         List<SyllabusDto> syllabusDtoList = new ArrayList<>();
 
-        for (Object[] s: syllabusList){
+        for (Object[] s : syllabusList) {
             SyllabusDto syllabusDto = new SyllabusDto();
             syllabusDto.setSyllabusId((Integer) s[0]);
             syllabusDto.setSubjectCode((String) s[1]);
-            syllabusDto.setSubjectName((String)s[2]);
-            syllabusDto.setSyllabusName((String)s[3]);
+            syllabusDto.setSubjectName((String) s[2]);
+            syllabusDto.setSyllabusName((String) s[3]);
             syllabusDto.setIsActive((boolean) s[4]);
             syllabusDto.setIsProved((boolean) s[5]);
             syllabusDto.setDecisionNo((String) s[6]);
@@ -64,8 +69,8 @@ public class SyllabusServiceImpl implements SyllabusService {
     public void addSyllabus(SyllabusRequest syllabusRequest) {
 
         Syllabus s = syllabusRepository.findBySyllabusName(syllabusRequest.getSyllabusName());
-        if(s!=null){
-            throw  new ResponseException("syllabus name dupplicate");
+        if (s != null) {
+            throw new ResponseException("syllabus name dupplicate");
         }
 
         Decision decision = new Decision();
@@ -86,7 +91,25 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setDegreeLevel(syllabusRequest.getDegreeLevel());
         syllabus.setStudentTasks(syllabusRequest.getStudentTasks());
         syllabus.setNote(syllabusRequest.getNote());
+        syllabus.setIsActive(syllabusRequest.getIsActive());
+        syllabus.setIsProved(syllabusRequest.getIsProved());
         syllabusRepository.save(syllabus);
 
+    }
+
+    @Override
+    public void editSyllabus(SyllabusRequest syllabusRequest, Integer syllabusId) {
+
+        Syllabus syllabus = syllabusRepository.getById(syllabusId);
+        syllabus.setSyllabusName(syllabusRequest.getSyllabusName());
+        syllabus.setTimeAllocation(syllabusRequest.getTimeAllocation());
+        syllabus.setSyllabusDescription(syllabusRequest.getSyllabusDescription());
+        syllabus.setScoringScale(syllabusRequest.getScoringScale());
+        syllabus.setMinAvgMarkToPass(syllabusRequest.getMinAvgMarkToPass());
+        syllabus.setDegreeLevel(syllabusRequest.getDegreeLevel());
+        syllabus.setStudentTasks(syllabusRequest.getStudentTasks());
+        syllabus.setNote(syllabusRequest.getNote());
+        syllabus.setIsActive(syllabusRequest.getIsActive());
+        syllabusRepository.save(syllabus);
     }
 }

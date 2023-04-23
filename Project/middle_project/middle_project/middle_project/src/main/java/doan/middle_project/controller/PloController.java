@@ -16,8 +16,9 @@ public class PloController {
     PloService ploService;
 
     @GetMapping("/PloDetail")
-    public List<PloResponse> getListPlo(@RequestParam(value = "Curriculum_code",required = false,defaultValue = " ") String CurriculumCode){
-        return ploService.getListPlo(CurriculumCode);
+    public List<PloResponse> getListPlo(@RequestParam(value = "Curriculum_code",required = false,defaultValue = " ") String CurriculumCode,
+                                        @RequestParam(value = "status") Integer status){
+        return ploService.getListPlo(CurriculumCode,status);
     }
 
 }

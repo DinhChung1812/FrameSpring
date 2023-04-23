@@ -15,8 +15,9 @@ public class PoController {
     PoService poService;
 
     @GetMapping("/poDetail")
-    public ResponseEntity<?> getPoDetail (@RequestParam(value = "curriculum_code",required = false,defaultValue = " ") String curriculumCode){
-        return poService.getPoDetail(curriculumCode);
+    public ResponseEntity<?> getPoDetail (@RequestParam(value = "curriculum_code",required = false,defaultValue = " ") String curriculumCode,
+                                          @RequestParam(value = "status") Integer status){
+        return poService.getPoDetail(curriculumCode,status);
     }
 
 }

@@ -38,8 +38,8 @@ public class SubjectServiceImpl implements SubjectService {
         s.setPreRequisite(subject.getPreRequisite());
         s.setStatus(subject.getStatus());
 
-        Curriculum c = curriculumRepository.findByCurriculumCode(subject.getCurriculumCode());
-        //s.setCurriculum(c);
+//        Curriculum c = curriculumRepository.findByCurriculumCode(subject.getCurriculumCode());
+//        s.setCurriculum(c);
         subjectRepository.save(s);
     }
 
