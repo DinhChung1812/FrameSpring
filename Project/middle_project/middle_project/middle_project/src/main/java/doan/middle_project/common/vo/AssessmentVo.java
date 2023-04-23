@@ -15,6 +15,7 @@ public class AssessmentVo {
 
     private Integer assessmentId;
     private Integer assessmentCateId;
+    private Integer syllabusId;
 
     private String assessment_category;
 
