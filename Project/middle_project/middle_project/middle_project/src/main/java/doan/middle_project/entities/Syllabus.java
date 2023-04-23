@@ -32,10 +32,10 @@ public class Syllabus {
     private Integer syllabusStatus;
 
     @Column(name = "isActive")
-    private Boolean isActive;
+    private Integer isActive;
 
     @Column(name = "isProved")
-    private boolean isProved;
+    private Integer isProved;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")

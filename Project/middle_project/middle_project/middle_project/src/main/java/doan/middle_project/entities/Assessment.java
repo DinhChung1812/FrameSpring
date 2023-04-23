@@ -59,8 +59,6 @@ public class Assessment {
     @ManyToMany (mappedBy = "assessmentId",cascade = {CascadeType.MERGE})
     private Set<Syllabus> syllabusId;
 
-
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "assessment_cate_id", referencedColumnName = "assessment_cate_id")
     private AssessmentCategory assessmentCateId;
