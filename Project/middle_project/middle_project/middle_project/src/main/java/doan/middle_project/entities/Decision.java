@@ -25,6 +25,15 @@ public class Decision {
     @Column(name = "decision_date")
     private Date decisionDate;
 
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @Column(name = "filename")
+    private String fileName;
+
     @OneToMany( mappedBy = "decision",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Curriculum> curriculum;
 
