@@ -60,6 +60,7 @@ public class ElectiveServiceImpl implements ElectiveService {
             for (ElectiveVo item: value) {
                 SubjectResponse subj = new SubjectResponse();
                 if (check == true){
+                    elect.setEletiveId(item.getElectiveId());
                     elect.setEletiveName(item.getElectiveName());
                     check = false;
                 }
