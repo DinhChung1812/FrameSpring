@@ -17,4 +17,7 @@ public interface PreRequisiteRepository extends JpaRepository<PreRequisite,Integ
     @Query(value = "select pr.requisite_subject_code from pre_requisite pr where pr.subject_code = ?1",nativeQuery = true)
     List<Object[]> getPreRequisiteOf(String subjectCode);
 
+    @Query(value = "select p.requisite_subject_code from pre_requisite p join subject s on p.subject_code = s.subject_code where s.subject_id=?1",nativeQuery = true)
+    List<Object[]> getPreRequisiteBySubject_code(Integer subjectId);
+
 }

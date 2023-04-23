@@ -1,5 +1,6 @@
 package doan.middle_project.entities;
 
+import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
@@ -7,7 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "pre_requisite")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true, callSuper = false)
-
+@Data
 public class PreRequisite {
 
     @Id

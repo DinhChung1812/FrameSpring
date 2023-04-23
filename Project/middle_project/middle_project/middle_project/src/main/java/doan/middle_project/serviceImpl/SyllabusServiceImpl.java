@@ -1,12 +1,16 @@
 package doan.middle_project.serviceImpl;
 
 import doan.middle_project.dto.Requests.SyllabusRequest;
+import doan.middle_project.dto.Responds.PreRequisiteDto;
 import doan.middle_project.dto.Responds.SyllabusDto;
+import doan.middle_project.dto.Responds.SyllabusResponse;
 import doan.middle_project.entities.Decision;
+import doan.middle_project.entities.PreRequisite;
 import doan.middle_project.entities.Subject;
 import doan.middle_project.entities.Syllabus;
 import doan.middle_project.exception.ResponseException;
 import doan.middle_project.repositories.DecisionRepository;
+import doan.middle_project.repositories.PreRequisiteRepository;
 import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.repositories.SyllabusRepository;
 import doan.middle_project.service.SyllabusService;
@@ -28,6 +32,9 @@ public class SyllabusServiceImpl implements SyllabusService {
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Autowired
+    PreRequisiteRepository preRequisiteRepository;
+
 
     //1- subject code. 2-subject name
     @Override
@@ -37,12 +44,11 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         textSearch.trim();
 
-        if ((type == 1 && textSearch.isEmpty())||type == 2 && textSearch.isEmpty()) {
+        if ((type == 1 && textSearch.isEmpty()) || type == 2 && textSearch.isEmpty()) {
             syllabusList = syllabusRepository.getAllSyllabus();
-        }
-         else if (type == 2 && textSearch != null) {
+        } else if (type == 2 && textSearch != null) {
             syllabusList = syllabusRepository.getSyllabusBysubjectName(textSearch);
-        } else  if (type == 1 && !textSearch.isEmpty()) {
+        } else if (type == 1 && !textSearch.isEmpty()) {
             syllabusList = syllabusRepository.getSyllabusBysubjectCode(textSearch);
         }
 
@@ -111,5 +117,49 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setNote(syllabusRequest.getNote());
         syllabus.setIsActive(syllabusRequest.getIsActive());
         syllabusRepository.save(syllabus);
+    }
+
+    @Override
+    public SyllabusResponse getSyllabusDetail(Integer syllabusId) {
+
+        Syllabus syllabus = syllabusRepository.getById(syllabusId);
+
+        SyllabusResponse syllabusResponse = new SyllabusResponse();
+        syllabusResponse.setSyllabusId(syllabus.getSyllabusId());
+        syllabusResponse.setSyllabusName(syllabus.getSyllabusName());
+
+        Subject subject = subjectRepository.getSubjectCodeAndNoCreadit(syllabus.getSubjectId().getSubjectId());
+        syllabusResponse.setSubjectCode(subject.getSubjectCode());
+        syllabusResponse.setNoCredit(subject.getCredit());
+
+
+        syllabusResponse.setDegreeLevel(syllabus.getDegreeLevel());
+        syllabusResponse.setTimeAllocation(syllabus.getTimeAllocation());
+        syllabusResponse.setIsActive(syllabus.getIsActive());
+
+        List<Object[]> preRequisiteList = preRequisiteRepository.getPreRequisiteBySubject_code(syllabus.getSubjectId().getSubjectId());
+        List<String> pre = new ArrayList<>();
+        for (Object[] p : preRequisiteList) {
+            String s = "";
+            s = (String) p[0];
+            pre.add(s);
+        }
+        syllabusResponse.setPreRequisite(pre);
+
+
+        syllabusResponse.setSyllabusDescription(syllabus.getSyllabusDescription());
+        syllabusResponse.setStudentTasks(syllabus.getStudentTasks());
+        syllabusResponse.setTool(syllabus.getTool());
+        syllabusResponse.setScoringScale(syllabus.getScoringScale());
+
+//        Decision decision = decisionRepository.getBySubjectId(syllabus.getSubjectId().getSubjectId());
+        syllabusResponse.setDecisionNo(syllabus.getDecision().getDecisionNo());
+        syllabusResponse.setApprovedDate(syllabus.getDecision().getDecisionDate());
+
+        syllabusResponse.setNote(syllabus.getNote());
+        syllabusResponse.setMinAvgMarkToPass(syllabus.getMinAvgMarkToPass());
+
+        return syllabusResponse;
+
     }
 }

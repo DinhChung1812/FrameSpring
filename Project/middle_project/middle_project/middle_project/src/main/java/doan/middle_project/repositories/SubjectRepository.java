@@ -43,4 +43,6 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
             "where s.status = 1 and c.curriculumCode LIKE :code")
     public List<SubjectVo> getSubjectByCuriculumCode(String code);
 
+    @Query(value = "select * from subject s where s.subject_id = ?1",nativeQuery = true)
+    Subject getSubjectCodeAndNoCreadit(Integer subjectId);
 }

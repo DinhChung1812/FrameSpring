@@ -1,8 +1,8 @@
 package doan.middle_project.controller;
 
 import doan.middle_project.dto.Requests.SyllabusRequest;
-import doan.middle_project.dto.Responds.SyllabusResponse;
 import doan.middle_project.dto.Responds.SyllabusDto;
+import doan.middle_project.dto.Responds.SyllabusResponse;
 import doan.middle_project.service.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +28,11 @@ public class SyllabusController {
     @PutMapping("/editSyllabus")
     public void editSyllabus(@RequestBody SyllabusRequest syllabusRequest, @RequestParam("syllabus_id")Integer syllabusId){
         syllabusService.editSyllabus(syllabusRequest,syllabusId);
+    }
+
+    @GetMapping("/syllabusDetail")
+    public SyllabusResponse syllabusDetail(@RequestParam("syllabus_id")Integer syllabusId){
+        return syllabusService.getSyllabusDetail(syllabusId);
     }
 
 }
