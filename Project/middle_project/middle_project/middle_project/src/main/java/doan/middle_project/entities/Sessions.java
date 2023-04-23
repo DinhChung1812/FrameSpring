@@ -43,8 +43,8 @@ public class Sessions {
     private String url;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
-    private Subject subject;
+    @JoinColumn(name = "syllabus_id", referencedColumnName = "syllabus_id", nullable = false)
+    private Syllabus syllabus;
 
     @OneToMany( mappedBy = "sessions",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Questions> questions;

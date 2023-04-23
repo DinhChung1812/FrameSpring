@@ -3,6 +3,8 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Syllabus")
@@ -30,10 +32,10 @@ public class Syllabus {
     private Integer syllabusStatus;
 
     @Column(name = "isActive")
-    private Boolean isActive;
+    private Integer isActive;
 
     @Column(name = "isProved")
-    private boolean isProved;
+    private Integer isProved;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
@@ -45,4 +47,12 @@ public class Syllabus {
     @ManyToOne
     @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
     private Decision decision;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Syllabus_Assessment", joinColumns = @JoinColumn(name = "syllabusId"),
+            inverseJoinColumns = @JoinColumn(name = "assessmentId"))
+    private List<Assessment> assessmentId;
+
+    @OneToMany( mappedBy = "syllabus",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sessions> sessions;
 }

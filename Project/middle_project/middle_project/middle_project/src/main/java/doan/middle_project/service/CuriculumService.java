@@ -16,6 +16,7 @@ public interface CuriculumService {
     ResponseEntity<?> createCurriculum(Integer decisionId,CurriculumRequest curriculumRequest);
     List<CuriculumVo> getAllCuriculum(String code);
     ResponseEntity<?> addOrEditCuriculum(Integer curiculumId, CuriculumEditRequest curiculumEditRequest) throws BadRequestException;
+    ResponseEntity<?> updateTotalCreditCuriculum (Integer curiculumId) throws BadRequestException;
     ResponseEntity<?> deleteCuriculum(Integer curiculumId);
     List<PLOVo> getAllPLO(String code);
     List<POVo> getAllPO(String code);
