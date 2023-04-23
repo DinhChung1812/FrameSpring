@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "CLO")
@@ -27,4 +28,9 @@ public class CLO {
     @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
     private Subject subject;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Clo_PLO", joinColumns = @JoinColumn(name = "clo_id"),
+            inverseJoinColumns = @JoinColumn(name = "ploId"))
+    private List<PLO> ploId;
 }
