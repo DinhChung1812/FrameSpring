@@ -20,8 +20,6 @@ public interface AssessmentRepository extends JpaRepository<Assessment, Integer>
             "where s.syllabus_code like %?1%",nativeQuery = true)
     public List<Object[]> getAssessmentBySubject(String code);
 
-    @Query(value = "select a.assessment_id, a.type, a.part, a.weight, a.completion_criteria, a.duration, a.question_type, a.question_no, a.knowledge_skill, a.grading_guide, a.note\n" +
-            "from assessment a \n" +
-            "where a.assessment_id = ?1 ",nativeQuery = true)
-    public List<Object[]> getAssessmentById(Integer id_syllabus);
+    @Query(value = "select assessment_cate_id, assessment_cate_name from assessment_category where assessment_cate_id = ?1",nativeQuery = true)
+    public List<Object[]> getAssessmenCatetById(Integer idAssCate);
 }

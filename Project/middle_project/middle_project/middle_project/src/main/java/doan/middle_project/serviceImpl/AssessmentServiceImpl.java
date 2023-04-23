@@ -1,5 +1,6 @@
 package doan.middle_project.serviceImpl;
 
+import doan.middle_project.common.vo.AssessmentCateVO;
 import doan.middle_project.common.vo.AssessmentVo;
 import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.ElectiveVo;
@@ -71,28 +72,18 @@ public class AssessmentServiceImpl implements AssessmentService {
     @Override
     public ResponseEntity<?> getAllAssessmentCate(Integer idAssCate) {
         List<Object[]> lstObject = new ArrayList<>();
-        List<AssessmentVo>  lstAssessment = new ArrayList<>();
+        List<AssessmentCateVO>  lstAssessment = new ArrayList<>();
         if(idAssCate == null || idAssCate.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
-            lstObject = assessmentRepository.getAssessmentById(idAssCate);
+            lstObject = assessmentRepository.getAssessmenCatetById(idAssCate);
             for (Object[] o: lstObject) {
-                AssessmentVo assessment = new AssessmentVo();
-                assessment.setAssessmentId((Integer) o[0]);
-                assessment.setType((String) o[1]);
-                assessment.setPart((Integer) o[2]);
-                assessment.setWeight((String) o[3]);
-                assessment.setCompletionCriteria((String) o[4]);
-                assessment.setDuration((Integer) o[5]);
-                assessment.setQuestionType((String) o[6]);
-                assessment.setQuestionNo((String) o[7]);
-                assessment.setKnowledgeSkill((String) o[8]);
-                assessment.setGradingGuide((String) o[9]);
-                assessment.setNote((String) o[10]);
+                AssessmentCateVO assessment = new AssessmentCateVO();
+                assessment.setAssessmentCateId((Integer) o[0]);
+                assessment.setAssessmentCateName((String) o[1]);
                 lstAssessment.add(assessment);
             }
         }
-
         return ResponseEntity.ok(lstAssessment);
     }
 
