@@ -21,6 +21,12 @@ public class DecisionController {
         return decisionService.getAllDecision(code_curriculum, code_syllybus);
     }
 
+    @GetMapping("/get_decision_by_id")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getDecisionById(@RequestParam("decision_id") Integer decisionId) {
+        return decisionService.getDecisionById(decisionId);
+    }
+
     @PutMapping("/update_insert_decision")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> updateOrInsertDecision(@RequestParam("decision_id") Integer decisionId, @RequestBody DecisionRequest decisionRequest) throws ParseException {

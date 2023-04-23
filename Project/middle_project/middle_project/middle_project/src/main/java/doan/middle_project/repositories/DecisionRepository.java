@@ -13,6 +13,9 @@ public interface DecisionRepository extends JpaRepository<Decision, Integer> {
     @Query(value = "select d.decision_id, d.decision_date,d.decision_no, d.create_date,d.filename,d.note, d.decision_name from decision d ", nativeQuery = true)
     public List<Object[]> getAllDecision();
 
+    @Query(value = "select d.decision_id, d.decision_date,d.decision_no, d.create_date,d.filename,d.note, d.decision_name from decision d where d.decision_id= ?1", nativeQuery = true)
+    public List<Object[]> getDecisionById(Integer decisionId);
+
     @Query(value = "select d.decision_id, d.decision_date,d.decision_no, d.create_date,d.filename,d.note, d.decision_name from decision d\n" +
             "join curriculum c on d.decision_id = c.decision_id\n" +
             "where c.curriculum_code = %?1%", nativeQuery = true)

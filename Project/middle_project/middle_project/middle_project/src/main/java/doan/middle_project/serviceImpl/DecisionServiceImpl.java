@@ -69,6 +69,31 @@ public class DecisionServiceImpl implements DecisionService {
     }
 
     @Override
+    public ResponseEntity<?> getDecisionById(Integer decisionId) {
+        List<DecisionVo> lstDecision = new ArrayList<>();
+        List<Object[]> lstObject = new ArrayList<>();
+        if(decisionId != null || !decisionId.equals("")){
+            lstObject = decisionRepository.getDecisionById(decisionId);
+        }
+        if (lstObject.size() == 0){
+            return new ResponseEntity<>("Decision không tồn tại", HttpStatus.NOT_FOUND);
+        } else {
+            for (Object[] o: lstObject) {
+                DecisionVo decision = new DecisionVo();
+                decision.setDecisionId((Integer) o[0]);
+                decision.setDecisionDate((Date) o[1]);
+                decision.setDecisionNo((String) o[2]);
+                decision.setCreateDate((Date) o[3]);
+                decision.setFileName((String) o[4]);
+                decision.setNote((String) o[5]);
+                decision.setDecisionName((String) o[6]);
+                lstDecision.add(decision);
+            }
+        }
+        return ResponseEntity.ok(lstDecision);
+    }
+
+    @Override
     public ResponseEntity<?> updateOrInsertDecision(Integer decisionId, DecisionRequest decisionRequest) throws ParseException {
         Decision decision = new Decision();
         String mess = "";

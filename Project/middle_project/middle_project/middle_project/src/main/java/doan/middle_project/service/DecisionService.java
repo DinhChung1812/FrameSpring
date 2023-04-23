@@ -8,5 +8,6 @@ import java.text.ParseException;
 
 public interface DecisionService {
     ResponseEntity<?> getAllDecision(String code_curriculum, String code_syllybus);
+    ResponseEntity<?> getDecisionById(Integer decisionId);
     ResponseEntity<?> updateOrInsertDecision(Integer decisionId, DecisionRequest decisionRequest) throws ParseException;
 }
