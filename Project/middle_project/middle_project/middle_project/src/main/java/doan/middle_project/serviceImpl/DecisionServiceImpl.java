@@ -25,6 +25,8 @@ import org.springframework.stereotype.Service;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -78,7 +80,7 @@ public class DecisionServiceImpl implements DecisionService {
         }
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
         Date decisionDate = formatter.parse(decisionRequest.getDecisionDate());
-        Date createDate = formatter.parse(decisionRequest.getCreateDate());
+        Date createDate = new Date();
         decision.setDecisionNo(decisionRequest.getDecisionNo());
         decision.setDecisionDate(decisionDate);
         decision.setNote(decisionRequest.getNote());
