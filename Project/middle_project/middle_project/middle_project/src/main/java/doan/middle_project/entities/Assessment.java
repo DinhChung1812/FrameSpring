@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Assessment")
@@ -22,7 +23,7 @@ public class Assessment {
     private String assessment_category;
 
     @Column(name = "type", columnDefinition = "longtext")
-    private String assessment;
+    private String type;
 
     @Column(name = "part")
     private Integer part;
@@ -51,8 +52,16 @@ public class Assessment {
     @Column(name = "note", columnDefinition = "longtext")
     private String note;
 
-    @ManyToOne
-    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
-    private Subject subject;
+//    @ManyToOne
+//    @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
+//    private Subject subject;
 
+    @ManyToMany (mappedBy = "assessmentId",cascade = {CascadeType.MERGE})
+    private Set<Syllabus> syllabusId;
+
+
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "assessment_cate_id", referencedColumnName = "assessment_cate_id")
+    private AssessmentCategory assessmentCateId;
 }

@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Syllabus")
@@ -39,4 +40,9 @@ public class Syllabus {
     @ManyToOne
     @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
     private Decision decision;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Syllabus_Assessment", joinColumns = @JoinColumn(name = "syllabusId"),
+            inverseJoinColumns = @JoinColumn(name = "assessmentId"))
+    private List<Assessment> assessmentId;
 }

@@ -62,4 +62,7 @@ public class Curriculum {
     @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
     private Decision decision;
 
+    @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Elective> elective;
+
 }

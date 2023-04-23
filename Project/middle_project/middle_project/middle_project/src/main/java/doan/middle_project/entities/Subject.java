@@ -61,12 +61,15 @@ public class Subject {
     @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Sessions> sessions;
 
-    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Assessment> assessment;
+//    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Assessment> assessment;
 
     @OneToMany( mappedBy = "subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PreRequisite> subject_code;
 
     @OneToMany( mappedBy = "requisite_subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PreRequisite> requisite_subject_code;
+
+    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Elective> elective;
 }

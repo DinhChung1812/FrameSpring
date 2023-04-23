@@ -82,4 +82,13 @@ public class CuriculumController {
         return ResponseEntity.ok(listPo);
     }
 
+    @PutMapping("/update_totalcredit_curiculum")
+
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> updateTotalCreditCuriculum(@RequestParam("curiculum_id") Integer curiculumId)  {
+        if (curiculumId == null || curiculumId.equals("")){
+            return ResponseEntity.ok(new MessageVo("Chưa có ID", "Infor"));
+        }
+        return curiculumService.updateTotalCreditCuriculum(curiculumId);
+    }
 }

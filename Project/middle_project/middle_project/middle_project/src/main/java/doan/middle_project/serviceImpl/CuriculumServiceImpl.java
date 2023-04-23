@@ -111,6 +111,23 @@ public class CuriculumServiceImpl implements CuriculumService {
     }
 
     @Override
+    public ResponseEntity<?> updateTotalCreditCuriculum(Integer curiculumId) throws BadRequestException {
+        int totalCre =0;
+        if( curiculumId != null || !curiculumId.equals("")){
+            List<SubjectVo> lstSubject =_subjectRepository.getSubjectByCuriculumID(curiculumId);
+            if (lstSubject.size()!=0){
+                for (SubjectVo item: lstSubject) {
+                    totalCre += item.getCredit();
+                }
+            }
+        }
+        Curriculum curriculum = _curiculumRepository.findById(curiculumId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+curiculumId+"!!!"));
+        curriculum.setTotalCredit(totalCre);
+        _curiculumRepository.save(curriculum);
+        return ResponseEntity.ok(new MessageResponse(StatusCode.Success,"" +" thành công"));
+    }
+
+    @Override
     public ResponseEntity<?> deleteCuriculum(Integer curiculumId) {
         Curriculum curriculum = _curiculumRepository.findById(curiculumId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+curiculumId+"!!!"));
         curriculum.setStatus(0); // 1 hoat dong, 0 da xoa
