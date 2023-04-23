@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "Syllabus")
@@ -51,4 +52,7 @@ public class Syllabus {
     @JoinTable(name = "Syllabus_Assessment", joinColumns = @JoinColumn(name = "syllabusId"),
             inverseJoinColumns = @JoinColumn(name = "assessmentId"))
     private List<Assessment> assessmentId;
+
+    @OneToMany( mappedBy = "syllabus",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Sessions> sessions;
 }

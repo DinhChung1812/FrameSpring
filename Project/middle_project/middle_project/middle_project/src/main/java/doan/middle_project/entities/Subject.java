@@ -59,8 +59,7 @@ public class Subject implements Serializable {
     @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CLO> clo;
 
-    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Sessions> sessions;
+
 
 //    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 //    private Set<Assessment> assessment;

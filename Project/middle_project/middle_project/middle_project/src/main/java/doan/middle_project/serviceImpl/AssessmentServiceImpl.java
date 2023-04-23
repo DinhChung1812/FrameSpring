@@ -38,7 +38,7 @@ public class AssessmentServiceImpl implements AssessmentService {
 //            if (lst.size() == 0){
 //                return new ResponseEntity<>("Không tồn tại curriculum: " + code, HttpStatus.NOT_FOUND);
 //            }
-            lstObject = assessmentRepository.getAssessmentBySubject(code);
+            lstObject = assessmentRepository.getAssessmentBySubject(code.trim());
             for (Object[] o: lstObject) {
                 AssessmentVo assessment = new AssessmentVo();
                 assessment.setAssessmentId((Integer) o[0]);
