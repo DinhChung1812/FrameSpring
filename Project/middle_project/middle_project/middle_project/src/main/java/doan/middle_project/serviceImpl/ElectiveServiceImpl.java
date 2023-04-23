@@ -2,7 +2,9 @@ package doan.middle_project.serviceImpl;
 
 import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.ElectiveVo;
+import doan.middle_project.dto.Responds.ElectiveResponse;
 import doan.middle_project.dto.Responds.MessageResponse;
+import doan.middle_project.dto.Responds.SubjectResponse;
 import doan.middle_project.exception.StatusCode;
 import doan.middle_project.repositories.CuriculumRepository;
 import doan.middle_project.repositories.ElectiveRepository;
@@ -30,6 +32,8 @@ public class ElectiveServiceImpl implements ElectiveService {
     @Override
     public ResponseEntity<?> getAllElective(String code) {
         List<ElectiveVo> lstElective = new ArrayList<>();
+        List<ElectiveResponse> lstElectiveResponse = new ArrayList<>();
+
         if(code == null || code.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
@@ -41,6 +45,28 @@ public class ElectiveServiceImpl implements ElectiveService {
         }
         Map<String, List<ElectiveVo>> lstElectiveGrouped =
                 lstElective.stream().collect(Collectors.groupingBy(w -> w.getElectiveCode()));
-        return ResponseEntity.ok(lstElectiveGrouped);
+
+        lstElectiveGrouped.forEach((key, value) -> {
+            Boolean check = true;
+            ElectiveResponse elect = new ElectiveResponse();
+            elect.setEletiveCode(key);
+            List<SubjectResponse> lstSubjectResponse = new ArrayList<>();
+            for (ElectiveVo item: value) {
+                SubjectResponse subj = new SubjectResponse();
+                if (check == true){
+                    elect.setEletiveName(item.getElectiveName());
+                    check = false;
+                }
+                subj.setSubjectCode(item.getSubjectCode());
+                subj.setSubjectName(item.getSubjectName());
+                lstSubjectResponse.add(subj);
+            }
+            elect.setListSubject(lstSubjectResponse);
+            lstElectiveResponse.add(elect);
+            // decrease value by 10%
+//            value = value - value * 10/100;
+//            System.out.print(key + "=" + value + " ");
+        });
+        return ResponseEntity.ok(lstElectiveResponse);
     }
 }

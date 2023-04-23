@@ -18,4 +18,6 @@ public class ElectiveVo {
     private String electiveName;
 
     private String subjectName;
+
+    private String subjectCode;
 }
