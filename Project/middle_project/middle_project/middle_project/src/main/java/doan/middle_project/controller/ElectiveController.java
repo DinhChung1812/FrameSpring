@@ -27,6 +27,12 @@ public class ElectiveController {
         return electiveService.getAllElective(code);
     }
 
+    @GetMapping("/get_elective_by_id")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getElectiveById(@RequestParam("elective_id") Integer electiveId) {
+        return electiveService.getElectiveById(electiveId);
+    }
+
     @PutMapping("/update_insert_elective")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> updateInsertElective(@RequestParam("elective_id") Integer electiveId, @RequestBody ElectiveRequest electiveRequest){

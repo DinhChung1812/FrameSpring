@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface ElectiveService {
     ResponseEntity<?> getAllElective(String code);
+    ResponseEntity<?> getElectiveById(Integer electiveId);
 
     ResponseEntity<?> updateInsertElective(Integer electiveId, ElectiveRequest electiveRequest);
 }

@@ -1,6 +1,7 @@
 package doan.middle_project.serviceImpl;
 
 import doan.middle_project.common.vo.CuriculumVo;
+import doan.middle_project.common.vo.DecisionVo;
 import doan.middle_project.common.vo.ElectiveVo;
 import doan.middle_project.dto.Requests.ElectiveRequest;
 import doan.middle_project.dto.Responds.ElectiveResponse;
@@ -73,6 +74,27 @@ public class ElectiveServiceImpl implements ElectiveService {
 //            System.out.print(key + "=" + value + " ");
         });
         return ResponseEntity.ok(lstElectiveResponse);
+    }
+
+    @Override
+    public ResponseEntity<?> getElectiveById(Integer electiveId) {
+        List<ElectiveVo> lstElective = new ArrayList<>();
+        List<Object[]> lstObject = new ArrayList<>();
+        if(electiveId != null || !electiveId.equals("")){
+            lstObject = electiveRepository.getElectiveById(electiveId);
+        }
+        if (lstObject.size() == 0){
+            return new ResponseEntity<>("Decision không tồn tại", HttpStatus.NOT_FOUND);
+        } else {
+            for (Object[] o: lstObject) {
+                ElectiveVo electiveVo = new ElectiveVo();
+                electiveVo.setElectiveId((Integer) o[0]);
+                electiveVo.setElectiveCode((String) o[1]);
+                electiveVo.setElectiveName((String) o[2]);
+                lstElective.add(electiveVo);
+            }
+        }
+        return ResponseEntity.ok(lstElective);
     }
 
     @Override
