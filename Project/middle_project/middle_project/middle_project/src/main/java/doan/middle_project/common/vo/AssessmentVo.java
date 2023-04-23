@@ -14,6 +14,7 @@ import javax.persistence.Column;
 public class AssessmentVo {
 
     private Integer assessmentId;
+    private Integer assessmentCateId;
 
     private String assessment_category;
 

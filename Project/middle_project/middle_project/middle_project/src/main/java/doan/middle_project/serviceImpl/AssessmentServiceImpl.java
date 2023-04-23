@@ -61,6 +61,7 @@ public class AssessmentServiceImpl implements AssessmentService {
                 assessment.setKnowledgeSkill((String) o[9]);
                 assessment.setGradingGuide((String) o[10]);
                 assessment.setNote((String) o[11]);
+                assessment.setAssessmentCateId((Integer) o[12]);
                 lstAssessment.add(assessment);
             }
         }

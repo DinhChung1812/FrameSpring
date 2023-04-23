@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 public interface AssessmentRepository extends JpaRepository<Assessment, Integer> {
-    @Query(value = "select a.assessment_id,ac.assessment_cate_name , a.type, a.part, a.weight, a.completion_criteria, a.duration, a.question_type, a.question_no, a.knowledge_skill, a.grading_guide, a.note\n" +
+    @Query(value = "select a.assessment_id,ac.assessment_cate_name , a.type, a.part, a.weight, a.completion_criteria, a.duration, a.question_type, a.question_no, a.knowledge_skill, a.grading_guide, a.note, ac.assessment_cate_id\n" +
             "from assessment a \n" +
             "join assessment_category ac on a.assessment_cate_id = ac.assessment_cate_id\n" +
             "join syllabus_assessment sa on a.assessment_id = sa.assessment_id\n" +
