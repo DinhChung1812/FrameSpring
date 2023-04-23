@@ -69,13 +69,13 @@ public class AssessmentServiceImpl implements AssessmentService {
     }
 
     @Override
-    public ResponseEntity<?> getAllAssessmentCate(Integer id_syllabus) {
+    public ResponseEntity<?> getAllAssessmentCate(Integer idAssCate) {
         List<Object[]> lstObject = new ArrayList<>();
         List<AssessmentVo>  lstAssessment = new ArrayList<>();
-        if(id_syllabus == null || id_syllabus.equals("") ){
+        if(idAssCate == null || idAssCate.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
-            lstObject = assessmentRepository.getAssessmentById(id_syllabus);
+            lstObject = assessmentRepository.getAssessmentById(idAssCate);
             for (Object[] o: lstObject) {
                 AssessmentVo assessment = new AssessmentVo();
                 assessment.setAssessmentId((Integer) o[0]);
