@@ -35,5 +35,8 @@ public class PLO {
     private Set<PO> poId;
 
     @ManyToMany (mappedBy = "ploId",cascade = {CascadeType.MERGE})
+    private Set<CLO> clos;
+
+    @ManyToMany (mappedBy = "ploId",cascade = {CascadeType.MERGE})
     private Set<Subject> subjectId;
 }
