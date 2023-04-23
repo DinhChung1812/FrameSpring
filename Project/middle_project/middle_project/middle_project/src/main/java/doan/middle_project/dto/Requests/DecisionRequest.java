@@ -9,6 +9,7 @@ public class DecisionRequest {
     private Integer decisionId;
 
     private String decisionNo;
+    private String decisionName;
 
     private String decisionDate;
 

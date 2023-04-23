@@ -2,22 +2,24 @@ package doan.middle_project.serviceImpl;
 
 import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.ElectiveVo;
+import doan.middle_project.dto.Requests.ElectiveRequest;
 import doan.middle_project.dto.Responds.ElectiveResponse;
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.dto.Responds.SubjectResponse;
+import doan.middle_project.entities.*;
+import doan.middle_project.exception.NotFoundException;
 import doan.middle_project.exception.StatusCode;
 import doan.middle_project.repositories.CuriculumRepository;
 import doan.middle_project.repositories.ElectiveRepository;
 import doan.middle_project.repositories.PORepository;
+import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.service.ElectiveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +30,9 @@ public class ElectiveServiceImpl implements ElectiveService {
 
     @Autowired
     CuriculumRepository curiculumRepository;
+
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @Override
     public ResponseEntity<?> getAllElective(String code) {
@@ -68,5 +73,37 @@ public class ElectiveServiceImpl implements ElectiveService {
 //            System.out.print(key + "=" + value + " ");
         });
         return ResponseEntity.ok(lstElectiveResponse);
+    }
+
+    @Override
+    public ResponseEntity<?> updateInsertElective(Integer electiveId, ElectiveRequest electiveRequest) {
+        Elective elective = new Elective();
+        Curriculum curriculum = new Curriculum();
+        Subject subject = new Subject();
+        String mess = "";
+        if( electiveId > 0){
+            elective = electiveRepository.findById(electiveId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy assessment: "+electiveId+"!!!"));
+            mess = "Cập nhật elective: " + electiveId;
+        } else {
+            mess = "Thêm elective";
+        }
+
+        if( electiveRequest.getCurriculumId() != null || !electiveRequest.getCurriculumId().equals("")){
+            curriculum = curiculumRepository.findById(electiveRequest.getCurriculumId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curriculum: "+electiveRequest.getCurriculumId()+"!!!"));
+        }
+
+        if( electiveRequest.getSubjectId() != null || !electiveRequest.getSubjectId().equals("")){
+            subject = subjectRepository.findById(electiveRequest.getSubjectId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+electiveRequest.getSubjectId() +"!!!"));
+        }
+
+
+        elective.setElectiveCode(electiveRequest.getElectiveCode());
+        elective.setElectiveName(electiveRequest.getElectiveName());
+        elective.setStatus(1);
+
+        elective.setCurriculum(curriculum);
+        elective.setSubject(subject);
+        electiveRepository.save(elective);
+        return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
 }

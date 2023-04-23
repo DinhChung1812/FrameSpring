@@ -16,6 +16,7 @@ public class DecisionVo {
     private Integer decisionId;
 
     private String decisionNo;
+    private String decisionName;
 
     private Date decisionDate;
 

@@ -56,6 +56,7 @@ public class DecisionServiceImpl implements DecisionService {
                 decision.setCreateDate((Date) o[3]);
                 decision.setFileName((String) o[4]);
                 decision.setNote((String) o[5]);
+                decision.setDecisionName((String) o[6]);
                 lstDecision.add(decision);
             }
         }
@@ -83,6 +84,7 @@ public class DecisionServiceImpl implements DecisionService {
         decision.setNote(decisionRequest.getNote());
         decision.setCreateDate(createDate);
         decision.setFileName(decisionRequest.getFileName());
+        decision.setDecisionName(decisionRequest.getDecisionName());
         decisionRepository.save(decision);
 
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));

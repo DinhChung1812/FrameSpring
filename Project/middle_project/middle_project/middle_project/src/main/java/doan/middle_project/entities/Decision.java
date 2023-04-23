@@ -22,6 +22,9 @@ public class Decision {
     @Column(name = "decision_no", columnDefinition = "longtext")
     private String decisionNo;
 
+    @Column(name = "decision_name", columnDefinition = "longtext")
+    private String decisionName;
+
     @Column(name = "decision_date")
     private Date decisionDate;
 
