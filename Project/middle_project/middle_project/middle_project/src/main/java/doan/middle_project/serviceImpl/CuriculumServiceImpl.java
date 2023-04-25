@@ -9,10 +9,7 @@ import doan.middle_project.dto.Requests.CuriculumEditRequest;
 import doan.middle_project.dto.Requests.CurriculumRequest;
 
 import doan.middle_project.dto.Responds.MessageResponse;
-import doan.middle_project.entities.Account;
-import doan.middle_project.entities.Curriculum;
-import doan.middle_project.entities.Decision;
-import doan.middle_project.entities.PO;
+import doan.middle_project.entities.*;
 import doan.middle_project.exception.BadRequestException;
 import doan.middle_project.exception.NotFoundException;
 import doan.middle_project.exception.StatusCode;
@@ -43,6 +40,10 @@ public class CuriculumServiceImpl implements CuriculumService {
 
     @Autowired
     CuriculumRepository curriculumRepository;
+
+    @Autowired
+    ElectiveRepository electiveRepository;
+
 
     @Override
     public ResponseEntity<?> createCurriculum(Integer decisionId, CurriculumRequest curriculumRequest) {
@@ -105,6 +106,12 @@ public class CuriculumServiceImpl implements CuriculumService {
         curriculum.setDescription(curiculumEditRequest.getDescription());
         curriculum.setDescriptionNO(curiculumEditRequest.getDescriptionNO());
         curriculum.setTotalCredit(curiculumEditRequest.getTotalCredit());
+        List<Elective> lstElect = new ArrayList<>();
+        Elective elective = electiveRepository.findById(curiculumEditRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+curiculumEditRequest.getElectiveId()+"!!!"));
+        lstElect.add(elective);
+        curriculum.setElectiveId(lstElect);
+        Decision decision = decisionRepository.findById(curiculumEditRequest.getDecisionId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy decision: "+curiculumEditRequest.getDecisionId()+"!!!"));
+        curriculum.setDecision(decision);
         _curiculumRepository.save(curriculum);
 
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));

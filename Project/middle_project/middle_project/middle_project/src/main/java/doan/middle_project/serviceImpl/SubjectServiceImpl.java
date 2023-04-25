@@ -2,16 +2,22 @@ package doan.middle_project.serviceImpl;
 
 
 import doan.middle_project.dto.Requests.SubjectRequest;
+import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.dto.Responds.PloDto;
 import doan.middle_project.dto.Responds.SubjectPloResponse;
 import doan.middle_project.dto.Responds.SubjectPloMappingResponse;
 import doan.middle_project.entities.Curriculum;
+import doan.middle_project.entities.Elective;
 import doan.middle_project.entities.Subject;
 import doan.middle_project.common.vo.SubjectVo;
+import doan.middle_project.exception.NotFoundException;
+import doan.middle_project.exception.StatusCode;
 import doan.middle_project.repositories.CuriculumRepository;
+import doan.middle_project.repositories.ElectiveRepository;
 import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -23,24 +29,33 @@ public class SubjectServiceImpl implements SubjectService {
     @Autowired
     SubjectRepository subjectRepository;
 
-
     @Autowired
     CuriculumRepository curriculumRepository;
 
-    @Override
-    public void createSubject(SubjectRequest subject) {
-        Subject s = new Subject();
-        s.setSubjectCode(subject.getSubjectCode());
-        s.setSubjectName(subject.getSubjectName());
-        s.setSubjectNote(subject.getSubjectNote());
-        s.setSemester(subject.getSemester());
-        s.setCredit(subject.getCredit());
-        s.setPreRequisite(subject.getPreRequisite());
-        s.setStatus(subject.getStatus());
+    @Autowired
+    ElectiveRepository electiveRepository;
 
-//        Curriculum c = curriculumRepository.findByCurriculumCode(subject.getCurriculumCode());
-//        s.setCurriculum(c);
-        subjectRepository.save(s);
+    @Override
+    public ResponseEntity<?> createSubject(Integer subjectId, SubjectRequest subjectRequest) {
+        Subject subject = new Subject();
+        String mess = "";
+        if( subjectId > 0){
+            subject = subjectRepository.findById(subjectId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+subjectId+"!!!"));
+            mess = "Cập nhật subject: " + subjectId;
+        } else {
+            mess = "Thêm subject";
+        }
+        subject.setSubjectCode(subjectRequest.getSubjectCode());
+        subject.setSubjectName(subjectRequest.getSubjectName());
+        subject.setSubjectNote(subjectRequest.getSubjectNote());
+        subject.setSemester(subjectRequest.getSemester());
+        subject.setCredit(subjectRequest.getCredit());
+        subject.setStatus(1);
+        Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
+        subject.setElective(elective);
+        subjectRepository.save(subject);
+
+        return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
 
     @Override

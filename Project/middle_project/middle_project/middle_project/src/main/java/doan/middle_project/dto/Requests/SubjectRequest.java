@@ -18,4 +18,5 @@ public class SubjectRequest {
     private String preRequisite;
     private Integer status;
     private String curriculumCode;
+    private Integer electiveId;
 }

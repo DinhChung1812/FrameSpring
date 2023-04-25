@@ -6,13 +6,14 @@ import doan.middle_project.dto.Responds.SubjectPloResponse;
 import doan.middle_project.dto.Responds.SubjectPloMappingResponse;
 import doan.middle_project.common.vo.CuriculumVo;
 import doan.middle_project.common.vo.SubjectVo;
+import org.springframework.http.ResponseEntity;
 
 
 import java.util.List;
 
 public interface SubjectService {
 
-    void createSubject(SubjectRequest subject);
+    ResponseEntity<?> createSubject(Integer subjectId, SubjectRequest subjectRequest);
 
     List<SubjectPloResponse> getSubjectPlo(Integer curriculumId);
 

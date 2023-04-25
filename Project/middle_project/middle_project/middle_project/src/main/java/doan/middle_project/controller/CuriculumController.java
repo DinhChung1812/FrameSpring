@@ -42,10 +42,10 @@ public class CuriculumController {
         return ResponseEntity.ok(listCuriculum);
     }
 
-    @PutMapping("/edit_curiculum")
+    @PutMapping("/add_edit_curiculum")
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> editCuriculum(@RequestParam("curiculum_id") Integer curiculumId, @RequestBody CuriculumEditRequest curiculumEditRequest)  {
+    public ResponseEntity<?> addOrEditCuriculum(@RequestParam("curiculum_id") Integer curiculumId, @RequestBody CuriculumEditRequest curiculumEditRequest)  {
         return curiculumService.addOrEditCuriculum(curiculumId, curiculumEditRequest);
     }
 

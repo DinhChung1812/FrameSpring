@@ -23,9 +23,9 @@ public class SubjectController {
     @Autowired
     SubjectService subjectService;
 
-    @PostMapping("/createSubject")
-    public void createSubject(@RequestBody SubjectRequest subject){
-        subjectService.createSubject(subject);
+    @PostMapping("/update_create_subject")
+    public ResponseEntity<?> updateCreateSubject(@RequestParam(required = false) Integer subjectId, @RequestBody SubjectRequest subjectRequest){
+        return subjectService.createSubject(subjectId, subjectRequest);
     }
 
 //    @GetMapping("/getSubjectPlo")
