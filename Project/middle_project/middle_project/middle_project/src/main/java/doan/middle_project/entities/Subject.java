@@ -59,17 +59,13 @@ public class Subject implements Serializable {
     @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CLO> clo;
 
-
-
-//    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private Set<Assessment> assessment;
-
     @OneToMany( mappedBy = "subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PreRequisite> subject_code;
 
     @OneToMany( mappedBy = "requisite_subject_code",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<PreRequisite> requisite_subject_code;
 
-    @OneToMany( mappedBy = "subject",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Elective> elective;
+    @ManyToOne
+    @JoinColumn(name = "elective_id", referencedColumnName = "elective_id", nullable = false)
+    private Elective elective;
 }

@@ -1,7 +1,6 @@
 package doan.middle_project.serviceImpl;
 
 import doan.middle_project.common.vo.CuriculumVo;
-import doan.middle_project.common.vo.DecisionVo;
 import doan.middle_project.common.vo.ElectiveVo;
 import doan.middle_project.dto.Requests.ElectiveRequest;
 import doan.middle_project.dto.Responds.ElectiveResponse;
@@ -12,7 +11,6 @@ import doan.middle_project.exception.NotFoundException;
 import doan.middle_project.exception.StatusCode;
 import doan.middle_project.repositories.CuriculumRepository;
 import doan.middle_project.repositories.ElectiveRepository;
-import doan.middle_project.repositories.PORepository;
 import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.service.ElectiveService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,28 +34,25 @@ public class ElectiveServiceImpl implements ElectiveService {
     SubjectRepository subjectRepository;
 
     @Override
-    public ResponseEntity<?> getAllElective(String code) {
+    public ResponseEntity<?> getAllSubjectByElectiveId(Integer electiveId) {
         List<Object[]> lstObject = new ArrayList<>();
         List<ElectiveVo> lstElective = new ArrayList<>();
         List<ElectiveResponse> lstElectiveResponse = new ArrayList<>();
 
-        if(code == null || code.equals("") ){
-            return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
+        if(electiveId == null || electiveId.equals("") ){
+            return new ResponseEntity<>("ElectiveId null", HttpStatus.NOT_FOUND);
         } else {
-            List<CuriculumVo> lst = curiculumRepository.getCuriculumByCode(code);
-            if (lst.size() == 0){
-                return new ResponseEntity<>("Không tồn tại curriculum: " + code, HttpStatus.NOT_FOUND);
-            }
-            lstObject = electiveRepository.getElectiveByCuriculum(code);
+            Elective elective = electiveRepository.findById(electiveId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+electiveId+"!!!"));
+            lstObject = electiveRepository.getAllSubjectByElectiveId(electiveId);
             for (Object[] o: lstObject) {
-                ElectiveVo elective = new ElectiveVo();
-                elective.setElectiveId((Integer) o[0]);
-                elective.setElectiveCode((String) o[1]);
-                elective.setElectiveName((String) o[2]);
-                elective.setSubjectName((String) o[3]);
-                elective.setSubjectCode((String) o[4]);
-                elective.setSubjectId((Integer) o[5]);
-                lstElective.add(elective);
+                ElectiveVo electiveVo = new ElectiveVo();
+                electiveVo.setElectiveId((Integer) o[0]);
+                electiveVo.setElectiveCode((String) o[1]);
+                electiveVo.setElectiveName((String) o[2]);
+                electiveVo.setSubjectName((String) o[3]);
+                electiveVo.setSubjectCode((String) o[4]);
+                electiveVo.setSubjectId((Integer) o[5]);
+                lstElective.add(electiveVo);
             }
         }
         Map<String, List<ElectiveVo>> lstElectiveGrouped =
@@ -82,22 +77,22 @@ public class ElectiveServiceImpl implements ElectiveService {
             }
             elect.setListSubject(lstSubjectResponse);
             lstElectiveResponse.add(elect);
-            // decrease value by 10%
-//            value = value - value * 10/100;
-//            System.out.print(key + "=" + value + " ");
+
         });
         return ResponseEntity.ok(lstElectiveResponse);
     }
 
     @Override
-    public ResponseEntity<?> getElectiveById(Integer electiveId) {
+    public ResponseEntity<?> getElectiveByCurriCode(String curriCode) {
         List<ElectiveVo> lstElective = new ArrayList<>();
         List<Object[]> lstObject = new ArrayList<>();
-        if(electiveId != null || !electiveId.equals("")){
-            lstObject = electiveRepository.getElectiveById(electiveId);
+        if(curriCode != null || !curriCode.equals("")){
+            lstObject = electiveRepository.getElectiveByCurriCode(curriCode);
+        } else{
+            lstObject = electiveRepository.getAllElective();
         }
         if (lstObject.size() == 0){
-            return new ResponseEntity<>("Decision không tồn tại", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Elective không tồn tại", HttpStatus.NOT_FOUND);
         } else {
             for (Object[] o: lstObject) {
                 ElectiveVo electiveVo = new ElectiveVo();
@@ -127,9 +122,9 @@ public class ElectiveServiceImpl implements ElectiveService {
             curriculum = curiculumRepository.findById(electiveRequest.getCurriculumId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curriculum: "+electiveRequest.getCurriculumId()+"!!!"));
         }
 
-        if( electiveRequest.getSubjectId() != null || !electiveRequest.getSubjectId().equals("")){
-            subject = subjectRepository.findById(electiveRequest.getSubjectId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+electiveRequest.getSubjectId() +"!!!"));
-        }
+//        if( electiveRequest.getSubjectId() != null || !electiveRequest.getSubjectId().equals("")){
+//            subject = subjectRepository.findById(electiveRequest.getSubjectId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+electiveRequest.getSubjectId() +"!!!"));
+//        }
 
         if(electiveId < 0){
             List<Object[]> object = new ArrayList<>();
@@ -144,7 +139,9 @@ public class ElectiveServiceImpl implements ElectiveService {
         Set<Curriculum> setCurriculum = new HashSet<Curriculum>();
         setCurriculum.add(curriculum);
         elective.setCurriculumId(setCurriculum);
-        elective.setSubject(subject);
+//        Set<Subject> setSubject = new HashSet<Subject>();
+//        setSubject.add(subject);
+//        elective.setSubject(setSubject);
         electiveRepository.save(elective);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
