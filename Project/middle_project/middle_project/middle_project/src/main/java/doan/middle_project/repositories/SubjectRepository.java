@@ -24,6 +24,8 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
     @Query(value = "select p.plo_id,p.plo_name from plo p join subject_plo sp on sp.plo_id = p.plo_id where sp.subject_id=?1",nativeQuery = true)
     List<Object[]> getListPlo(Integer subjectId);
 
+    @Query(value = "select s.* from subject s where s.subject_code = ?1 ",nativeQuery = true)
+    Subject findBySubject_code(String code);
 
     @Query("select new doan.middle_project.common.vo.SubjectVo(" +
             "s.subjectId,s.subjectCode,s.subjectName,s.subjectNote, s.semester, s.credit, s.preRequisite)" +
@@ -41,6 +43,9 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
             "where s.status = 1 and c.curriculumCode LIKE :code")
     public List<SubjectVo> getSubjectByCuriculumCode(String code);
 
+    @Query(value = "select * from subject s where s.subject_id = ?1",nativeQuery = true)
+    Subject getSubjectCodeAndNoCreadit(Integer subjectId);
+    
     @Query("select new doan.middle_project.common.vo.SubjectVo(" +
             "s.subjectId,s.subjectCode,s.subjectName,s.subjectNote, s.semester, s.credit, s.preRequisite)" +
             "from Subject s join s.curriculumId c " +
