@@ -38,10 +38,10 @@ public class SyllabusController {
         syllabusService.addSyllabus(syllabusRequest);
     }
 
-    @PutMapping("/editSyllabus")
-    public void editSyllabus(@RequestBody SyllabusRequest syllabusRequest, @RequestParam("syllabus_id")Integer syllabusId){
-        syllabusService.editSyllabus(syllabusRequest,syllabusId);
-    }
+//    @PutMapping("/editSyllabus")
+//    public void editSyllabus(@RequestBody SyllabusRequest syllabusRequest, @RequestParam("syllabus_id")Integer syllabusId){
+//        syllabusService.editSyllabus(syllabusRequest,syllabusId);
+//    }
 
     @GetMapping("/syllabusDetail")
     public SyllabusResponse syllabusDetail(@RequestParam("syllabus_id")Integer syllabusId){

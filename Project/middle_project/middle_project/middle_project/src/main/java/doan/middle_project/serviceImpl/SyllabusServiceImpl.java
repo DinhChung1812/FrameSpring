@@ -74,6 +74,38 @@ public class SyllabusServiceImpl implements SyllabusService {
 
     }
 
+//    @Override
+//    public void addSyllabus(SyllabusRequest syllabusRequest) {
+//
+//        Syllabus s = syllabusRepository.findBySyllabusName(syllabusRequest.getSyllabusName());
+//        if (s != null) {
+//            throw new ResponseException("syllabus name dupplicate");
+//        }
+//
+//        Decision decision = new Decision();
+//        decision.setDecisionNo(syllabusRequest.getDecisionNo());
+//        decision.setDecisionDate(syllabusRequest.getApprovedDate());
+//        decisionRepository.save(decision);
+//
+//        Subject subject = subjectRepository.findBySubject_code(syllabusRequest.getSubjectCode());
+//
+//        Syllabus syllabus = new Syllabus();
+//        syllabus.setDecision(decision);
+//        syllabus.setSubjectId(subject);
+//        syllabus.setSyllabusName(syllabusRequest.getSyllabusName());
+//        syllabus.setTimeAllocation(syllabusRequest.getTimeAllocation());
+//        syllabus.setSyllabusDescription(syllabusRequest.getSyllabusDescription());
+//        syllabus.setScoringScale(syllabusRequest.getScoringScale());
+//        syllabus.setMinAvgMarkToPass(syllabusRequest.getMinAvgMarkToPass());
+//        syllabus.setDegreeLevel(syllabusRequest.getDegreeLevel());
+//        syllabus.setStudentTasks(syllabusRequest.getStudentTasks());
+//        syllabus.setNote(syllabusRequest.getNote());
+//        syllabus.setIsActive(syllabusRequest.getIsActive());
+//        syllabus.setIsProved(syllabusRequest.getIsProved());
+//        syllabusRepository.save(syllabus);
+//
+//    }
+
     @Override
     public void addSyllabus(SyllabusRequest syllabusRequest) {
 
@@ -93,15 +125,6 @@ public class SyllabusServiceImpl implements SyllabusService {
         syllabus.setDecision(decision);
         syllabus.setSubjectId(subject);
         syllabus.setSyllabusName(syllabusRequest.getSyllabusName());
-        syllabus.setTimeAllocation(syllabusRequest.getTimeAllocation());
-        syllabus.setSyllabusDescription(syllabusRequest.getSyllabusDescription());
-        syllabus.setScoringScale(syllabusRequest.getScoringScale());
-        syllabus.setMinAvgMarkToPass(syllabusRequest.getMinAvgMarkToPass());
-        syllabus.setDegreeLevel(syllabusRequest.getDegreeLevel());
-        syllabus.setStudentTasks(syllabusRequest.getStudentTasks());
-        syllabus.setNote(syllabusRequest.getNote());
-        syllabus.setIsActive(syllabusRequest.getIsActive());
-        syllabus.setIsProved(syllabusRequest.getIsProved());
         syllabusRepository.save(syllabus);
 
     }
