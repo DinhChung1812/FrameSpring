@@ -21,7 +21,7 @@ public class SyllabusController {
 
     @GetMapping("/get_syllabus_by_id")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getSyllabusById(@RequestParam("id_syllabus") Integer id_syllabus) {
+    public ResponseEntity<?> getSyllabusById(@RequestParam(required = false) Integer id_syllabus) {
         return syllabusService.getSyllabusById(id_syllabus);
     }
 }

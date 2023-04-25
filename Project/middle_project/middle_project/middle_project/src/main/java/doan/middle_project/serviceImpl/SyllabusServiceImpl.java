@@ -37,17 +37,20 @@ public class SyllabusServiceImpl implements SyllabusService {
         List<Object[]> lstObject = new ArrayList<>();
         List<SyllabusVo>  lstSyllabus = new ArrayList<>();
         if(id_syllabus == null || id_syllabus.equals("") ){
-            return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
+            lstObject = syllabusRepository.getSyllabus();
         } else {
             lstObject = syllabusRepository.getSyllabusById(id_syllabus);
-            for (Object[] o: lstObject) {
-                SyllabusVo assessment = new SyllabusVo();
-                assessment.setSyllabusId((Integer) o[0]);
-                assessment.setSyllabusCode((String) o[1]);
-                assessment.setSyllabusDescription((String) o[2]);
-                assessment.setSyllabusName((String) o[3]);
-                lstSyllabus.add(assessment);
-            }
+        }
+        if(lstObject.size() == 0){
+            return new ResponseEntity<>("Không tồn tại Syllabus nào phù hợp", HttpStatus.NOT_FOUND);
+        }
+        for (Object[] o: lstObject) {
+            SyllabusVo assessment = new SyllabusVo();
+            assessment.setSyllabusId((Integer) o[0]);
+            assessment.setSyllabusCode((String) o[1]);
+            assessment.setSyllabusDescription((String) o[2]);
+            assessment.setSyllabusName((String) o[3]);
+            lstSyllabus.add(assessment);
         }
         return ResponseEntity.ok(lstSyllabus);
     }

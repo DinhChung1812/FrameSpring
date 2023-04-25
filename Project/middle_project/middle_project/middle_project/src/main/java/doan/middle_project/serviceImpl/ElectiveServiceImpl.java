@@ -131,7 +131,13 @@ public class ElectiveServiceImpl implements ElectiveService {
             subject = subjectRepository.findById(electiveRequest.getSubjectId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+electiveRequest.getSubjectId() +"!!!"));
         }
 
-
+        if(electiveId < 0){
+            List<Object[]> object = new ArrayList<>();
+            object = electiveRepository.getElectiveByCode(electiveRequest.getElectiveCode());
+            if (object.size() != 0){
+                return new ResponseEntity<>("Elective code bị trùng", HttpStatus.NOT_FOUND);
+            }
+        }
         elective.setElectiveCode(electiveRequest.getElectiveCode());
         elective.setElectiveName(electiveRequest.getElectiveName());
         elective.setStatus(1);

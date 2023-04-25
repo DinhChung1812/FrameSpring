@@ -27,7 +27,10 @@ public interface ElectiveRepository extends JpaRepository<Elective, Integer> {
             "where c.curriculum_code like %?1%", nativeQuery = true)
     public List<Object[]> getElectiveByCuriculum(String code);
 
-    @Query(value = "SELECT e.elective_id, e.elective_code, e.elective_name FROM elective e where e.elective_id = 1 and e.status = 1", nativeQuery = true)
+    @Query(value = "SELECT e.elective_id, e.elective_code, e.elective_name FROM elective e where e.elective_id = ?1 and e.status = 1", nativeQuery = true)
     public List<Object[]> getElectiveById(Integer electiveId);
+
+    @Query(value = "SELECT e.elective_id, e.elective_code, e.elective_name FROM elective e where e.elective_code like %?1% and e.status = 1", nativeQuery = true)
+    public List<Object[]> getElectiveByCode(String codeElective);
 
 }
