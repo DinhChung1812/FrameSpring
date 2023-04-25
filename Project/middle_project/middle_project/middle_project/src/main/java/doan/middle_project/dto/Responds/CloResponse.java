@@ -5,7 +5,6 @@ import lombok.Data;
 @Data
 public class CloResponse {
     private Integer cloId;
-    private String subjectCode;
-    private String SyllabusName;
-    private String loDetails;
+    private String cloName;
+    private String Description;
 }

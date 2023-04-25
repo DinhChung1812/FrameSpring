@@ -22,14 +22,13 @@ public class CloServiceImpl implements CloService {
         List<CLO> cloList = cloRepository.findAll();
         List<CloResponse> cloResponseList = new ArrayList<>();
 
-//        for (CLO clo: cloList) {
-//            CloResponse cloResponse = new CloResponse();
-//            cloResponse.setCloId();
-//            cloResponse.setSubjectCode();
-//            cloResponse.setSyllabusName();
-//            cloResponse.setLoDetails();
-//            cloResponse.set
-//        }
+        for (CLO clo: cloList) {
+            CloResponse cloResponse = new CloResponse();
+            cloResponse.setCloId(clo.getCloId());
+            cloResponse.setCloName(clo.getCloName());
+            cloResponse.setDescription(clo.getCloDescription());
+            cloResponseList.add(cloResponse);
+        }
         return cloResponseList;
     }
 
