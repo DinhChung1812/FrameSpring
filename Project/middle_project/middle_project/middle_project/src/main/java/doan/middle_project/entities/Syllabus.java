@@ -19,9 +19,6 @@ public class Syllabus {
     @Column(name = "syllabus_id")
     private Integer syllabusId;
 
-    @Column(name = "syllabus_code", columnDefinition = "longtext")
-    private String syllabusCode;
-
     @Column(name = "syllabus_name", columnDefinition = "longtext")
     private String syllabusName;
 

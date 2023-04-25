@@ -21,10 +21,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class SyllabusServiceImpl implements SyllabusService {
@@ -33,7 +32,7 @@ public class SyllabusServiceImpl implements SyllabusService {
     SyllabusRepository syllabusRepository;
 
     @Override
-    public ResponseEntity<?> getSyllabusById(Integer id_syllabus) {
+    public ResponseEntity<?> getSyllabusById(Integer id_syllabus) throws ParseException {
         List<Object[]> lstObject = new ArrayList<>();
         List<SyllabusVo>  lstSyllabus = new ArrayList<>();
         if(id_syllabus == null || id_syllabus.equals("") ){
@@ -47,9 +46,14 @@ public class SyllabusServiceImpl implements SyllabusService {
         for (Object[] o: lstObject) {
             SyllabusVo assessment = new SyllabusVo();
             assessment.setSyllabusId((Integer) o[0]);
-            assessment.setSyllabusCode((String) o[1]);
-            assessment.setSyllabusDescription((String) o[2]);
+            assessment.setSubjectCode((String) o[1]);
+            assessment.setSubjectName((String) o[2]);
             assessment.setSyllabusName((String) o[3]);
+            assessment.setIsActive((Integer) o[4]);
+            assessment.setIsProved((Integer) o[5]);
+            assessment.setDecisionDate((Date) o[6]);
+            assessment.setDecisionNo((String) o[7]);
+            assessment.setDecisionNoNew((String) o[7] + " dated " + ((Date) o[6]).toString());
             lstSyllabus.add(assessment);
         }
         return ResponseEntity.ok(lstSyllabus);

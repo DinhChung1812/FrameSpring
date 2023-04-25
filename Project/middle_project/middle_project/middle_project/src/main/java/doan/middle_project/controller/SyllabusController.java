@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 @RestController
@@ -21,7 +22,7 @@ public class SyllabusController {
 
     @GetMapping("/get_syllabus_by_id")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getSyllabusById(@RequestParam(required = false) Integer id_syllabus) {
+    public ResponseEntity<?> getSyllabusById(@RequestParam(required = false) Integer id_syllabus) throws ParseException {
         return syllabusService.getSyllabusById(id_syllabus);
     }
 }
