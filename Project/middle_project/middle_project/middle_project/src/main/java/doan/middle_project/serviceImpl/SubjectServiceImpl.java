@@ -1,6 +1,7 @@
 package doan.middle_project.serviceImpl;
 
 
+import doan.middle_project.common.vo.DecisionVo;
 import doan.middle_project.dto.Requests.SubjectRequest;
 import doan.middle_project.dto.Responds.MessageResponse;
 import doan.middle_project.dto.Responds.PloDto;
@@ -17,10 +18,12 @@ import doan.middle_project.repositories.ElectiveRepository;
 import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -45,14 +48,23 @@ public class SubjectServiceImpl implements SubjectService {
         } else {
             mess = "Thêm subject";
         }
+        if (subjectId < 0){
+            Subject s = subjectRepository.findBySubject_code(subjectRequest.getSubjectCode());
+            if (s != null){
+                return new ResponseEntity<>("Subject code đã tồn tại", HttpStatus.NOT_FOUND);
+            }
+        }
+
         subject.setSubjectCode(subjectRequest.getSubjectCode());
         subject.setSubjectName(subjectRequest.getSubjectName());
         subject.setSubjectNote(subjectRequest.getSubjectNote());
         subject.setSemester(subjectRequest.getSemester());
         subject.setCredit(subjectRequest.getCredit());
         subject.setStatus(1);
-        Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
-        subject.setElective(elective);
+        if (subjectId > 0){
+            Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
+            subject.setElective(elective);
+        }
         subjectRepository.save(subject);
 
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
@@ -108,8 +120,6 @@ public class SubjectServiceImpl implements SubjectService {
 
     }
 
-
-
     @Override
     public List<SubjectVo> getAllSubject(String code) {
         List<SubjectVo> lstSubject = new ArrayList<>();
@@ -120,6 +130,27 @@ public class SubjectServiceImpl implements SubjectService {
         }
         if (lstSubject == null){
             return null;
+        }
+        return lstSubject;
+    }
+
+    @Override
+    public List<SubjectVo> getAllSubjectNotElective() {
+        List<SubjectVo> lstSubject = new ArrayList<>();
+        List<Object[]> lstObject = new ArrayList<>();
+        lstObject = subjectRepository.getAllSubjectNotElective();
+        if (lstSubject == null){
+            return null;
+        }
+        for (Object[] o: lstObject) {
+            SubjectVo subject = new SubjectVo();
+            subject.setSubjectId((Integer) o[0]);
+            subject.setCredit((Integer) o[1]);
+            subject.setSemester((Integer) o[3]);
+            subject.setStatus((Integer) o[4]);
+            subject.setSubjectCode((String) o[5]);
+            subject.setSubjectName((String) o[6]);
+            lstSubject.add(subject);
         }
         return lstSubject;
     }
