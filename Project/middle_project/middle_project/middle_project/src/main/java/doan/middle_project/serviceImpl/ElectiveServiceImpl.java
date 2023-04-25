@@ -135,8 +135,9 @@ public class ElectiveServiceImpl implements ElectiveService {
         elective.setElectiveCode(electiveRequest.getElectiveCode());
         elective.setElectiveName(electiveRequest.getElectiveName());
         elective.setStatus(1);
-
-        //elective.setCurriculum(curriculum);
+        Set<Curriculum> setCurriculum = new HashSet<Curriculum>();
+        setCurriculum.add(curriculum);
+        elective.setCurriculumId(setCurriculum);
         elective.setSubject(subject);
         electiveRepository.save(elective);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
