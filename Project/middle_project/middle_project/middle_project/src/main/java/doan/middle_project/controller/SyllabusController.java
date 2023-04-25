@@ -48,8 +48,6 @@ public class SyllabusController {
         return syllabusService.getSyllabusDetail(syllabusId);
     }
 
-    @Autowired
-    SyllabusService syllabusService;
 
     @GetMapping("/get_syllabus_by_id")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")

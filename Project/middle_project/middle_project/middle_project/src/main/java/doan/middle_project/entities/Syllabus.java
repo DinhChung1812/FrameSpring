@@ -29,7 +29,7 @@ public class Syllabus {
     private Integer syllabusStatus;
 
     @Column(name = "isActive")
-    private Integer isActive;
+    private Boolean isActive;
 
     @Column(name = "isProved")
     private Boolean isProved;

@@ -1,11 +1,10 @@
 package doan.middle_project.serviceImpl;
 
+import doan.middle_project.common.vo.SyllabusVo;
 import doan.middle_project.dto.Requests.SyllabusRequest;
-import doan.middle_project.dto.Responds.PreRequisiteDto;
 import doan.middle_project.dto.Responds.SyllabusDto;
 import doan.middle_project.dto.Responds.SyllabusResponse;
 import doan.middle_project.entities.Decision;
-import doan.middle_project.entities.PreRequisite;
 import doan.middle_project.entities.Subject;
 import doan.middle_project.entities.Syllabus;
 import doan.middle_project.exception.ResponseException;
@@ -15,35 +14,14 @@ import doan.middle_project.repositories.SubjectRepository;
 import doan.middle_project.repositories.SyllabusRepository;
 import doan.middle_project.service.SyllabusService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import doan.middle_project.common.vo.AssessmentVo;
-import doan.middle_project.common.vo.SyllabusVo;
-import doan.middle_project.dto.Requests.AssessmentRequest;
-import doan.middle_project.dto.Responds.MessageResponse;
-import doan.middle_project.entities.Assessment;
-import doan.middle_project.entities.AssessmentCategory;
-import doan.middle_project.entities.Syllabus;
-import doan.middle_project.exception.NotFoundException;
-import doan.middle_project.exception.StatusCode;
-import doan.middle_project.repositories.AssessmentCategoryRepository;
-import doan.middle_project.repositories.AssessmentRepository;
-import doan.middle_project.repositories.CuriculumRepository;
-import doan.middle_project.repositories.SyllabusRepository;
-import doan.middle_project.service.AssessmentService;
-import doan.middle_project.service.SyllabusService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.domain.AbstractPersistable_;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 @Service
 public class SyllabusServiceImpl implements SyllabusService {
@@ -186,6 +164,8 @@ public class SyllabusServiceImpl implements SyllabusService {
 
         return syllabusResponse;
 
+}
+
     @Override
     public ResponseEntity<?> getSyllabusById(Integer id_syllabus) throws ParseException {
         List<Object[]> lstObject = new ArrayList<>();
@@ -213,4 +193,5 @@ public class SyllabusServiceImpl implements SyllabusService {
         }
         return ResponseEntity.ok(lstSyllabus);
     }
+
 }
