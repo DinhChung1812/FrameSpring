@@ -45,4 +45,11 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
 
     @Query(value = "select * from subject s where s.subject_id = ?1",nativeQuery = true)
     Subject getSubjectCodeAndNoCreadit(Integer subjectId);
+    
+    @Query("select new doan.middle_project.common.vo.SubjectVo(" +
+            "s.subjectId,s.subjectCode,s.subjectName,s.subjectNote, s.semester, s.credit, s.preRequisite)" +
+            "from Subject s join s.curriculumId c " +
+            "where s.status = 1 and c.curriculumId = ?1")
+    public List<SubjectVo> getSubjectByCuriculumID(Integer code);
+
 }

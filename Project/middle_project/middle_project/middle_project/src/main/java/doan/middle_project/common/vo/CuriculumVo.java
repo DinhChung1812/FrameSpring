@@ -33,7 +33,7 @@ public class CuriculumVo {
     private List<POVo> lstPO;
     private List<SubjectVo> lstSubject;
 
-    public CuriculumVo(Integer curriculumId, String curriculumCode, String curriculumName, String curriculumNameEnglish, String description, String descriptionNO, Integer totalCredit) {
+    public CuriculumVo(Integer curriculumId, String curriculumCode, String curriculumName, String curriculumNameEnglish, String description, String descriptionNO, Integer totalCredit, Integer status) {
         this.curriculumId = curriculumId;
         this.curriculumCode = curriculumCode;
         this.curriculumName = curriculumName;
@@ -41,5 +41,6 @@ public class CuriculumVo {
         this.description = description;
         this.descriptionNO = descriptionNO;
         this.totalCredit = totalCredit;
+        this.status = status;
     }
 }
