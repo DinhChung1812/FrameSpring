@@ -62,7 +62,12 @@ public class Curriculum {
     @JoinColumn(name = "decision_id", referencedColumnName = "decision_id", nullable = false)
     private Decision decision;
 
-    @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Elective> elective;
+//    @OneToMany( mappedBy = "curriculum",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+//    private Set<Elective> elective;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "Curriculum_Elective", joinColumns = @JoinColumn(name = "curriculumId"),
+            inverseJoinColumns = @JoinColumn(name = "electiveId"))
+    private List<Elective> electiveId;
 
 }

@@ -23,8 +23,8 @@ public class ElectiveController {
 
     @GetMapping("/get_all_elective")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllElective(@RequestParam(required = false) String code) {
-        return electiveService.getAllElective(code);
+    public ResponseEntity<?> getAllElective(@RequestParam(required = false) String codeCurriculum) {
+        return electiveService.getAllElective(codeCurriculum);
     }
 
     @GetMapping("/get_elective_by_id")

@@ -37,6 +37,7 @@ public class ElectiveServiceImpl implements ElectiveService {
 
     @Override
     public ResponseEntity<?> getAllElective(String code) {
+        List<Object[]> lstObject = new ArrayList<>();
         List<ElectiveVo> lstElective = new ArrayList<>();
         List<ElectiveResponse> lstElectiveResponse = new ArrayList<>();
 
@@ -47,7 +48,17 @@ public class ElectiveServiceImpl implements ElectiveService {
             if (lst.size() == 0){
                 return new ResponseEntity<>("Không tồn tại curriculum: " + code, HttpStatus.NOT_FOUND);
             }
-            lstElective = electiveRepository.getElectiveByCuriculum(code);
+            lstObject = electiveRepository.getElectiveByCuriculum(code);
+            for (Object[] o: lstObject) {
+                ElectiveVo elective = new ElectiveVo();
+                elective.setElectiveId((Integer) o[0]);
+                elective.setElectiveCode((String) o[1]);
+                elective.setElectiveName((String) o[2]);
+                elective.setSubjectName((String) o[3]);
+                elective.setSubjectCode((String) o[4]);
+                elective.setSubjectId((Integer) o[5]);
+                lstElective.add(elective);
+            }
         }
         Map<String, List<ElectiveVo>> lstElectiveGrouped =
                 lstElective.stream().collect(Collectors.groupingBy(w -> w.getElectiveCode()));
@@ -125,7 +136,7 @@ public class ElectiveServiceImpl implements ElectiveService {
         elective.setElectiveName(electiveRequest.getElectiveName());
         elective.setStatus(1);
 
-        elective.setCurriculum(curriculum);
+        //elective.setCurriculum(curriculum);
         elective.setSubject(subject);
         electiveRepository.save(elective);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));

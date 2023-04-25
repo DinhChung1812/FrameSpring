@@ -19,11 +19,13 @@ import java.util.Optional;
 @Repository
 public interface ElectiveRepository extends JpaRepository<Elective, Integer> {
 
-    @Query("select new doan.middle_project.common.vo.ElectiveVo(" +
-            "e.electiveId, e.electiveCode, e.electiveName, s.subjectName, s.subjectCode, s.subjectId)" +
-            "from Elective e join e.curriculum c join e.subject s " +
-            "where e.status = 1 and c.curriculumCode LIKE :code")
-    public List<ElectiveVo> getElectiveByCuriculum(String code);
+    @Query(value = "select e.elective_id, e.elective_code, e.elective_name, s.subject_name, s.subject_code, s.subject_id \n" +
+            "from elective e \n" +
+            "join curriculum_elective ce on e.elective_id = ce.elective_id\n" +
+            "join curriculum c on ce.curriculum_id = c.curriculum_id\n" +
+            "join subject s on e.subject_id = s.subject_id\n" +
+            "where c.curriculum_code like %?1%", nativeQuery = true)
+    public List<Object[]> getElectiveByCuriculum(String code);
 
     @Query(value = "SELECT e.elective_id, e.elective_code, e.elective_name FROM elective e where e.elective_id = 1 and e.status = 1", nativeQuery = true)
     public List<Object[]> getElectiveById(Integer electiveId);

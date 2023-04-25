@@ -3,6 +3,7 @@ package doan.middle_project.entities;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "Elective")
@@ -26,9 +27,12 @@ public class Elective {
     @Column(name = "status")
     private Integer status;
 
-    @ManyToOne
-    @JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id", nullable = false)
-    private Curriculum curriculum;
+//    @ManyToOne
+//    @JoinColumn(name = "curriculum_id", referencedColumnName = "curriculum_id", nullable = false)
+//    private Curriculum curriculum;
+
+    @ManyToMany (mappedBy = "electiveId",cascade = {CascadeType.MERGE})
+    private Set<Curriculum> curriculumId;
 
     @ManyToOne
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id", nullable = false)
