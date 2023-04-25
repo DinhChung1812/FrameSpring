@@ -44,10 +44,10 @@ public class Material {
     private boolean isMainMaterial;
 
     @Column(name = "is_hard_copy")
-    private boolean IsHardCopy;
+    private boolean isHardCopy;
 
     @Column(name = "is_online")
-    private boolean IsOnline;
+    private boolean isOnline;
 
     @Column(name = "note", columnDefinition = "longtext")
     private String note;

@@ -26,14 +26,13 @@ public class PoServiceImpl implements PoService {
     CuriculumRepository curiculumRepository;
 
     @Override
-    public ResponseEntity<?> getPoDetail(String curriculumCode) {
+    public ResponseEntity<?> getPoDetail(String curriculumCode, Integer status) {
 
         curriculumCode.trim();
 
         if (curriculumCode.isEmpty()||curriculumCode==null){
-             throw new ResponseException("NOT_FOUND");
+             throw new ResponseException("not found");
         }else {
-
             Curriculum curriculum = curiculumRepository.findByCurriculumCode(curriculumCode);
 
             if (curriculum==null){
@@ -44,7 +43,7 @@ public class PoServiceImpl implements PoService {
             poResponse.setCurriculumCode(curriculum.getCurriculumCode());
             poResponse.setCurriculumName(curriculum.getCurriculumName());
 
-            List<PO> poList = poRepository.getPOByCurriculumCode(curriculumCode);
+            List<PO> poList = poRepository.getPOByCurriculumCode(curriculumCode,status);
             List<PoDto> poDtoList = new ArrayList<>();
 
             for (PO po : poList) {

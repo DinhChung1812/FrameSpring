@@ -29,10 +29,34 @@ public class Syllabus {
     private Integer syllabusStatus;
 
     @Column(name = "isActive")
-    private Integer isActive;
+    private Boolean isActive;
 
     @Column(name = "isProved")
-    private Integer isProved;
+    private Boolean isProved;
+
+    @Column(name = "time_allocation")
+    private String timeAllocation;
+
+    @Column(name = "scoring_scale")
+    private Integer scoringScale;
+
+    @Column(name = "degree_level")
+    private String degreeLevel;
+
+    @Column(name = "student_task")
+    private String studentTasks;
+
+    @Column(name = "tool")
+    private String tool;
+
+    @Column(name = "min_Avg_Mark_To_Pass")
+    private Integer minAvgMarkToPass;
+
+    @Column(name = "note")
+    private String note;
+
+    @Column(name = "status")
+    private Boolean status;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")
