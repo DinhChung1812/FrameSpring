@@ -52,4 +52,7 @@ public interface SubjectRepository extends JpaRepository<Subject, Integer> {
             "where s.status = 1 and c.curriculumId = ?1")
     public List<SubjectVo> getSubjectByCuriculumID(Integer code);
 
+    @Query(value = "SELECT * FROM subject s where s.elective_id IS NULL and s.status = 1", nativeQuery = true)
+    public List<Object[]> getAllSubjectNotElective();
+
 }

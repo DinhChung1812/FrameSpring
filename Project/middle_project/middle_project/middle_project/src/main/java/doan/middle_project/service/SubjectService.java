@@ -20,4 +20,5 @@ public interface SubjectService {
     List<SubjectPloMappingResponse> getSubjectPlo2(Integer curriculumId);
 
     List<SubjectVo> getAllSubject(String code);
+    List<SubjectVo> getAllSubjectNotElective();
 }

@@ -46,4 +46,14 @@ public class SubjectController {
         }
         return ResponseEntity.ok(listSubject);
     }
+
+    @GetMapping("/get_all_subject_not_elective")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<?> getAllSubjectNotElective() {
+        List<SubjectVo> listSubject = subjectService.getAllSubjectNotElective();
+        if (listSubject == null){
+            return ResponseEntity.ok(new MessageVo("Không tồn tại subject nào có electiveId null!!!", "Infor"));
+        }
+        return ResponseEntity.ok(listSubject);
+    }
 }
