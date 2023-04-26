@@ -46,16 +46,17 @@ public class CuriculumServiceImpl implements CuriculumService {
     @Override
     public ResponseEntity<?> createCurriculum(Integer curriculumId, CurriculumRequest curriculumRequest) {
         Curriculum curriculum = new Curriculum();
-        List<CuriculumVo> lstCuriculum = _curiculumRepository.getCuriculumByCode(curriculumRequest.getCurriculumCode().trim());
-        if(lstCuriculum.size()!= 0){
-            return new ResponseEntity<>("Bị trùng code", HttpStatus.NOT_FOUND);
-        }
+
         String mess = "";
         if( curriculumId > 0){
             curriculum = _curiculumRepository.findById(curriculumId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+ curriculumId +"!!!"));
             mess = "Cập nhật curiculum: " + curriculumId;
         } else {
             mess = "Thêm curiculum";
+            List<CuriculumVo> lstCuriculum = _curiculumRepository.getCuriculumByCode(curriculumRequest.getCurriculumCode().trim());
+            if(lstCuriculum.size()!= 0){
+                return new ResponseEntity<>("Bị trùng code", HttpStatus.NOT_FOUND);
+            }
         }
 
         curriculum.setCurriculumCode(curriculumRequest.getCurriculumCode());
