@@ -107,7 +107,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         }
 
         if( assessmentRequest.getAssessmentCateId() != null){
-            assessmentCategory = assessmentCategoryRepository.findById(assessmentRequest.getAssessmentCateId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy assessment cate: "+assessmentRequest.getAssessmentCateId() +"!!!"));
+            assessmentCategory = assessmentCategoryRepository.getAssById(assessmentRequest.getAssessmentCateId());
         }
         assessment.setType(assessmentRequest.getType());
         assessment.setPart(assessmentRequest.getPart());
@@ -126,13 +126,16 @@ public class AssessmentServiceImpl implements AssessmentService {
         }
         assessment.setAssessmentCateId(assessmentCategory);
         assessmentRepository.save(assessment);
-        List<Assessment> lstAss = new ArrayList<>();
-        for (Assessment ass :syllabus.getAssessmentId()) {
-            lstAss.add(ass);
+        if(assessmentId < 0){
+            List<Assessment> lstAss = new ArrayList<>();
+            for (Assessment ass :syllabus.getAssessmentId()) {
+                lstAss.add(ass);
+            }
+            lstAss.add(assessment);
+            syllabus.setAssessmentId(lstAss);
+            syllabusRepository.save(syllabus);
         }
-        lstAss.add(assessment);
-        syllabus.setAssessmentId(lstAss);
-        syllabusRepository.save(syllabus);
+
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
 }
