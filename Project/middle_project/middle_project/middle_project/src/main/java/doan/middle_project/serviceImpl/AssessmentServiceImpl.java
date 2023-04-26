@@ -36,17 +36,17 @@ public class AssessmentServiceImpl implements AssessmentService {
     SyllabusRepository syllabusRepository;
 
     @Override
-    public ResponseEntity<?> getAllAssessment(String code) {
+    public ResponseEntity<?> getAllAssessment(Integer syllabusId) {
         List<Object[]> lstObject = new ArrayList<>();
         List<AssessmentVo>  lstAssessment = new ArrayList<>();
-        if(code == null || code.equals("") ){
+        if(syllabusId == null || syllabusId.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
 //            List<CuriculumVo> lst = curiculumRepository.getCuriculumByCode(code);
 //            if (lst.size() == 0){
 //                return new ResponseEntity<>("Không tồn tại curriculum: " + code, HttpStatus.NOT_FOUND);
 //            }
-            lstObject = assessmentRepository.getAssessmentBySubject(code.trim());
+            lstObject = assessmentRepository.getAssessmentBySubject(syllabusId);
             for (Object[] o: lstObject) {
                 AssessmentVo assessment = new AssessmentVo();
                 assessment.setAssessmentId((Integer) o[0]);
@@ -91,6 +91,8 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Override
     public ResponseEntity<?> UpdateInsertAssessment(Integer assessmentId, AssessmentRequest assessmentRequest) {
+        Boolean check = true;
+
         Assessment assessment = new Assessment();
         Syllabus syllabus = new Syllabus();
         AssessmentCategory assessmentCategory = new AssessmentCategory();
@@ -101,16 +103,17 @@ public class AssessmentServiceImpl implements AssessmentService {
         } else {
             mess = "Thêm assessment";
         }
-
-        if( assessmentRequest.getSyllabusId() != null || !assessmentRequest.getSyllabusId().equals("")){
-            syllabus = syllabusRepository.findById(assessmentRequest.getSyllabusId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy syllabus: "+assessmentRequest.getSyllabusId()+"!!!"));
+        if (assessmentRequest.getSyllabusId() == null){
+            check = false;
         }
 
-        if( assessmentRequest.getAssessmentCateId() != null || !assessmentRequest.getAssessmentCateId().equals("")){
+        if( check ==true ){
+            syllabus = syllabusRepository.findById(1).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy syllabus: "+assessmentRequest.getSyllabusId()+"!!!"));
+        }
+
+        if( assessmentRequest.getAssessmentCateId() != null){
             assessmentCategory = assessmentCategoryRepository.findById(assessmentRequest.getAssessmentCateId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy assessment cate: "+assessmentRequest.getAssessmentCateId() +"!!!"));
         }
-
-
         assessment.setType(assessmentRequest.getType());
         assessment.setPart(assessmentRequest.getPart());
         assessment.setWeight(assessmentRequest.getWeight());
@@ -121,11 +124,20 @@ public class AssessmentServiceImpl implements AssessmentService {
         assessment.setKnowledgeSkill(assessmentRequest.getKnowledgeSkill());
         assessment.setGradingGuide(assessmentRequest.getGradingGuide());
         assessment.setNote(assessmentRequest.getNote());
-        Set<Syllabus> setSyllabus = new HashSet<Syllabus>();
-        setSyllabus.add(syllabus);
-        assessment.setSyllabusId(setSyllabus);
+        if (check == true){
+            Set<Syllabus> setSyllabus = new HashSet<Syllabus>();
+            setSyllabus.add(syllabus);
+            assessment.setSyllabusId(setSyllabus);
+        }
         assessment.setAssessmentCateId(assessmentCategory);
         assessmentRepository.save(assessment);
+        List<Assessment> lstAss = new ArrayList<>();
+        for (Assessment ass :syllabus.getAssessmentId()) {
+            lstAss.add(ass);
+        }
+        lstAss.add(assessment);
+        syllabus.setAssessmentId(lstAss);
+        syllabusRepository.save(syllabus);
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
 }

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import java.text.ParseException;
 
 public interface AssessmentService {
-    ResponseEntity<?> getAllAssessment(String code);
+    ResponseEntity<?> getAllAssessment(Integer syllabusId);
     ResponseEntity<?> getAllAssessmentCate(Integer idAssCate);
 
     ResponseEntity<?> UpdateInsertAssessment(Integer assessmentId, AssessmentRequest assessmentRequest);

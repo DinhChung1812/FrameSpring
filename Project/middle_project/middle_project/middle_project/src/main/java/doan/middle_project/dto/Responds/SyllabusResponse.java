@@ -23,7 +23,7 @@ public class SyllabusResponse {
     private String decisionNo;
     private String note;
     private Integer minAvgMarkToPass;
-    private Boolean isActive;
+    private Integer isActive;
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date ApprovedDate;
 }

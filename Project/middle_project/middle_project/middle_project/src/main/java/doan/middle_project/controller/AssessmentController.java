@@ -17,7 +17,7 @@ public class AssessmentController {
 
     @GetMapping("/get_all_assessment")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllAssessment(@RequestParam(required = false) String code_syllabus) {
+    public ResponseEntity<?> getAllAssessment(@RequestParam(required = false) Integer code_syllabus) {
         return assessmentService.getAllAssessment(code_syllabus);
     }
 

@@ -25,14 +25,11 @@ public class Syllabus {
     @Column(name = "syllabus_description", columnDefinition = "longtext")
     private String syllabusDescription;
 
-    @Column(name = "syllabus_status")
-    private Integer syllabusStatus;
-
     @Column(name = "isActive")
-    private Boolean isActive;
+    private Integer isActive;
 
     @Column(name = "isProved")
-    private Boolean isProved;
+    private Integer isProved;
 
     @Column(name = "time_allocation")
     private String timeAllocation;
@@ -54,9 +51,6 @@ public class Syllabus {
 
     @Column(name = "note")
     private String note;
-
-    @Column(name = "status")
-    private Boolean status;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subject_id", referencedColumnName = "subject_id")

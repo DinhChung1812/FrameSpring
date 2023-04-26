@@ -19,8 +19,8 @@ public class SyllabusRequest {
     private String decisionNo;
     private String note;
     private Integer minAvgMarkToPass;
-    private Boolean isActive;
-    private Boolean isProved;
+    private Integer isActive;
+    private Integer isProved;
 
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date ApprovedDate;
