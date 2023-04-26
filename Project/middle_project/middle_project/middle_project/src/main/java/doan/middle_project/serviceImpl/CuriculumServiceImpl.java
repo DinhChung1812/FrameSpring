@@ -48,7 +48,7 @@ public class CuriculumServiceImpl implements CuriculumService {
         Curriculum curriculum = new Curriculum();
 
         String mess = "";
-        if( curriculumId > 0){
+        if( curriculumId != null){
             curriculum = _curiculumRepository.findById(curriculumId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+ curriculumId +"!!!"));
             mess = "Cập nhật curiculum: " + curriculumId;
         } else {

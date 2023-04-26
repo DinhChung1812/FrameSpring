@@ -136,13 +136,19 @@ public class ElectiveServiceImpl implements ElectiveService {
         elective.setElectiveCode(electiveRequest.getElectiveCode());
         elective.setElectiveName(electiveRequest.getElectiveName());
         elective.setStatus(1);
-        Set<Curriculum> setCurriculum = new HashSet<Curriculum>();
-        setCurriculum.add(curriculum);
-        elective.setCurriculumId(setCurriculum);
+//        Set<Curriculum> setCurriculum = new HashSet<Curriculum>();
+//        setCurriculum.add(curriculum);
+//        elective.setCurriculumId(setCurriculum);
 //        Set<Subject> setSubject = new HashSet<Subject>();
 //        setSubject.add(subject);
 //        elective.setSubject(setSubject);
         electiveRepository.save(elective);
+        if (electiveId < 0){
+            List<Elective> lstE = electiveRepository.getElectiveByCurriID(electiveRequest.getCurriculumId());
+            lstE.add(elective);
+            curriculum.setElectiveId(lstE);
+            curiculumRepository.save(curriculum);
+        }
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }
 }
