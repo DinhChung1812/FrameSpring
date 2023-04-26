@@ -91,8 +91,6 @@ public class AssessmentServiceImpl implements AssessmentService {
 
     @Override
     public ResponseEntity<?> UpdateInsertAssessment(Integer assessmentId, AssessmentRequest assessmentRequest) {
-        Boolean check = true;
-
         Assessment assessment = new Assessment();
         Syllabus syllabus = new Syllabus();
         AssessmentCategory assessmentCategory = new AssessmentCategory();
@@ -103,11 +101,8 @@ public class AssessmentServiceImpl implements AssessmentService {
         } else {
             mess = "Thêm assessment";
         }
-        if (assessmentRequest.getSyllabusId() == null){
-            check = false;
-        }
 
-        if( check ==true ){
+        if( assessmentRequest.getSyllabusId() != null){
             syllabus = syllabusRepository.findById(1).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy syllabus: "+assessmentRequest.getSyllabusId()+"!!!"));
         }
 
@@ -124,7 +119,7 @@ public class AssessmentServiceImpl implements AssessmentService {
         assessment.setKnowledgeSkill(assessmentRequest.getKnowledgeSkill());
         assessment.setGradingGuide(assessmentRequest.getGradingGuide());
         assessment.setNote(assessmentRequest.getNote());
-        if (check == true){
+        if (assessmentRequest.getSyllabusId() != null){
             Set<Syllabus> setSyllabus = new HashSet<Syllabus>();
             setSyllabus.add(syllabus);
             assessment.setSyllabusId(setSyllabus);
