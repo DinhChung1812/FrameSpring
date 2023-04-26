@@ -65,6 +65,8 @@ public class SubjectServiceImpl implements SubjectService {
             subject.setSemester(subjectRequest.getSemester());
             subject.setCredit(subjectRequest.getCredit());
             subject.setStatus(1);
+
+
         } else {
             if (subjectId > 0){
                 Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
@@ -73,6 +75,13 @@ public class SubjectServiceImpl implements SubjectService {
         }
 
         subjectRepository.save(subject);
+        if(subjectRequest.getElectiveId() == null && subjectId < 0){
+            List<Subject> lstSubject = subjectRepository.findSubjectByCurriculum(subjectRequest.getCurriculumId());
+            lstSubject.add(subject);
+            Curriculum curriculum = curriculumRepository.findById(subjectRequest.getCurriculumId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy curiculum: "+subjectRequest.getCurriculumId()+"!!!"));
+            curriculum.setSubjectId(lstSubject);
+            curriculumRepository.save(curriculum);
+        }
 
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
     }

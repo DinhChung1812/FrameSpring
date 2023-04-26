@@ -19,4 +19,5 @@ public class SubjectRequest {
     private Integer status;
     private String curriculumCode;
     private Integer electiveId;
+    private Integer curriculumId;
 }
