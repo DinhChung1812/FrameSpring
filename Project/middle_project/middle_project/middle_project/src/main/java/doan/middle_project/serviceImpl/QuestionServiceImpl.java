@@ -36,13 +36,13 @@ public class QuestionServiceImpl implements QuestionService {
     SessionRepository sessionRepository;
 
     @Override
-    public ResponseEntity<?> getAllQuestionBySession(String code) {
+    public ResponseEntity<?> getAllQuestionBySession(Integer sessionId) {
         List<Object[]> lstObject = new ArrayList<>();
         List<QuestionVo>  lstQuestion = new ArrayList<>();
-        if(code == null || code.equals("") ){
+        if(sessionId == null || sessionId.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
-            lstObject = questionRepository.getAllQuestionBySession(code.trim());
+            lstObject = questionRepository.getAllQuestionBySession(sessionId);
             for (Object[] o: lstObject) {
                 QuestionVo assessment = new QuestionVo();
                 assessment.setQuestionsId((Integer) o[0]);

@@ -16,8 +16,8 @@ public interface QuestionRepository extends JpaRepository<Questions, Integer> {
 
     @Query(value = "select q.questions_id, q.questions_name, q.questions_detail from questions q\n" +
             "join sessions s on q.sessions_id = s.sessions_id\n" +
-            "where s.sessions_code like %?1%", nativeQuery = true)
-    public List<Object[]> getAllQuestionBySession(String code);
+            "where s.sessions_id = ?1", nativeQuery = true)
+    public List<Object[]> getAllQuestionBySession(Integer sessionId);
 
     @Query(value = "select * from questions q where q.questions_id = ?1", nativeQuery = true)
     Questions getQuestionDetail(Integer questions_id);

@@ -15,8 +15,8 @@ public class QuestionController {
 
     @GetMapping("/get_all_question_by_session")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllQuestionBySession(@RequestParam(required = false) String sessionCode) {
-        return questionService.getAllQuestionBySession(sessionCode);
+    public ResponseEntity<?> getAllQuestionBySession(@RequestParam(required = false) Integer sessionId) {
+        return questionService.getAllQuestionBySession(sessionId);
     }
 
     @GetMapping("/get_question_detail")
