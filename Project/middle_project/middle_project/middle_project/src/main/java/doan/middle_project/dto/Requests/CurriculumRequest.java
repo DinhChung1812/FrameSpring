@@ -11,5 +11,6 @@ public class CurriculumRequest {
     private String description;
     private String descriptionNO;
     private Integer status;
+    private Integer decisionId;
 
 }

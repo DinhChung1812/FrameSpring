@@ -28,21 +28,17 @@ public class CuriculumController {
     CuriculumService curriculumService;
 
     @PostMapping("/createCurriculum")
-    public ResponseEntity<?> createCurriculum(@RequestParam(required = false) Integer decisionId, @RequestBody CurriculumRequest curriculumRequest){
-       return curriculumService.createCurriculum(decisionId, curriculumRequest);
+    public ResponseEntity<?> createCurriculum(@RequestParam(required = false) Integer curriculumId, @RequestBody CurriculumRequest curriculumRequest){
+       return curriculumService.createCurriculum(curriculumId, curriculumRequest);
     }
 
     @GetMapping("/get_all_curiculum")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
    public ResponseEntity<?> getAllCuriculum(@RequestParam(required = false) String code) {
-        List<CuriculumVo> listCuriculum = curiculumService.getAllCuriculum(code);
-        if (listCuriculum == null){
-            return ResponseEntity.ok(new MessageVo("Không tồn tại curiculum nào!!!", "Infor"));
-        }
-        return ResponseEntity.ok(listCuriculum);
+        return curiculumService.getAllCuriculum(code);
     }
 
-    @PutMapping("/add_edit_curiculum")
+    @PutMapping("/edit_curiculum")
 
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<?> addOrEditCuriculum(@RequestParam("curiculum_id") Integer curiculumId, @RequestBody CuriculumEditRequest curiculumEditRequest)  {

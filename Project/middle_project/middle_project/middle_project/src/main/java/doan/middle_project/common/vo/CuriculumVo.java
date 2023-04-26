@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Column;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -26,6 +27,9 @@ public class CuriculumVo {
     private String descriptionNO;
 
     private Integer status;
+    private Integer decision_id;
+    private Date decision_date;
+    private String decision_no;
 
     private Integer totalCredit;
 
