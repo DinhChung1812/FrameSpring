@@ -137,12 +137,12 @@ public class SubjectServiceImpl implements SubjectService {
     }
 
     @Override
-    public List<SubjectVo> getAllSubject(String code) {
+    public List<SubjectVo> getAllSubject(Integer idCurriculum) {
         List<SubjectVo> lstSubject = new ArrayList<>();
-        if(code == null || code.equals("") ){
+        if(idCurriculum == null || idCurriculum.equals("") ){
             lstSubject = subjectRepository.getAllSubject();
         } else {
-            lstSubject = subjectRepository.getSubjectByCode(code);
+            lstSubject = subjectRepository.getSubjectByCuriculumID(idCurriculum);
         }
         if (lstSubject == null){
             return null;

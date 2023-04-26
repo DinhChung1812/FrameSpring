@@ -39,8 +39,8 @@ public class SubjectController {
     }
     @GetMapping("/get_all_subject")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllSubject(@RequestParam(required = false) String code) {
-        List<SubjectVo> listSubject = subjectService.getAllSubject(code);
+    public ResponseEntity<?> getAllSubject(@RequestParam(required = false) Integer idCurriculum) {
+        List<SubjectVo> listSubject = subjectService.getAllSubject(idCurriculum);
         if (listSubject == null){
             return ResponseEntity.ok(new MessageVo("Không tồn tại subject nào!!!", "Infor"));
         }
