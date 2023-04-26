@@ -15,8 +15,8 @@ public class SessionController {
 
     @GetMapping("/get_all_session")
 //    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<?> getAllSession(@RequestParam(required = false) String code_syllabus) {
-        return sessionService.getAllSession(code_syllabus);
+    public ResponseEntity<?> getAllSession(@RequestParam(required = false) Integer id_syllabus) {
+        return sessionService.getAllSession(id_syllabus);
     }
 
     @GetMapping("/get_session_detail")

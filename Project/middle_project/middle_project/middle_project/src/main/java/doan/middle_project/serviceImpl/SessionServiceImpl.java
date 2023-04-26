@@ -33,13 +33,13 @@ public class SessionServiceImpl implements SessionService {
     SyllabusRepository syllabusRepository;
 
     @Override
-    public ResponseEntity<?> getAllSession(String code) {
+    public ResponseEntity<?> getAllSession(Integer id_syllabus) {
         List<Object[]> lstObject = new ArrayList<>();
         List<SessionVo>  lstSession = new ArrayList<>();
-        if(code == null || code.equals("") ){
+        if(id_syllabus == null || id_syllabus.equals("") ){
             return new ResponseEntity<>("Code bị null", HttpStatus.NOT_FOUND);
         } else {
-            lstObject = sessionRepository.getSessionBySyllabus(code.trim());
+            lstObject = sessionRepository.getSessionBySyllabus(id_syllabus);
             for (Object[] o: lstObject) {
                 SessionVo session = new SessionVo();
                 session.setSessionsId((Integer) o[0]);
