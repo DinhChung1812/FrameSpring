@@ -43,7 +43,10 @@ public class SubjectServiceImpl implements SubjectService {
         Subject subject = new Subject();
         String mess = "";
         if( subjectId > 0){
-            subject = subjectRepository.findById(subjectId).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy subject: "+subjectId+"!!!"));
+            subject = subjectRepository.findSubjectById(subjectId);
+            if (subject == null){
+                return new ResponseEntity<>("Subject không tồn tại", HttpStatus.NOT_FOUND);
+            }
             mess = "Cập nhật subject: " + subjectId;
         } else {
             mess = "Thêm subject";
@@ -55,16 +58,20 @@ public class SubjectServiceImpl implements SubjectService {
             }
         }
 
-        subject.setSubjectCode(subjectRequest.getSubjectCode());
-        subject.setSubjectName(subjectRequest.getSubjectName());
-        subject.setSubjectNote(subjectRequest.getSubjectNote());
-        subject.setSemester(subjectRequest.getSemester());
-        subject.setCredit(subjectRequest.getCredit());
-        subject.setStatus(1);
-        if (subjectId > 0){
-            Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
-            subject.setElective(elective);
+        if(subjectRequest.getElectiveId() == null){
+            subject.setSubjectCode(subjectRequest.getSubjectCode());
+            subject.setSubjectName(subjectRequest.getSubjectName());
+            subject.setSubjectNote(subjectRequest.getSubjectNote());
+            subject.setSemester(subjectRequest.getSemester());
+            subject.setCredit(subjectRequest.getCredit());
+            subject.setStatus(1);
+        } else {
+            if (subjectId > 0){
+                Elective elective = electiveRepository.findById(subjectRequest.getElectiveId()).orElseThrow(() -> new NotFoundException(StatusCode.Not_Found,"Không tìm thấy elective: "+subjectRequest.getElectiveId()+"!!!"));
+                subject.setElective(elective);
+            }
         }
+
         subjectRepository.save(subject);
 
         return ResponseEntity.ok(new MessageResponse(StatusCode.Success,mess +" thành công"));
