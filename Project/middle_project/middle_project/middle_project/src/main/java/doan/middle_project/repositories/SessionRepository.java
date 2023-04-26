@@ -18,4 +18,10 @@ public interface SessionRepository extends JpaRepository<Sessions, Integer> {
             "where sy.syllabus_code like %?1%", nativeQuery = true)
     public List<Object[]> getSessionBySyllabus(String code);
 
+    @Query(value = "select * from sessions s where s.sessions_id = ?1", nativeQuery = true)
+    Sessions getSessionDetail(Integer id_session);
+
+    @Query(value = "select * from sessions s where s.sessions_code like %?1%", nativeQuery = true)
+    Sessions getSessionDetailByCode(String code);
+
 }
